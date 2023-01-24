@@ -14,6 +14,8 @@ public class App
 			layer.onClose();
 		}
 
+		System.out.println("Github test");
+
 	}
 
 }
