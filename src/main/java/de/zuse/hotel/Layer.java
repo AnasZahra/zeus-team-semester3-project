@@ -2,7 +2,15 @@ package de.zuse.hotel;
 
 public interface Layer
 {
-      public void onStart();
-      public void run(String[] args);
-      public void onClose();
+    /**
+     * Loading DB etc..
+     */
+    public void onStart();
+
+    public void run(String[] args);
+
+    /**
+     * Unload DB and Cleanup
+     */
+    public void onClose();
 }
