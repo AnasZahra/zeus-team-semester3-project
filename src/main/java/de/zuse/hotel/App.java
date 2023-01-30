@@ -14,7 +14,7 @@ public class App
 			layer.onClose();
 		}
 
-		System.out.println("Github test");
+		System.out.println("Github test GG WP");
 
 	}
 
