@@ -17,6 +17,7 @@ public class ZuseCore
 
     public static void checkFatal(boolean condition, String msg)
     {
+        // only In Debug Mode
         if (!condition)
         {
             throw new IllegalArgumentException(msg);
