@@ -4,18 +4,12 @@ import de.zuse.hotel.gui.*;
 
 public class App
 {
-	public static void main(String[] args)
-	{
-		Layer layer = new Example();
+    public static void main(String[] args)
+    {
+        Layer layer = new ExampleLayer();
 
-		{
-			layer.onStart();
-			layer.run(args);
-			layer.onClose();
-		}
-
-		System.out.println("Github test");
-
-	}
-
+        layer.onStart();
+        layer.run(args);
+        layer.onClose();
+    }
 }
