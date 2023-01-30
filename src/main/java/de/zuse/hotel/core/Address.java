@@ -22,7 +22,6 @@ public class Address {
           this.street = street;
           this.plz = plz;
           this.hausnur = hausnur;
-
       }
 
     public String getCountry() {
