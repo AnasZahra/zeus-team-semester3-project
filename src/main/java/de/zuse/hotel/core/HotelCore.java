@@ -51,7 +51,7 @@ public class HotelCore implements HotelCoreApi
     }
 
     @Override
-    public void printBooking(int bookingID)
+    public void printBookingAsPDF(int bookingID)
     {
 
     }

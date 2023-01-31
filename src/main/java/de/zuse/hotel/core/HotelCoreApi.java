@@ -10,7 +10,7 @@ public interface HotelCoreApi
 
     public Booking getBooking(int bookingID);
     public Guest getGuest(int personID);
-    public void printBooking(int bookingID);
+    public void printBookingAsPDF(int bookingID);
 
 
     public boolean updateGuest(Guest guest);
