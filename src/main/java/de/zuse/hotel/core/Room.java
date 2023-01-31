@@ -15,9 +15,9 @@ public class Room
 
     public Room(int roomNr , int floorNr, double price)
     {
-        ZuseCore.checkFatal(roomNr >= 0, "roomNr can not be null");
-        ZuseCore.checkFatal(floorNr >= 0, "floorNr can not be null");
-        ZuseCore.checkFatal(price > 0, "price can not be null");
+        ZuseCore.check(roomNr >= 0, "roomNr can not be null");
+        ZuseCore.check(floorNr >= 0, "floorNr can not be null");
+        ZuseCore.check(price > 0, "price can not be null");
 
         this.roomNr = roomNr;
         this.floorNr = floorNr;
@@ -31,7 +31,7 @@ public class Room
 
     public void setRoomNr(int roomNr)
     {
-        ZuseCore.checkFatal(roomNr >= 0, "roomNr can not be null");
+        ZuseCore.check(roomNr >= 0, "roomNr can not be null");
         this.roomNr = roomNr;
     }
 
@@ -42,7 +42,7 @@ public class Room
 
     public void setFloorNr(int floorNr)
     {
-        ZuseCore.checkFatal(floorNr >= 0, "floorNr can not be null");
+        ZuseCore.check(floorNr >= 0, "floorNr can not be null");
         this.floorNr = floorNr;
     }
 
