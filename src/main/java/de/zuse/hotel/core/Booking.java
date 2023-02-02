@@ -1,7 +1,6 @@
 package de.zuse.hotel.core;
 
 import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.Date;
 
 
@@ -14,7 +13,7 @@ public class Booking
             PAID, NOT_PAID
         }
 
-        public enum Type
+        enum Type
         {
             CASH, CREDIT_CARD, DEBIT_CARDS, MOBILE_PAYMENT
         }
@@ -35,10 +34,10 @@ public class Booking
 
     public Booking(int roomNumber, Date startDate, Date endDate, Guest guest)
     {
-        ZuseCore.checkFatal(roomNumber >= 0, "Number of Room should be greater than zero!!");
-        ZuseCore.checkFatal(startDate != null, "StartDate is null!!");
-        ZuseCore.checkFatal(endDate != null, "EndDate is null!!");
-        ZuseCore.checkFatal(guest != null, "Guest is null!!");
+        ZuseCore.check(roomNumber >= 0, "Number of Room should be greater than zero!!");
+        ZuseCore.check(startDate != null, "StartDate is null!!");
+        ZuseCore.check(endDate != null, "EndDate is null!!");
+        ZuseCore.check(guest != null, "Guest is null!!");
 
         this.roomNumber = roomNumber;
         this.startDate = startDate;
@@ -58,7 +57,7 @@ public class Booking
 
     public void pay(Date paymentDate, Payment.Type type)
     {
-        ZuseCore.checkFatal(paymentDate != null, "paymentDate is null!!");
+        ZuseCore.check(paymentDate != null, "paymentDate is null!!");
 
         LocalDateTime now = LocalDateTime.now();
 
@@ -94,19 +93,19 @@ public class Booking
 
     public void setRoomNumber(int roomNumber)
     {
-        ZuseCore.checkFatal(roomNumber >= 0, "Number of Room should be greater than zero!!");
+        ZuseCore.check(roomNumber >= 0, "Number of Room should be greater than zero!!");
         this.roomNumber = roomNumber;
     }
 
     public void setStartDate(Date startDate)
     {
-        ZuseCore.checkFatal(startDate != null, "StartDate is null!!");
+        ZuseCore.check(startDate != null, "StartDate is null!!");
         this.startDate = startDate;
     }
 
     public void setEndDate(Date endDate)
     {
-        ZuseCore.checkFatal(endDate != null, "EndDate is null!!");
+        ZuseCore.check(endDate != null, "EndDate is null!!");
         this.endDate = endDate;
     }
 

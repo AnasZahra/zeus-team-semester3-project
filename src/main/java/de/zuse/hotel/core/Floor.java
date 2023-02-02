@@ -11,8 +11,8 @@ public class Floor
 
     public Floor(int floorNr, int capacity)
     {
-        ZuseCore.checkFatal(floorNr >= 0,"Floor Number should be >= than 0");
-        ZuseCore.checkFatal(capacity > 0 , "capacity should be greater than 0");
+        ZuseCore.check(floorNr >= 0,"Floor Number should be >= than 0");
+        ZuseCore.check(capacity > 0 , "capacity should be greater than 0");
 
         this.floorNr = floorNr;
         this.capacity = capacity;
