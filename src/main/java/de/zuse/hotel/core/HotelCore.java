@@ -1,17 +1,46 @@
 package de.zuse.hotel.core;
 
+import de.zuse.hotel.db.DBConnecterApi;
+import de.zuse.hotel.util.PDFWriter;
+import de.zuse.hotel.util.ZuseCore;
+
+import java.time.LocalDate;
+
 public class HotelCore implements HotelCoreApi
 {
     private static HotelCore instance = null;
+    private DBConnecterApi dbConnecter;
+
+    public static void init()
+    {
+        instance = new HotelCore();
+    }
 
     public static HotelCore get()
     {
-        if (instance == null)
+        ZuseCore.coreAssert(instance != null, "init was not called before!!");
+        return instance;
+    }
+
+    public HotelCore()
+    {
+        // dbConnecter = new DBConnecter();
+
+        //Test Generate PDF file
         {
-            instance = new HotelCore();
+            LocalDate start = LocalDate.of(2023, 2, 2);
+            LocalDate end = LocalDate.of(2023, 3, 1);
+            LocalDate birthday = LocalDate.of(1999, 12, 2);
+
+            Address adrAddress = new Address("Germany", "VK", "Stadion", 66333, 52);
+
+            Guest guest = new Guest("basel", "saad", generatePersonID()
+                    , birthday, "test@test.com", "123456789101", adrAddress);
+
+            Booking booking = new Booking(1, start, end, guest);
+            PDFWriter.writeStringAsPDF("test.pdf", booking.generatePdf());
         }
 
-        return instance;
     }
 
     @Override

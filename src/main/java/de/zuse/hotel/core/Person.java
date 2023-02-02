@@ -1,5 +1,8 @@
 package de.zuse.hotel.core;
 
+import de.zuse.hotel.util.ZuseCore;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Person
@@ -9,18 +12,19 @@ public class Person
     private int id;
     private String firstname;
     private String lastname;
-    private Date birthday;
+    private LocalDate birthday;
     private String email;
-    private long teleNumber;
+    private String teleNumber;
     private Address address;
 
-    public Person(String firstname, String lastname, Date birthday, String email, long teleNumber, Address address)
+    public Person(String firstname, String lastname, LocalDate birthday, String email, String teleNumber, Address address)
     {
         ZuseCore.check(firstname != null && !firstname.strip().isEmpty(), "The FirstName can not be null!");
         ZuseCore.check(lastname != null && !lastname.strip().isEmpty(), "The LastName can not be null!");
         ZuseCore.check(email != null && !email.strip().isEmpty(), "The Email can not be null");
-        ZuseCore.check(String.valueOf(teleNumber).length() == TELEPHONE_NUMBER_COUNT, "The Telefonnr must contains"+ TELEPHONE_NUMBER_COUNT+" nummbers");
+        ZuseCore.check(teleNumber.length() == TELEPHONE_NUMBER_COUNT, "The Telefonnr must contains" + TELEPHONE_NUMBER_COUNT + " nummbers");
         ZuseCore.check(address != null, "address can not be null!!");
+        ZuseCore.check(is18OrOlder(birthday), "The Person must be 18 years old!!");
 
         this.firstname = firstname;
         this.lastname = lastname;
@@ -63,12 +67,12 @@ public class Person
         this.id = id;
     }
 
-    public Date getBirthday()
+    public LocalDate getBirthday()
     {
         return birthday;
     }
 
-    public void setBirthday(Date birthday)
+    public void setBirthday(LocalDate birthday)
     {
         this.birthday = birthday;
     }
@@ -84,12 +88,12 @@ public class Person
         this.email = email;
     }
 
-    public long getTelNumber()
+    public String getTelNumber()
     {
         return teleNumber;
     }
 
-    public void setTelNumber(long telNumber)
+    public void setTelNumber(String telNumber)
     {
         ZuseCore.check(String.valueOf(telNumber).length() == 12, "The Telefonnr must contains 12 nummbers");
         this.teleNumber = telNumber;
@@ -109,7 +113,7 @@ public class Person
     @Override
     public String toString()
     {
-        return "Person{" +
+        return "{" +
                 "firstname='" + firstname + "," +
                 ", lastname='" + lastname + "," +
                 ", id=" + id +
@@ -120,5 +124,11 @@ public class Person
                 '}';
     }
 
+    public static boolean is18OrOlder(LocalDate birthDate)
+    {
+        LocalDate now = LocalDate.now();
+        LocalDate eighteenYearsAgo = now.minusYears(18);
+        return !birthDate.isAfter(eighteenYearsAgo);
+    }
 
 }

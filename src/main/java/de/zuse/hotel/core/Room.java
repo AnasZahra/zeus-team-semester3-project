@@ -1,5 +1,7 @@
 package de.zuse.hotel.core;
 
+import de.zuse.hotel.util.ZuseCore;
+
 import java.util.ArrayList;
 
 public class Room

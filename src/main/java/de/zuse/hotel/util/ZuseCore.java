@@ -1,5 +1,6 @@
-package de.zuse.hotel.core;
+package de.zuse.hotel.util;
 
+import java.time.LocalDate;
 import java.util.function.Consumer;
 
 public class ZuseCore
@@ -27,4 +28,27 @@ public class ZuseCore
                 callback.accept(msg);
         }
     }
+
+    /**
+     * Only for Debugging, it works only in debug mode
+     */
+    public static void coreAssert(boolean condition, String msg)
+    {
+        if (DEBUG_MODE)
+        {
+            if (!condition)
+                throw new IllegalArgumentException(msg);
+        }
+    }
+
+    public static void isValidDate(LocalDate date, String msg)
+    {
+        if (date.isBefore(LocalDate.now()))
+        {
+            check(false, msg);
+        }
+
+    }
+
+
 }
