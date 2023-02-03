@@ -5,15 +5,12 @@ import java.util.function.Consumer;
 
 public class ZuseCore
 {
-    public static final boolean DEBUG_MODE = true;
+    private static final boolean DEBUG_MODE = true;
     private static Consumer<String> callback;
 
     public static void setCallbackError(Consumer<String> func)
     {
-        if (func == null)
-        {
-            throw new IllegalArgumentException("You have to set a valid callback error function!!");
-        }
+        coreAssert(func != null, "You have to set a valid callback error function!!");
 
         callback = func;
     }
