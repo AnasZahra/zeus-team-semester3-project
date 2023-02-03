@@ -122,6 +122,12 @@ public class Booking
         return endDate;
     }
 
+    public String getGuestName()
+    {
+        return guest.getFirstname() + " " + guest.getLastname();
+
+    }
+
     public boolean isPaid()
     {
         return payment.status == Payment.Status.PAID;
