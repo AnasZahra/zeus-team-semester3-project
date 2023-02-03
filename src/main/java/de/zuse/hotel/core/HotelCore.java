@@ -28,7 +28,7 @@ public class HotelCore implements HotelCoreApi
 
         //Test Generate PDF file
         {
-            LocalDate start = LocalDate.of(2023, 2, 2);
+            LocalDate start = LocalDate.of(2023, 2, 22);
             LocalDate end = LocalDate.of(2023, 3, 1);
             LocalDate birthday = LocalDate.of(1999, 12, 2);
 
