@@ -1,11 +1,10 @@
 package de.zuse.hotel.gui;
 
 import de.zuse.hotel.Layer;
+import de.zuse.hotel.core.HotelCore;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class ExampleLayer extends Application implements Layer
@@ -14,6 +13,8 @@ public class ExampleLayer extends Application implements Layer
     public void onStart()
     {
         System.out.println("On Starting The Hotel App...");
+
+        HotelCore.init();
     }
 
     @Override

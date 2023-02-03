@@ -1,5 +1,7 @@
 package de.zuse.hotel.core;
 
+import de.zuse.hotel.util.ZuseCore;
+
 public class Address {
 
       private String country;
