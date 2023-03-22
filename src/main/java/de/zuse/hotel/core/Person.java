@@ -33,7 +33,9 @@ public class Person
         this.teleNumber = teleNumber;
         this.address = address;
     }
+    public Person(){
 
+ }
     public String getFirstname()
     {
         return firstname;
