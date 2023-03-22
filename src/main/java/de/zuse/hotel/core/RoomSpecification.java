@@ -2,6 +2,9 @@ package de.zuse.hotel.core;
 
 public class RoomSpecification
 {
+
+    // TODO: set price for room types
+
     public enum Types
     {
         SINGLE, DOUBLE, FAMILY
@@ -11,4 +14,6 @@ public class RoomSpecification
     {
         FREE, OCCUPIED, NOT_AVAILABLE
     }
+
+
 }

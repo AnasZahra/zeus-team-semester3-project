@@ -41,3 +41,9 @@ build/
 *.iml
 *.ipr
 *.iws
+*.pdf
+src/main/resources/de/zuse/hotel/db/example.lck
+*.log
+src/main/resources/de/zuse/hotel/db/example.properties
+src/main/resources/de/zuse/hotel/db/example.log
+src/main/resources/de/zuse/hotel/db/example.script

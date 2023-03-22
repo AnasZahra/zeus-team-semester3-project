@@ -1,98 +1,139 @@
 package de.zuse.hotel.core;
+
+import de.zuse.hotel.util.ZuseCore;
+
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
-public class Person {
 
+public class Person
+{
+    private static final int TELEPHONE_NUMBER_COUNT = 12;
+
+    private int id;
     private String firstname;
     private String lastname;
-    private int id;
-    private Date birthday;
+    private LocalDate birthday;
     private String email;
-    private long telefonnr;
+    private String teleNumber;
+
     private Address address;
 
+    public Person(String firstname, String lastname, LocalDate birthday, String email, String teleNumber, Address address)
+    {
+        ZuseCore.check(firstname != null && !firstname.strip().isEmpty(), "The FirstName can not be null!");
+        ZuseCore.check(lastname != null && !lastname.strip().isEmpty(), "The LastName can not be null!");
+        ZuseCore.check(email != null && !email.strip().isEmpty(), "The Email can not be null");
+        ZuseCore.check(teleNumber.length() == TELEPHONE_NUMBER_COUNT, "The Telefonnr must contains" + TELEPHONE_NUMBER_COUNT + " nummbers");
+        ZuseCore.check(address != null, "address can not be null!!");
+        ZuseCore.check(is18OrOlder(birthday), "The Person must be 18 years old!!");
 
-    public Person(String firstname, String nachname, int id, Date birthday,String email , long telefonnr , Address address) {
-        ZuseCore.checkFatal(firstname != null && !firstname.strip().isEmpty(), "The FirstName can not be null!");
-        ZuseCore.checkFatal(lastname != null && !lastname.strip().isEmpty(), "The LastName can not be null!");
-        ZuseCore.checkFatal(email != null && !email.strip().isEmpty(), "The Email can not be null");
-
-        ZuseCore.check(id >= 0 , "The Id must be >= 0!");
-        ZuseCore.check(String.valueOf(telefonnr).length() == 12 , "The Telefonnr must contains 12 nummbers");
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.birthday = birthday;
+        this.email = email;
+        this.teleNumber = teleNumber;
+        this.address = address;
     }
-    public String getFirstname() {
+
+    public Person() {}
+
+    public String getFirstname()
+    {
         return firstname;
     }
 
-    public void setFirstname(String firstname) {
-        ZuseCore.checkFatal(firstname != null && !firstname.strip().isEmpty(), "The FirstName can not be null!");
+    public void setFirstname(String firstname)
+    {
+        ZuseCore.check(firstname != null && !firstname.strip().isEmpty(), "The FirstName can not be null!");
         this.firstname = firstname;
     }
 
-    public String getLastname() {
+    public String getLastname()
+    {
         return lastname;
     }
 
-    public void setLastname(String lastname) {
-        ZuseCore.checkFatal(lastname != null && !lastname.strip().isEmpty(), "The LastName can not be null!");
+    public void setLastname(String lastname)
+    {
+        ZuseCore.check(lastname != null && !lastname.strip().isEmpty(), "The LastName can not be null!");
         this.lastname = lastname;
     }
 
-    public int getId() {
+    public int getId()
+    {
         return id;
     }
 
-    public void setId(int id) {
-        ZuseCore.check(id >= 0 , "The Id must be >= 0!");
+    public void setId(int id)
+    {
+        ZuseCore.check(id >= 0, "The Id must be >= 0!");
         this.id = id;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday()
+    {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday)
+    {
         this.birthday = birthday;
     }
 
-    public String getEmail() {
+    public String getEmail()
+    {
         return email;
     }
 
-    public void setEmail(String email) {
-        ZuseCore.checkFatal(email != null && !email.strip().isEmpty(), "The Email can not be null");
+    public void setEmail(String email)
+    {
+        ZuseCore.check(email != null && !email.strip().isEmpty(), "The Email can not be null");
         this.email = email;
     }
 
-    public long getTelefonnr() {
-        return telefonnr;
+    public String getTelNumber()
+    {
+        return teleNumber;
     }
 
-    public void setTelefonnr(long telefonnr) {
-        ZuseCore.check(String.valueOf(telefonnr).length() == 12 , "The Telefonnr must contains 12 nummbers");
-        this.telefonnr = telefonnr;
+    public void setTelNumber(String telNumber)
+    {
+        ZuseCore.check(String.valueOf(telNumber).length() == 12, "The Telefonnr must contains 12 nummbers");
+        this.teleNumber = telNumber;
     }
 
-    public Address getAddress() {
+    public Address getAddress()
+    {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(Address address)
+    {
+        ZuseCore.check(address != null, "address can not be null!!");
         this.address = address;
     }
 
     @Override
-    public String toString() {
-        return "Person{" +
+    public String toString()
+    {
+        return "{" +
                 "firstname='" + firstname + "," +
                 ", lastname='" + lastname + "," +
                 ", id=" + id +
                 ", birthday=" + birthday +
                 ", email='" + email + "," +
-                ", telefonnr=" + telefonnr + "," +
+                ", telephone Number=" + teleNumber + "," +
                 ", address=" + address + "\n" +
                 '}';
     }
 
+    public static boolean is18OrOlder(LocalDate birthDate)
+    {
+        LocalDate now = LocalDate.now();
+        LocalDate eighteenYearsAgo = now.minusYears(18);
+        return !birthDate.isAfter(eighteenYearsAgo);
+    }
 
 }

@@ -4,16 +4,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefHeight="349.0" prefWidth="521.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="de.zuse.hotel.gui.LabelMessage">
+<VBox alignment="CENTER" prefHeight="349.0" prefWidth="521.0" spacing="20.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.LabelMessage">
 
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
 
-    <Label fx:id="startMessage"/>
-
-    <Button layoutX="274.0" layoutY="188.0" mnemonicParsing="false" onAction="#test" text="Test"/>
+    <Label fx:id="startMessage" />
+   <Pane prefHeight="330.0" prefWidth="481.0">
+      <children>
+      
+                <Button layoutX="111.0" layoutY="98.0" mnemonicParsing="false" onAction="#test" prefHeight="25.0" prefWidth="260.0" text="Test" />
+      </children>
+   </Pane>
 
 </VBox>
