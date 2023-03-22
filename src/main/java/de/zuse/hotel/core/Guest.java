@@ -8,9 +8,9 @@ public class Guest extends Person
 {
     private ArrayList<Integer> bookingID;
 
-    public Guest(String firstname, String nachname, int id, LocalDate birthday, String email, String telefonnr, Address address)
+    public Guest(String firstname, String lastName, LocalDate birthday, String email, String telefonnr, Address address)
     {
-        super(firstname, nachname, birthday, email, telefonnr, address);
+        super(firstname, lastName, birthday, email, telefonnr, address);
         this.bookingID = new ArrayList<>();
     }
 

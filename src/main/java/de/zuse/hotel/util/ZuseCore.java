@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 
 public class ZuseCore
 {
-    private static final boolean DEBUG_MODE = true;
+    public static final boolean DEBUG_MODE = true;
     private static Consumer<String> callback;
 
     public static void setCallbackError(Consumer<String> func)
@@ -20,7 +20,7 @@ public class ZuseCore
         if (!condition)
         {
             if (DEBUG_MODE)
-                throw new IllegalArgumentException(msg);
+                throw new BreakPointException(msg);
             else
                 callback.accept(msg);
         }
@@ -34,7 +34,7 @@ public class ZuseCore
         if (DEBUG_MODE)
         {
             if (!condition)
-                throw new IllegalArgumentException(msg);
+                throw new BreakPointException(msg);
         }
     }
 

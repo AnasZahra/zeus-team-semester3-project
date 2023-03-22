@@ -1,6 +1,6 @@
 package de.zuse.hotel.core;
 
-import de.zuse.hotel.db.DBConnecterApi;
+import de.zuse.hotel.db.HotelDatabaseApi;
 import de.zuse.hotel.util.PDFWriter;
 import de.zuse.hotel.util.ZuseCore;
 
@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class HotelCore implements HotelCoreApi
 {
     private static HotelCore instance = null;
-    private DBConnecterApi dbConnecter;
+    private HotelDatabaseApi dbConnector;
 
     public static void init()
     {
@@ -22,22 +22,22 @@ public class HotelCore implements HotelCoreApi
         return instance;
     }
 
-    public HotelCore()
+    private HotelCore()
     {
         // dbConnecter = new DBConnecter();
 
         //Test Generate PDF file
         {
-            LocalDate start = LocalDate.of(2023, 2, 22);
-            LocalDate end = LocalDate.of(2023, 3, 1);
+            LocalDate start = LocalDate.of(2024, 2, 22);
+            LocalDate end = LocalDate.of(2024, 4, 1);
             LocalDate birthday = LocalDate.of(1999, 12, 2);
 
             Address adrAddress = new Address("Germany", "VK", "Stadion", 66333, 52);
 
-            Guest guest = new Guest("basel", "saad", generatePersonID()
-                    , birthday, "test@test.com", "123456789101", adrAddress);
+            Guest guest = new Guest("basel", "saad",
+                    birthday, "test@test.com", "123456789101", adrAddress);
 
-            Booking booking = new Booking(1, start, end, guest);
+            Booking booking = new Booking(1, 1, start, end, guest);
             PDFWriter.writeStringAsPDF("test.pdf", booking.generatePdf());
         }
 

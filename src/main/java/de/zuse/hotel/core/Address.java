@@ -1,6 +1,7 @@
 package de.zuse.hotel.core;
 import de.zuse.hotel.util.ZuseCore;
 
+
 public class Address {
 
       private String country;
@@ -24,61 +25,72 @@ public class Address {
           this.houseNr = houseNr;
       }
 
-    public Address() {
+    public Address() {}
 
-    }
-
-    public String getCountry() {
+    public String getCountry() 
+    {
         return country;
     }
 
-    public String getStreet() {
+    public String getStreet()
+    {
         return street;
     }
 
-    public String getCity() {
+    public String getCity()
+    {
         return city;
     }
 
-    public int getPlz() { return plz;
+    public int getPlz()
+    {
+        return plz;
     }
-    public int getHouseNr() {
+
+    public int getHouseNr()
+    {
         return houseNr;
     }
 
-    public void setCountry(String country) {
-        ZuseCore.check( country != null && !country.strip().isEmpty() , "country can not be null" );
+    public void setCountry(String country)
+    {
+        ZuseCore.check(country != null && !country.strip().isEmpty(), "country can not be null");
         this.country = country;
     }
 
-    public void setCity(String city) {
-        ZuseCore.check( city != null && !city.strip().isEmpty() , "city can not be null" );
+    public void setCity(String city)
+    {
+        ZuseCore.check(city != null && !city.strip().isEmpty(), "city can not be null");
         this.city = city;
     }
 
-    public void setStreet(String street) {
-        ZuseCore.check( street != null && !street.strip().isEmpty() , "street can not be null" );
+    public void setStreet(String street)
+    {
+        ZuseCore.check(street != null && !street.strip().isEmpty(), "street can not be null");
         this.street = street;
     }
 
-    public void setPlz(int plz) {
-        ZuseCore.check(String.valueOf(plz).length() == 5 , "The plz must contains 5 Nummbers");
+    public void setPlz(int plz)
+    {
+        ZuseCore.check(String.valueOf(plz).length() == 5, "The plz must contains 5 Nummbers");
         this.plz = plz;
     }
 
-    public void setHausnur(int houseNr) {
-        ZuseCore.check(houseNr >= 0 , "The hausnr must be >= 0");
+    public void setHausnur(int houseNr)
+    {
+        ZuseCore.check(houseNr >= 0, "The hausnr must be >= 0");
         this.houseNr = houseNr;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Address{" +
                 "country='" + country + '\'' +
                 ", city='" + city + '\'' +
                 ", street='" + street + '\'' +
                 ", plz=" + plz +
-                ", hausnur=" +  houseNr +
+                ", hausnur=" + houseNr +
                 '}';
     }
 }
