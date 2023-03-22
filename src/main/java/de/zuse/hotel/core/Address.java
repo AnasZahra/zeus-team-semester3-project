@@ -1,5 +1,4 @@
 package de.zuse.hotel.core;
-
 import de.zuse.hotel.util.ZuseCore;
 
 public class Address {
@@ -25,6 +24,10 @@ public class Address {
           this.houseNr = houseNr;
       }
 
+    public Address() {
+
+    }
+
     public String getCountry() {
         return country;
     }
@@ -37,10 +40,8 @@ public class Address {
         return city;
     }
 
-    public int getPlz() {
-        return plz;
+    public int getPlz() { return plz;
     }
-
     public int getHouseNr() {
         return houseNr;
     }

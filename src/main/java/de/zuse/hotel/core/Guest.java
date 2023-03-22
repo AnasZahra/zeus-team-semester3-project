@@ -14,6 +14,10 @@ public class Guest extends Person
         this.bookingID = new ArrayList<>();
     }
 
+    public Guest() {
+
+    }
+
     public void setId(int id)
     {
         super.setId(id);
