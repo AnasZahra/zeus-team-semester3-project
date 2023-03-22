@@ -13,7 +13,7 @@ public class LabelMessage
     @FXML
     private void test(ActionEvent event)
     {
-        startMessage.setText("HI !");
+        startMessage.setText("Hi ich bin JAn !");
     }
 
 }
