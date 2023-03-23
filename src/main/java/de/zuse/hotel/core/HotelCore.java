@@ -1,19 +1,53 @@
 package de.zuse.hotel.core;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import de.zuse.hotel.db.HotelDatabaseApi;
+import de.zuse.hotel.util.HotelSerializer;
 import de.zuse.hotel.util.PDFWriter;
 import de.zuse.hotel.util.ZuseCore;
 
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HotelCore implements HotelCoreApi
 {
     private static HotelCore instance = null;
     private HotelDatabaseApi dbConnector;
+    private HotelConfiguration hotelConfiguration;
 
     public static void init()
     {
         instance = new HotelCore();
+        HotelSerializer hotelSerializer = new HotelSerializer();
+
+        try
+        {
+            instance.hotelConfiguration = hotelSerializer.deserializeHotel();
+        } catch (Exception e)
+        {
+            ZuseCore.coreAssert(false, e.getMessage());
+            if (ZuseCore.DEBUG_MODE)
+                e.printStackTrace();
+        }
+
+    }
+
+    public static void shutdown()
+    {
+        HotelSerializer hotelSerializer = new HotelSerializer();
+
+        try
+        {
+            hotelSerializer.serializeHotel(instance.hotelConfiguration);
+        } catch (Exception e)
+        {
+            ZuseCore.coreAssert(false, e.getMessage());
+            if (ZuseCore.DEBUG_MODE)
+                e.printStackTrace();
+        }
     }
 
     public static HotelCore get()
@@ -24,8 +58,6 @@ public class HotelCore implements HotelCoreApi
 
     private HotelCore()
     {
-        // dbConnecter = new DBConnecter();
-
         //Test Generate PDF file
         {
             LocalDate start = LocalDate.of(2024, 2, 22);
@@ -98,14 +130,18 @@ public class HotelCore implements HotelCoreApi
     }
 
     @Override
-    public int generateBookingID()
+    public List<Floor> getFloors()
     {
-        return 0;
+        return hotelConfiguration.getHotelFloors();
     }
 
     @Override
-    public int generatePersonID()
+    public List<Room> getRooms(int floorNr)
     {
-        return 0;
+        ZuseCore.coreAssert(floorNr < hotelConfiguration.getHotelFloors().size(), "FloorNr > size, floorNr is the index!");
+
+        return hotelConfiguration.getHotelFloors().get(floorNr).getRooms();
     }
+
+
 }

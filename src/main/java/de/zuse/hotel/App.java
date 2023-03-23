@@ -7,7 +7,8 @@ public class App
 {
     public static void main(String[] args)
     {
-        Layer layer = new ConsoleDialogLayer();
+        System.out.println("Present Project Directory : "+ System.getProperty("user.dir"));
+        Layer layer = new ExampleLayer();
 
         layer.onStart();
         layer.run(args);

@@ -1,21 +1,30 @@
 package de.zuse.hotel.core;
 
+import java.util.List;
+
 public interface HotelCoreApi
 {
-    public boolean addGuest(Guest guest);
-    public boolean removeGuest(Guest guest);
-    public boolean addBooking(Booking booking);
-    public boolean removeBooking(Booking booking);
+    boolean addGuest(Guest guest);
+
+    boolean removeGuest(Guest guest);
+
+    boolean addBooking(Booking booking);
+
+    boolean removeBooking(Booking booking);
 
 
-    public Booking getBooking(int bookingID);
-    public Guest getGuest(int personID);
-    public void printBookingAsPDF(int bookingID);
+    Booking getBooking(int bookingID);
+
+    Guest getGuest(int personID);
+
+    void printBookingAsPDF(int bookingID);
 
 
-    public boolean updateGuest(Guest guest);
-    public boolean updateBooking(Booking booking);
+    boolean updateGuest(Guest guest);
 
-    public int generateBookingID();
-    public int generatePersonID();
+    boolean updateBooking(Booking booking);
+
+    List<Floor> getFloors();
+
+    List<Room> getRooms(int floorNr);
 }

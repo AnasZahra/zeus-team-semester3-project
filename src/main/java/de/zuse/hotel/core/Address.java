@@ -1,9 +1,7 @@
 package de.zuse.hotel.core;
 import de.zuse.hotel.util.ZuseCore;
 
-
 public class Address {
-
       private String country;
       private String city;
       private String street;
@@ -76,9 +74,9 @@ public class Address {
         this.plz = plz;
     }
 
-    public void setHausnur(int houseNr)
+    public void setHouseNr(int houseNr)
     {
-        ZuseCore.check(houseNr >= 0, "The hausnr must be >= 0");
+        ZuseCore.check(houseNr >= 0, "The house-number must be >= 0");
         this.houseNr = houseNr;
     }
 

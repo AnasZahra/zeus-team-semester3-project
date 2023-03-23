@@ -9,7 +9,7 @@ import de.zuse.hotel.util.ZuseCore;
 
 import java.util.ArrayList;
 
-@JsonTypeInfo(include= JsonTypeInfo.As.WRAPPER_OBJECT, use= JsonTypeInfo.Id.NAME)
+@JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
 public class Room
 {
     private int roomNr;
@@ -24,19 +24,40 @@ public class Room
 
     private static final int DEFAULT_BOOKING_COUNT = 5;
 
-    public Room(int roomNr, int floorNr, double price)
+    // Without a default constructor, Jackson will throw an exception
+    public Room()
     {
-        ZuseCore.check(roomNr >= 0, "roomNr can not be null");
-        ZuseCore.check(floorNr >= 0, "floorNr can not be null");
-        ZuseCore.check(price > 0, "price can not be null");
-
-        this.roomNr = roomNr;
-        this.floorNr = floorNr;
-        this.price = price;
     }
 
-    // Without a default constructor, Jackson will throw an exception
-    public Room(){}
+    @Override
+    public int hashCode()
+    {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == this)
+            return true;
+
+        if (!(obj instanceof Room))
+            return false;
+
+        Room c = (Room) obj;
+
+        return ((Room) obj).getRoomNr() == this.getRoomNr();
+    }
+
+    public Room(Floor floor, int roomNr, double price)
+    {
+        ZuseCore.check(roomNr >= 0, "roomNr can not be null");
+        ZuseCore.check(price > 0, "price can not be null");
+
+        this.floorNr = floor.getFloorNr();
+        this.roomNr = roomNr;
+        this.price = price;
+    }
 
     public int getRoomNr()
     {
@@ -100,4 +121,16 @@ public class Room
         this.bookings = bookings;
     }
 
+    @Override
+    public String toString()
+    {
+        return "Room{" +
+                "roomNr=" + roomNr +
+                ", floorNr=" + floorNr +
+                ", price=" + price +
+                ", roomType=" + roomType +
+                ", status=" + status +
+                ", bookings=" + bookings +
+                '}';
+    }
 }

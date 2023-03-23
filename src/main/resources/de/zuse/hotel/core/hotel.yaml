@@ -1,0 +1,22 @@
+# Do not modify this file manually---
+HotelConfiguration: !<HotelConfiguration>
+  hotelFloors:
+  - !<Floor>
+    floorNr: 1
+    capacity: 10
+    rooms:
+    - !<Room>
+      roomNr: 1
+      floorNr: 1
+      price: 100.0
+      roomType: "SINGLE"
+    - !<Room>
+      roomNr: 2
+      floorNr: 1
+      price: 100.0
+      roomType: "DOUBLE"
+    - !<Room>
+      roomNr: 3
+      floorNr: 1
+      price: 100.0
+      roomType: null
