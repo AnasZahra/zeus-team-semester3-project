@@ -6,7 +6,7 @@ public class App
 {
     public static void main(String[] args)
     {
-        Layer layer = new ExampleLayer();
+        Layer layer = new Gui();
 
         layer.onStart();
         layer.run(args);

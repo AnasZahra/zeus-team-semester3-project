@@ -3,6 +3,9 @@ module de.zuse.hotel
     requires javafx.controls;
     requires javafx.fxml;
     requires itextpdf;
+    requires de.jensd.fx.glyphs.fontawesome;
+
+
 
     opens de.zuse.hotel.gui to javafx.fxml, javafx.graphics;
 

@@ -7,7 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class ExampleLayer extends Application implements Layer
+public class Gui extends Application implements Layer
 {
     @Override
     public void onStart()
@@ -32,11 +32,21 @@ public class ExampleLayer extends Application implements Layer
     @Override
     public void start(Stage stage) throws Exception
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LabelMessage.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
+        //CSS
+        //scene.getStylesheets().add(getClass().getResource("A.css").toExternalForm());
+        String cssStyle = this.getClass().getResource("Styling/A.css").toExternalForm();
+        scene.getStylesheets().add(cssStyle);
+        //scene2.getStylesheets().add(cssStyle);
+
+
+
         stage.setTitle("Hotel v1.0");
         stage.setScene(scene);
         stage.show();
+
     }
+
 
 }

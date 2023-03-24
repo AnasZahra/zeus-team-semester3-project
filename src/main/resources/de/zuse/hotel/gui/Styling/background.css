@@ -1,0 +1,55 @@
+/* target specific item by its id */
+
+.root{
+
+    -fx-background-color: #131212;
+}
+
+/* target specific class of items by its id
+#roundBottun{
+.
+
+}
+
+*/
+
+.navbar{
+    -fx-background-color: #232323;
+    -fx-alignment: center;
+
+}
+
+.navbar Text{
+    -fx-font-size: 2em ;
+    -fx-fill: #FFFFFF;
+
+}
+
+.text-area{
+
+    -fx-text-fill: "White";
+    -fx-text-family: "Gilroy";
+}
+
+.texts{
+    -fx-text-fill: "White";
+    -fx-text-family: "Gilroy";
+}
+
+.roundBottun{
+    -fx-background-radius: 150;
+    -fx-pref-width: 50;
+    -fx-pref-height: 50;
+    -fx-background-color: #F24E1E;
+}
+
+.roundBottun:hover{
+    -fx-cursor: hand;
+    -fx-spacing: 20;
+}
+
+#grandHotel{
+    -fx-text-fill: #F24E1E;
+    -fx-text-family: "Gilroy";
+
+}
