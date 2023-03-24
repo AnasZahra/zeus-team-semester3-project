@@ -37,30 +37,6 @@ public class JDBCConnecter
         return DriverManager.getConnection(DB_NAME, USER_NAME, PASSWORD);
     }
 
-    public static void testWriteAndRead() throws Exception
-    {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_NAME);
-        EntityManager manager = factory.createEntityManager();
 
-
-        // Read | Write | Update | Search
-        {
-            Address address = new Address("DE", "VK", "Street", 66333, 110);
-
-            manager.getTransaction().begin();
-            manager.persist(address);
-            manager.getTransaction().commit();
-
-            // Query for all persons
-            List<Address> addresses = manager.createNativeQuery("SELECT * FROM address", Address.class)
-                    .getResultList();
-
-            System.out.println("\n\nResult("+addresses.size()+"): \n\n");
-            addresses.forEach(System.out::println);
-        }
-
-        manager.close();
-        factory.close();
-    }
 
 }

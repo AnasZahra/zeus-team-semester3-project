@@ -1,6 +1,5 @@
 package de.zuse.hotel.db;
 
-import de.zuse.hotel.core.Address;
 import de.zuse.hotel.core.Booking;
 
 import javax.persistence.EntityManager;
@@ -9,7 +8,7 @@ import javax.persistence.Persistence;
 import java.util.List;
 
 
-public class BookingConnector implements DataBankFunktion{
+public class BookingConnector implements DataBankOperation {
     private EntityManager manager ;
     private EntityManagerFactory managerFactory;
 
@@ -20,36 +19,54 @@ public class BookingConnector implements DataBankFunktion{
     }
 
 
-    public void dbCreate(Booking booking) {
-        manager.getTransaction().begin();
-        manager.persist(booking);
-        manager.getTransaction().commit();
+
+    @Override
+    public void dbCreate(Object object) {
+        if (object instanceof Booking) {
+            Booking booking = (Booking) object;
+            manager.getTransaction().begin();
+            manager.persist(booking);
+            manager.getTransaction().commit();
+        }
     }
 
     @Override
-    public void dbCreate() {
-
-    }
-
-    @Override
-    public List<?> dbSerscheAll() {
-        List<Address> addresses = manager.createNativeQuery("SELECT * FROM address", Address.class)
+    public List<?> dbsearchAll() {
+        List<Booking> allBooking = manager.createNativeQuery("SELECT * FROM Booking", Booking.class)
                 .getResultList();
-        return addresses;
+        return allBooking;
     }
 
     @Override
-    public List<?> dbSerscheforOne() {
-        return null;
+    public List<?> dbsearchById(int id) {
+        List<Booking> oneBooking = manager.createNativeQuery("SELECT * FROM Booking WHERE Id = :id", Booking.class)
+                .setParameter("id", id)
+                .getResultList();
+        return oneBooking;
     }
 
     @Override
     public void dbRemoveAll() {
+        manager.getTransaction().begin();
+        manager.createNativeQuery("INSERT INTO Booking_trash_collection SELECT * FROM Booking").executeUpdate();
+        manager.createNativeQuery("DELETE FROM Booking").executeUpdate();
+        manager.getTransaction().commit();
+        manager.close();
 
     }
 
     @Override
-    public void dbRemoveOne() {
-
+    public void dbRemoveById(int id) {
+        manager.getTransaction().begin();
+        manager.createNativeQuery("INSERT INTO Booking_trash_collection SELECT * FROM Booking WHERE Id = :id")
+                .setParameter("id", id)
+                .executeUpdate();
+        manager.createNativeQuery("DELETE FROM Booking WHERE Id = :id")
+                .setParameter("id", id)
+                .executeUpdate();
+        manager.getTransaction().commit();
+        manager.close();
     }
+
+
 }

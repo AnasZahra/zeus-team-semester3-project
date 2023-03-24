@@ -10,7 +10,9 @@ public class HotelDatabaseApiImpl implements HotelDatabaseApi
     @Override
     public boolean addGuest(Guest guest)
     {
-        return false;
+        PresonConnecter presonConnecter = new PresonConnecter();
+        presonConnecter.dbCreate(guest);
+        return true; // to do is that dose the Hibernate return folse and t
     }
 
     @Override

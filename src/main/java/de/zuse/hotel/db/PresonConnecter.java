@@ -1,6 +1,5 @@
 package de.zuse.hotel.db;
 
-import de.zuse.hotel.core.Address;
 import de.zuse.hotel.core.Person;
 
 import javax.persistence.EntityManager;
@@ -10,7 +9,7 @@ import java.util.List;
 
 
 
-public class PresonConnecter implements DataBankFunktion {
+public class PresonConnecter implements DataBankOperation {
     private EntityManager manager ;
     private EntityManagerFactory managerFactory;
 
@@ -21,35 +20,49 @@ public class PresonConnecter implements DataBankFunktion {
 
 
     @Override
-    public void dbCreate() {
-
-    }
-
-    public void dbCreate(Person person) {
+    public void dbCreate(Object object) {
+        if (object instanceof Person ){
+            Person person = (Person) object;
         manager.getTransaction().begin();
         manager.persist(person);
         manager.getTransaction().commit();
+        }
     }
+
     @Override
-    public List<?> dbSerscheAll() {
-        List<Address> addresses = manager.createNativeQuery("SELECT * FROM address", Address.class)
+    public List<?> dbsearchAll() {
+        List<Person> allPerson = manager.createNativeQuery("SELECT * FROM address", Person.class)
                 .getResultList();
-        return addresses;
+        return allPerson;
     }
 
     @Override
-    public List<?> dbSerscheforOne() {
-
-        return null;
+    public List<?> dbsearchById(int id) {
+        List<Person> onePerson = manager.createNativeQuery("SELECT * FROM Person WHERE Id = :id", Person.class)
+                .setParameter("id", id)
+                .getResultList();
+        return onePerson;
     }
 
     @Override
     public void dbRemoveAll() {
-
+        manager.getTransaction().begin();
+        manager.createNativeQuery("INSERT INTO Person_trash_collection SELECT * FROM Person").executeUpdate();
+        manager.createNativeQuery("DELETE FROM Person").executeUpdate();
+        manager.getTransaction().commit();
+        manager.close();
     }
 
     @Override
-    public void dbRemoveOne() {
-
+    public void dbRemoveById(int id) {
+        manager.getTransaction().begin();
+        manager.createNativeQuery("INSERT INTO Person_trash_collection SELECT * FROM Person WHERE Id = :id")
+                .setParameter("id", id)
+                .executeUpdate();
+        manager.createNativeQuery("DELETE FROM Person WHERE Id = :id")
+                .setParameter("id", id)
+                .executeUpdate();
+        manager.getTransaction().commit();
+        manager.close();
     }
 }

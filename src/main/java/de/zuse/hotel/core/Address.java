@@ -1,33 +1,49 @@
 package de.zuse.hotel.core;
 import de.zuse.hotel.util.ZuseCore;
 
+import javax.persistence.*;
 
-public class Address {
 
-      private String country;
-      private String city;
-      private String street;
-      private int plz;
-      private int houseNr;
+//import de.zuse.hotel.util.ZuseCore;
 
-      public Address(String country, String city, String street, int plz , int houseNr) {
-          ZuseCore.check( country != null && !country.strip().isEmpty() , "country can not be null" );
-          ZuseCore.check( city != null && !city.strip().isEmpty() , "city can not be null" );
-          ZuseCore.check( street != null && !street.strip().isEmpty() , "street can not be null" );
 
-          ZuseCore.check(String.valueOf(plz).length() == 5 , "The plz must contains 5 Nummbers");
-          ZuseCore.check(houseNr >= 0 , "The houseNr must be >= 0");
+@Entity
+@Table(name = "address")
+public class Address
+{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
-          this.country = country;
-          this.city = city;
-          this.street = street;
-          this.plz = plz;
-          this.houseNr = houseNr;
-      }
+    private String country;
+    private String city;
+    private String street;
+    private int plz;
+    private int houseNr;
 
-    public Address() {}
+    public Address(String country, String city, String street, int plz, int houseNr)
+    {
+        ZuseCore.check(country != null && !country.strip().isEmpty(), "country can not be null");
+        ZuseCore.check(city != null && !city.strip().isEmpty(), "city can not be null");
+        ZuseCore.check(street != null && !street.strip().isEmpty(), "street can not be null");
 
-    public String getCountry() 
+        ZuseCore.check(String.valueOf(plz).length() == 5, "The plz must contains 5 Nummbers");
+        ZuseCore.check(houseNr >= 0, "The houseNr must be >= 0");
+
+        this.country = country;
+        this.city = city;
+        this.street = street;
+        this.plz = plz;
+        this.houseNr = houseNr;
+    }
+
+    public Address(){}
+
+    public int getId() {
+        return id;
+    }
+
+    public String getCountry()
     {
         return country;
     }
