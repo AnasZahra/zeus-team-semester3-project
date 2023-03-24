@@ -2,11 +2,18 @@ package de.zuse.hotel.core;
 
 import de.zuse.hotel.util.ZuseCore;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
 
-public class Person
-{
+
+
+
+public class Person {
+
+
+
+
     private static final int TELEPHONE_NUMBER_COUNT = 12;
 
     private int id;
@@ -15,6 +22,7 @@ public class Person
     private LocalDate birthday;
     private String email;
     private String teleNumber;
+
     private Address address;
 
     public Person(String firstname, String lastname, LocalDate birthday, String email, String teleNumber, Address address)
@@ -33,6 +41,8 @@ public class Person
         this.teleNumber = teleNumber;
         this.address = address;
     }
+
+    public Person() {}
 
     public String getFirstname()
     {

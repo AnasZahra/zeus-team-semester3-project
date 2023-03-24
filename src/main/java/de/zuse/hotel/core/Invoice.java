@@ -24,13 +24,8 @@ public class Invoice{
         this.invoiceId = invoiceId;
         this.price = price;
         this.tax = tax;
-
         this.Payments = new ArrayList<>();
     }
-
-
-
-
 
 //public String toString()
 //  {

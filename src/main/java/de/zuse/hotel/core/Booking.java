@@ -1,7 +1,6 @@
 package de.zuse.hotel.core;
 
 import de.zuse.hotel.util.ZuseCore;
-
 import java.time.LocalDate;
 
 
@@ -9,12 +8,12 @@ public class Booking
 {
     public static class Payment
     {
-        enum Status
+        public enum Status
         {
             PAID, NOT_PAID
         }
 
-        enum Type
+        public enum Type
         {
             CASH, CREDIT_CARD, DEBIT_CARD, MOBILE_PAYMENT
         }
@@ -49,14 +48,17 @@ public class Booking
 
     private int bookingID;
     private int roomNumber;
+
+    private int floorNumber;
     private LocalDate startDate;
     private LocalDate endDate;
     private Guest guest;
     private Payment payment;
 
-    public Booking(int roomNumber, LocalDate startDate, LocalDate endDate, Guest guest)
+    public Booking(int roomNumber , int floorNumber, LocalDate startDate, LocalDate endDate, Guest guest)
     {
         ZuseCore.check(roomNumber >= 0, "Number of Room should be greater than zero!!");
+        ZuseCore.check(floorNumber >= 0, "Number of Room should be greater than zero!!");
         ZuseCore.check(startDate != null, "StartDate is null!!");
         ZuseCore.check(endDate != null, "EndDate is null!!");
         ZuseCore.check(guest != null, "Guest is null!!");
@@ -68,6 +70,7 @@ public class Booking
         this.startDate = startDate;
         this.endDate = endDate;
         this.guest = guest;
+        this.floorNumber = floorNumber;
         payment = new Payment();
     }
 

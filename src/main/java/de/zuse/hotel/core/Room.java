@@ -1,21 +1,30 @@
 package de.zuse.hotel.core;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.itextpdf.text.RomanList;
 import de.zuse.hotel.util.ZuseCore;
 
 import java.util.ArrayList;
 
+@JsonTypeInfo(include= JsonTypeInfo.As.WRAPPER_OBJECT, use= JsonTypeInfo.Id.NAME)
 public class Room
 {
     private int roomNr;
     private int floorNr;
     private double price;
-
     private RoomSpecification.Types roomType;
-    private RoomSpecification.Status status;
-    private ArrayList<Booking> bookings;
+
+    @JsonIgnore
+    private transient RoomSpecification.Status status; // from database
+    @JsonIgnore
+    private transient ArrayList<Booking> bookings;// from database
+
     private static final int DEFAULT_BOOKING_COUNT = 5;
 
-    public Room(int roomNr , int floorNr, double price)
+    public Room(int roomNr, int floorNr, double price)
     {
         ZuseCore.check(roomNr >= 0, "roomNr can not be null");
         ZuseCore.check(floorNr >= 0, "floorNr can not be null");
@@ -25,6 +34,9 @@ public class Room
         this.floorNr = floorNr;
         this.price = price;
     }
+
+    // Without a default constructor, Jackson will throw an exception
+    public Room(){}
 
     public int getRoomNr()
     {
@@ -81,6 +93,11 @@ public class Room
     public final ArrayList<Booking> getBookings()
     {
         return bookings;
+    }
+
+    public void setBookings(ArrayList<Booking> bookings)
+    {
+        this.bookings = bookings;
     }
 
 }
