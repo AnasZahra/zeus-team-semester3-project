@@ -12,5 +12,9 @@ module de.zuse.hotel
     opens de.zuse.hotel.gui to javafx.fxml, javafx.graphics;
     opens de.zuse.hotel.core to com.fasterxml.jackson.dataformat.yaml, com.fasterxml.jackson.databind, org.hibernate.orm.core;
 
+
     exports de.zuse.hotel.util;
+
+    //exports de.zuse.hotel.util;
+
 }

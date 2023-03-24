@@ -9,14 +9,14 @@ public interface HotelDatabaseApi
     //Guest
     public boolean addGuest(Guest guest);
     public boolean removeGuest(int guestId);
-    public boolean updateGuest(int guestID, Guest updatedGuest);
+    public boolean updateGuest( Guest updatedGuest); //should we use the Id or not
     public Guest getGuest(int guestID);
     public List<Guest> getAllGuest();
 
     //Booking
     public boolean addBooking(Booking booking);
     public boolean removeBooking(int bookingID);
-    public boolean updateBooking(int bookingID, Booking updatedBooking);
+    public boolean updateBooking(Booking updatedBooking);
     public Booking getBooking(int bookingID);
     public List<Booking> getAllBooking();
 

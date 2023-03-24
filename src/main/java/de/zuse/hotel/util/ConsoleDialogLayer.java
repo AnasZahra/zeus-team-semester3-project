@@ -116,7 +116,8 @@ public class ConsoleDialogLayer implements Layer
 
         Guest guest = readGuestInfo();
 
-        hotelDatabaseApi.updateGuest(id, guest);
+        //hotelDatabaseApi.updateGuest(id, guest);
+        hotelDatabaseApi.updateGuest( guest);
     }
 
     private void getGuest()
@@ -163,7 +164,8 @@ public class ConsoleDialogLayer implements Layer
         System.out.println("\n\nIn ConsoleDialog you have to enter the information again!\n\n");
         Booking updatedBooking = readBookingInfo();
 
-        hotelDatabaseApi.updateBooking(bookID, updatedBooking);
+        //hotelDatabaseApi.updateBooking(bookID, updatedBooking);
+        hotelDatabaseApi.updateBooking( updatedBooking);
     }
 
     private void getBooking()

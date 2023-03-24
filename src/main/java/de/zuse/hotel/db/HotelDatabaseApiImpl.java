@@ -10,61 +10,80 @@ public class HotelDatabaseApiImpl implements HotelDatabaseApi
     @Override
     public boolean addGuest(Guest guest)
     {
-        return false;
+        PresonConnecter presonConnecter = new PresonConnecter();
+        presonConnecter.dbCreate(guest);
+        return true; // to do is that dose the Hibernate return folse and t
     }
 
     @Override
     public boolean removeGuest(int guestId)
     {
-        return false;
+        PresonConnecter presonConnecter = new PresonConnecter();
+        presonConnecter.dbRemoveById(guestId);
+        return true;
     }
 
     @Override
-    public boolean updateGuest(int guestID, Guest updatedGuest)
+    public boolean updateGuest( Guest updatedGuest)
     {
-        return false;
+        PresonConnecter presonConnecter = new PresonConnecter();
+        presonConnecter.dbUpdate(updatedGuest);
+        // hir is the ID needed
+        return true;
     }
 
     @Override
     public Guest getGuest(int guestID)
     {
-        return null;
+        PresonConnecter presonConnecter = new PresonConnecter();
+        return presonConnecter.dbsearchById(guestID);
     }
 
     @Override
     public List<Guest> getAllGuest()
     {
-        return null;
+        PresonConnecter presonConnecter = new PresonConnecter();
+        presonConnecter.dbsearchAll();
+        return (List<Guest>) presonConnecter.dbsearchAll();
     }
 
     @Override
     public boolean addBooking(Booking booking)
     {
-        return false;
+        BookingConnector bookingConnector = new BookingConnector();
+        bookingConnector.dbCreate(booking);
+        return true;
     }
 
     @Override
     public boolean removeBooking(int bookingID)
     {
-        return false;
+        BookingConnector bookingConnector = new BookingConnector();
+        bookingConnector.dbRemoveById(bookingID);
+        return true;
     }
 
     @Override
-    public boolean updateBooking(int bookingID, Booking updatedBooking)
+    public boolean updateBooking( Booking updatedBooking)
     {
-        return false;
+        BookingConnector bookingConnector = new BookingConnector();
+        bookingConnector.dbUpdate(updatedBooking);
+        return true;
     }
 
     @Override
     public Booking getBooking(int bookingID)
     {
-        return null;
+        BookingConnector bookingConnector = new BookingConnector();
+        return bookingConnector.dbsearchById(bookingID);
     }
 
     @Override
     public List<Booking> getAllBooking()
     {
-        return null;
+        BookingConnector bookingConnector = new BookingConnector();
+        bookingConnector.dbsearchAll();
+        return (List<Booking>) bookingConnector.dbsearchAll();
     }
 
     @Override
