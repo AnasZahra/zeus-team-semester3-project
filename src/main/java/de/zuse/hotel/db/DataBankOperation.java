@@ -11,7 +11,8 @@ public interface DataBankOperation {
     public void dbRemoveAll();
     public void dbRemoveById(int id);
 
+    public void dbUpdate(Object object);
 
-    //public void dbSearchByVariabel (String searchTerm);
+    public List<?> dbSerscheforanythinhg(String searchTerm); // optioal made by jan
 
 }

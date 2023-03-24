@@ -1,10 +1,12 @@
 package de.zuse.hotel.db;
 
+import de.zuse.hotel.core.Address;
 import de.zuse.hotel.core.Person;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import java.util.List;
 
 
@@ -37,11 +39,12 @@ public class PresonConnecter implements DataBankOperation {
     }
 
     @Override
-    public List<?> dbsearchById(int id) {
-        List<Person> onePerson = manager.createNativeQuery("SELECT * FROM Person WHERE Id = :id", Person.class)
-                .setParameter("id", id)
-                .getResultList();
-        return onePerson;
+    public <T> T dbsearchById  (int id) {
+        manager.getTransaction().begin();
+        Person person = manager.find(Person.class, id);
+        manager.getTransaction().commit();
+        manager.close();
+        return (T) person ;
     }
 
     @Override
@@ -65,4 +68,36 @@ public class PresonConnecter implements DataBankOperation {
         manager.getTransaction().commit();
         manager.close();
     }
+
+    @Override
+    public void dbUpdate(Object object) {
+        if(object instanceof Person) {
+            Person person = (Person) object;
+            System.out.println((Person) dbsearchById(person.getId()));
+            manager.getTransaction().begin();
+            manager.merge(person);
+            manager.getTransaction().commit();
+            manager.close();
+            System.out.println((Person) dbsearchById(person.getId()));
+        }
+    }
+
+    @Override
+    public List<?> dbSerscheforanythinhg(String searchTerm) { // jan 
+        String query = "SELECT * FROM address WHERE ";
+        query += "Id = ?1 OR ";
+        query += "FirstName LIKE ?2 OR ";
+        query += "LastName LIKE ?2 OR ";
+        query += "birthday LIKE ?2 OR ";
+        query += "Phone = ?3 OR ";
+        query += "Email LIKE ?2";
+
+        Query nativeQuery = manager.createNativeQuery(query, Person.class);
+        nativeQuery.setParameter(1, Integer.parseInt(searchTerm));
+        nativeQuery.setParameter(2, "%" + searchTerm + "%");
+        nativeQuery.setParameter(3, Integer.parseInt(searchTerm));
+        List<Person> result = nativeQuery.getResultList();
+        return result;
+    }
+
 }
