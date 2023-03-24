@@ -36,10 +36,9 @@ public class Gui extends Application implements Layer
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
         //CSS
         //scene.getStylesheets().add(getClass().getResource("A.css").toExternalForm());
-        String cssStyle = this.getClass().getResource("Styling/A.css").toExternalForm();
+        String cssStyle = this.getClass().getResource("Styling/background.css").toExternalForm();
         scene.getStylesheets().add(cssStyle);
         //scene2.getStylesheets().add(cssStyle);
-
 
 
         stage.setTitle("Hotel v1.0");
@@ -47,6 +46,5 @@ public class Gui extends Application implements Layer
         stage.show();
 
     }
-
-
+    
 }
