@@ -7,8 +7,13 @@ import java.time.LocalDate;
 import java.util.Date;
 
 
-public class Person
-{
+
+
+public class Person {
+
+
+
+
     private static final int TELEPHONE_NUMBER_COUNT = 12;
 
     private int id;
