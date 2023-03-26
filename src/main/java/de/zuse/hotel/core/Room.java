@@ -25,9 +25,7 @@ public class Room
     private static final int DEFAULT_BOOKING_COUNT = 5;
 
     // Without a default constructor, Jackson will throw an exception
-    public Room()
-    {
-    }
+    public Room(){}
 
     @Override
     public int hashCode()
@@ -133,4 +131,7 @@ public class Room
                 ", bookings=" + bookings +
                 '}';
     }
+
+
+
 }

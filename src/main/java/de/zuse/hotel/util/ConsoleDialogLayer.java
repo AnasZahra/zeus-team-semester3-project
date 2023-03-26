@@ -4,8 +4,8 @@ import de.zuse.hotel.Layer;
 import de.zuse.hotel.core.Address;
 import de.zuse.hotel.core.Booking;
 import de.zuse.hotel.core.Guest;
-import de.zuse.hotel.db.HotelDatabaseApi;
-import de.zuse.hotel.db.HotelDatabaseApiImpl;
+import de.zuse.hotel.core.HotelCore;
+
 
 import java.time.LocalDate;
 import java.util.List;
@@ -29,14 +29,11 @@ public class ConsoleDialogLayer implements Layer
     //--------------------------------------------------------------//
 
     private Scanner input;
-    private HotelDatabaseApi hotelDatabaseApi;
-
 
     @Override
     public void onStart()
     {
         System.out.println("Start Loading Database..");
-        hotelDatabaseApi = new HotelDatabaseApiImpl();
         input = new Scanner(System.in);
     }
 
@@ -56,7 +53,7 @@ public class ConsoleDialogLayer implements Layer
     public void onClose()
     {
         System.out.println("Close Hotel App ...");
-        hotelDatabaseApi.shutdown();
+        HotelCore.shutdown();
     }
 
 
@@ -80,17 +77,38 @@ public class ConsoleDialogLayer implements Layer
     {
         switch (inputParam)
         {
-            case ADD_GUEST:         addGuest();         break;
-            case REMOVE_GUEST:      removeGuest();      break;
-            case UPDATE_GUEST:      updateGuest();      break;
-            case GET_GUEST:         getGuest();         break;
-            case GET_ALL_GUEST:     getAllGuests();     break;
-            case ADD_BOOKING:       addBooking();       break;
-            case REMOVE_BOOKING:    removeBooking();    break;
-            case UPDATE_BOOKING:    updateBooking();    break;
-            case GET_BOOKING:       getBooking();       break;
-            case GET_ALL_BOOKING:   getAllBooking();    break;
-            default:                return;
+            case ADD_GUEST:
+                addGuest();
+                break;
+            case REMOVE_GUEST:
+                removeGuest();
+                break;
+            case UPDATE_GUEST:
+                updateGuest();
+                break;
+            case GET_GUEST:
+                getGuest();
+                break;
+            case GET_ALL_GUEST:
+                getAllGuests();
+                break;
+            case ADD_BOOKING:
+                addBooking();
+                break;
+            case REMOVE_BOOKING:
+                removeBooking();
+                break;
+            case UPDATE_BOOKING:
+                updateBooking();
+                break;
+            case GET_BOOKING:
+                getBooking();
+                break;
+            case GET_ALL_BOOKING:
+                getAllBooking();
+                break;
+            default:
+                return;
         }
     }
 
@@ -98,7 +116,7 @@ public class ConsoleDialogLayer implements Layer
     {
         Guest guest = readGuestInfo();
 
-        hotelDatabaseApi.addGuest(guest);
+        HotelCore.get().addGuest(guest);
     }
 
     private void removeGuest()
@@ -106,32 +124,27 @@ public class ConsoleDialogLayer implements Layer
         System.out.print("Enter Guest ID: ");
         int id = readInteger();
 
-        hotelDatabaseApi.removeGuest(id);
+        HotelCore.get().removeGuest(id);
     }
 
     private void updateGuest()
     {
-        System.out.print("Enter Guest ID: ");
-        int id = readInteger();
-
         Guest guest = readGuestInfo();
-
-        //hotelDatabaseApi.updateGuest(id, guest);
-        hotelDatabaseApi.updateGuest( guest);
+        HotelCore.get().updateGuest(guest);
     }
 
     private void getGuest()
     {
         System.out.print("Enter Guest ID: ");
         int id = readInteger();
-        Guest guest = hotelDatabaseApi.getGuest(id);
+        Guest guest = HotelCore.get().getGuest(id);
 
         System.out.println(guest.toString());
     }
 
     private void getAllGuests()
     {
-        List<Guest> guests = hotelDatabaseApi.getAllGuest();
+        List<Guest> guests = HotelCore.get().getAllGuest();
         //guests.forEach(System.out::println);
 
         if (guests != null)
@@ -145,7 +158,7 @@ public class ConsoleDialogLayer implements Layer
     private void addBooking()
     {
         Booking booking = readBookingInfo();
-        hotelDatabaseApi.addBooking(booking);
+        HotelCore.get().addBooking(booking);
     }
 
     private void removeBooking()
@@ -153,19 +166,15 @@ public class ConsoleDialogLayer implements Layer
         System.out.println("Booking ID: ");
         int bookID = readInteger();
 
-        hotelDatabaseApi.removeBooking(bookID);
+        HotelCore.get().removeBooking(bookID);
     }
 
     private void updateBooking()
     {
-        System.out.println("Booking ID: ");
-        int bookID = readInteger();
-
         System.out.println("\n\nIn ConsoleDialog you have to enter the information again!\n\n");
         Booking updatedBooking = readBookingInfo();
 
-        //hotelDatabaseApi.updateBooking(bookID, updatedBooking);
-        hotelDatabaseApi.updateBooking( updatedBooking);
+        HotelCore.get().updateBooking(updatedBooking);
     }
 
     private void getBooking()
@@ -173,14 +182,14 @@ public class ConsoleDialogLayer implements Layer
         System.out.println("Booking ID: ");
         int bookID = readInteger();
 
-        Booking booking = hotelDatabaseApi.getBooking(bookID);
+        Booking booking = HotelCore.get().getBooking(bookID);
 
         System.out.println(booking);
     }
 
     private void getAllBooking()
     {
-        List<Booking> bookings = hotelDatabaseApi.getAllBooking();
+        List<Booking> bookings = HotelCore.get().getAllBooking();
         //bookings.forEach(System.out::println);
         if (bookings != null)
         {
@@ -269,10 +278,9 @@ public class ConsoleDialogLayer implements Layer
         System.out.println("Enter Guest Id: ");
         int guestID = readInteger();
 
-        Guest guest = hotelDatabaseApi.getGuest(guestID);
+        Guest guest = HotelCore.get().getGuest(guestID);
         Booking booking = new Booking(roomNr, floorNr, startDate, endDate, guest);
 
-        Booking.Payment payment = null;
         System.out.println("is it Paid?: ");
         System.out.println("Paid: " + Booking.Payment.Status.PAID.ordinal());
         System.out.println("Not Paid: " + Booking.Payment.Status.NOT_PAID.ordinal());
@@ -288,7 +296,10 @@ public class ConsoleDialogLayer implements Layer
             System.out.println("MOBILE_PAYMENT: " + Booking.Payment.Type.MOBILE_PAYMENT.ordinal());
             int paymentTypeInput = readInteger();
 
-            booking.pay(payDate, Booking.Payment.Type.values()[paymentTypeInput]);
+            System.out.println("Enter Price(float): ");
+            float price = readFloat();
+
+            booking.pay(payDate, Booking.Payment.Type.values()[paymentTypeInput], price);
         }
 
         return booking;

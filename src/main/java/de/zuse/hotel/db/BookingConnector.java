@@ -1,17 +1,16 @@
 package de.zuse.hotel.db;
 
-import de.zuse.hotel.core.Address;
 import de.zuse.hotel.core.Booking;
 import de.zuse.hotel.core.Person;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 import java.util.List;
 
 
-public class BookingConnector implements DataBankOperation {
+public class BookingConnector implements DatabaseOperations
+{
     private EntityManager manager ;
     private EntityManagerFactory managerFactory;
 
@@ -20,8 +19,6 @@ public class BookingConnector implements DataBankOperation {
         managerFactory  = Persistence.createEntityManagerFactory(JDBCConnecter.PERSISTENCE_NAME);
         manager = managerFactory.createEntityManager();
     }
-
-
 
     @Override
     public void dbCreate(Object object) {

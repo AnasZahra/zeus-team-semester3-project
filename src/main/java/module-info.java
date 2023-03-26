@@ -20,6 +20,7 @@ module de.zuse.hotel
 
 
     exports de.zuse.hotel.util;
+    exports de.zuse.hotel.util.pdf;
 
     //exports de.zuse.hotel.util;
 

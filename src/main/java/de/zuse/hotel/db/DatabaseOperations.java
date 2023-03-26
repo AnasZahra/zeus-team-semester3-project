@@ -2,7 +2,8 @@ package de.zuse.hotel.db;
 
 import java.util.List;
 
-public interface DataBankOperation {
+public interface DatabaseOperations
+{
 
     public void dbCreate (Object object);
     public List<?> dbsearchAll();
