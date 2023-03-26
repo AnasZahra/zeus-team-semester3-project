@@ -33,13 +33,17 @@
 
 }
 
+.guestsNumber{
+    -fx-background-color: #191717;
+    -fx-prompt-text-fill: #413d3d;
+}
+
 
 .choice-box > * {
     -fx-background-color: #191717;
     -fx-mark-color: #F24E1E; // arrow color
 
     -fx-effect: dropshadow(two-pass-box, #131212,0,0,0,2);
-
 
 }
 

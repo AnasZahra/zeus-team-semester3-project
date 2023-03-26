@@ -36,39 +36,36 @@ public class sceneController
 
     @FXML
     private Button dashboardButton;
-    /**
-     //handleBookRoomButtonAction is an booking button event
-     public void initialize() {
-     TextField roundButton = new TextField();
-     roundButton.setOnAction(this::handleBookRoomButtonAction);
-     }
-     */
-    //stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 
-    /**
-     * meaning, we are going to get the source of this event and cast it to a node
-     * cast the source to a node then cast it again to a Stage
-     */
-    public void switchToDashboard(ActionEvent event) throws IOException
-    {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Dashboard.fxml")));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    public void switchToDashboard(ActionEvent event) throws IOException {
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Dashboard.fxml")));
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+    }
+
+
+    public void switchToRoom(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Rooms.fxml")));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
 
     }
 
+
     public void switchToGuest(ActionEvent event) throws IOException
     {
         onDashboardSelected();
-        /*
+        
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Guest.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-         */
     }
 
     public void onDashboardSelected()
@@ -89,31 +86,19 @@ public class sceneController
         stage.show();
     }
 
-/**
- @FXML private void handleBookRoomButtonAction(ActionEvent event) {
- if (nameField != null) {
- String roundButton = nameField.getText();
- }
-
- String roundButtonText = roundButton.getText();
- String roomNumber = roomField.getText();
-
- // Code to book the specified room in the hotel goes here
- // ...
-
- Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
- alert.setTitle("Room Booking Confirmation");
- alert.setHeaderText("Room Booked");
- alert.setContentText("Thank you, " + roundButtonText + ", for booking room number " + roomNumber + ".");
- Optional<ButtonType> result = alert.showAndWait();
-
- if (result.isPresent() && result.get() == ButtonType.OK) {
- // User clicked OK button
- }
- }
 
 
- */
+    @FXML
+    void handleBookRoomButtonAction(ActionEvent event) throws Exception{
 
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("bookingWindow.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 500, 720);
+        Stage stage = new Stage();
+        stage.setTitle("Book a room");
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL); //default, for closing th pop up window
+        stage.show();
+
+    }
 
 }

@@ -19,11 +19,17 @@
 
 }
 
-.navbar Text{
-    -fx-font-size: 2em ;
-    -fx-fill: #FFFFFF;
+.FunctionButton{
 
+    -fx-background-color: #191717;
+    -fx-text-fill: #F24E1E;
+    -fx-font-size: 1.2em ;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(two-pass-box, #131111,9,0,0,4);
 }
+
+
+
 
 .text-area{
 
