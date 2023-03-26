@@ -1,111 +1,169 @@
 package de.zuse.hotel.core;
 
 import de.zuse.hotel.db.HotelDatabaseApi;
-import de.zuse.hotel.util.PDFWriter;
+import de.zuse.hotel.db.HotelDatabaseApiImpl;
+import de.zuse.hotel.util.HotelSerializer;
 import de.zuse.hotel.util.ZuseCore;
+import de.zuse.hotel.util.pdf.PdfFile;
 
-import java.time.LocalDate;
+import java.util.List;
 
 public class HotelCore implements HotelCoreApi
 {
     private static HotelCore instance = null;
-    private HotelDatabaseApi dbConnector;
-
-    public static void init()
-    {
-        instance = new HotelCore();
-    }
+    private HotelDatabaseApi hotelDatabaseApi;
+    private HotelConfiguration hotelConfiguration;
 
     public static HotelCore get()
     {
-        ZuseCore.coreAssert(instance != null, "init was not called before!!");
+        if (instance == null)
+            instance = new HotelCore();
+
         return instance;
+    }
+
+    public static void shutdown()
+    {
+        HotelSerializer hotelSerializer = new HotelSerializer();
+
+        try
+        {
+            hotelSerializer.serializeHotel(instance.hotelConfiguration);
+        } catch (Exception e)
+        {
+            ZuseCore.coreAssert(false, e.getMessage());
+            if (ZuseCore.DEBUG_MODE)
+                e.printStackTrace();
+        }
+
+        instance = null;
     }
 
     private HotelCore()
     {
-        // dbConnecter = new DBConnecter();
+        hotelDatabaseApi = new HotelDatabaseApiImpl();
 
-        //Test Generate PDF file
+        HotelSerializer hotelSerializer = new HotelSerializer();
+        try
         {
-            LocalDate start = LocalDate.of(2024, 2, 22);
-            LocalDate end = LocalDate.of(2024, 4, 1);
-            LocalDate birthday = LocalDate.of(1999, 12, 2);
-
-            Address adrAddress = new Address("Germany", "VK", "Stadion", 66333, 52);
-
-            Guest guest = new Guest("basel", "saad",
-                    birthday, "test@test.com", "123456789101", adrAddress);
-
-            Booking booking = new Booking(1, 1, start, end, guest);
-            PDFWriter.writeStringAsPDF("test.pdf", booking.generatePdf());
+            hotelConfiguration = hotelSerializer.deserializeHotel();
+        } catch (Exception e)
+        {
+            ZuseCore.coreAssert(false, e.getMessage());
+            if (ZuseCore.DEBUG_MODE)
+                e.printStackTrace();
         }
+    }
 
+    @Override
+    public void setHotelName(String name)
+    {
+        ZuseCore.coreAssert(name != null && name.strip().isEmpty(), "Name is empty!!");
+
+        hotelConfiguration.setHotelName(name);
+    }
+
+    @Override
+    public String getHotelName()
+    {
+        return hotelConfiguration.getHotelName();
     }
 
     @Override
     public boolean addGuest(Guest guest)
     {
-        return false;
+        return hotelDatabaseApi.addGuest(guest);
     }
 
     @Override
-    public boolean removeGuest(Guest guest)
+    public boolean removeGuest(int guestID)
     {
-        return false;
+        return hotelDatabaseApi.removeGuest(guestID);
     }
 
     @Override
     public boolean addBooking(Booking booking)
     {
-        return false;
+        return hotelDatabaseApi.addBooking(booking);
     }
 
     @Override
-    public boolean removeBooking(Booking booking)
+    public boolean removeBooking(int bookingID)
     {
-        return false;
+        return hotelDatabaseApi.removeBooking(bookingID);
     }
 
     @Override
     public Booking getBooking(int bookingID)
     {
-        return null;
+        return hotelDatabaseApi.getBooking(bookingID);
     }
 
     @Override
     public Guest getGuest(int personID)
     {
-        return null;
+        return hotelDatabaseApi.getGuest(personID);
     }
 
     @Override
-    public void printBookingAsPDF(int bookingID)
+    public List<Guest> getAllGuest()
     {
+        return hotelDatabaseApi.getAllGuest();
+    }
 
+    @Override
+    public List<Booking> getAllBooking()
+    {
+        return hotelDatabaseApi.getAllBooking();
+    }
+
+    @Override
+    public PdfFile getInvoiceAsPdf(int bookingID)
+    {
+        return null;
     }
 
     @Override
     public boolean updateGuest(Guest guest)
     {
-        return false;
+        return hotelDatabaseApi.updateGuest(guest);
     }
 
     @Override
     public boolean updateBooking(Booking booking)
     {
-        return false;
+        return hotelDatabaseApi.updateBooking(booking);
     }
 
     @Override
-    public int generateBookingID()
+    public List<Floor> getFloors()
     {
-        return 0;
+        return hotelConfiguration.getHotelFloors();
     }
 
     @Override
-    public int generatePersonID()
+    public List<Room> getRooms(int floorNr)
     {
-        return 0;
+        ZuseCore.coreAssert(floorNr < hotelConfiguration.getHotelFloors().size(), "FloorNr > size, floorNr is the index!");
+
+        return hotelConfiguration.getHotelFloors().get(floorNr).getRooms();
+    }
+
+    @Override
+    public HotelConfiguration getHotelConfig()
+    {
+        return hotelConfiguration;
+    }
+
+    @Override
+    public Room getRoom(int floorNr, int roomNr)
+    {
+        Floor floor = hotelConfiguration.getHotelFloors().get(floorNr);
+        ZuseCore.check(floor != null, "Floor " + floorNr+ " is not in Hotel!");
+
+        Room room = floor.getRooms().get(roomNr);
+        ZuseCore.check(room != null, "Room " + roomNr+ " is not in Hotel!");
+
+        return room;
     }
 }

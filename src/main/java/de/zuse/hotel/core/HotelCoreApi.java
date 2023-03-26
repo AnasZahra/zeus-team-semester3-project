@@ -1,21 +1,40 @@
 package de.zuse.hotel.core;
 
+import de.zuse.hotel.util.pdf.PdfFile;
+
+import java.util.List;
+
 public interface HotelCoreApi
 {
-    public boolean addGuest(Guest guest);
-    public boolean removeGuest(Guest guest);
-    public boolean addBooking(Booking booking);
-    public boolean removeBooking(Booking booking);
+    void setHotelName(String name);
+    String getHotelName();
+
+    boolean addGuest(Guest guest);
+
+    boolean removeGuest(int guestID);
+
+    boolean addBooking(Booking booking);
+
+    boolean removeBooking(int bookingID);
 
 
-    public Booking getBooking(int bookingID);
-    public Guest getGuest(int personID);
-    public void printBookingAsPDF(int bookingID);
+    Booking getBooking(int bookingID);
 
+    Guest getGuest(int personID);
+    List<Guest> getAllGuest();
+    List<Booking> getAllBooking();
 
-    public boolean updateGuest(Guest guest);
-    public boolean updateBooking(Booking booking);
+    PdfFile getInvoiceAsPdf(int bookingID);
 
-    public int generateBookingID();
-    public int generatePersonID();
+    boolean updateGuest(Guest guest);
+
+    boolean updateBooking(Booking booking);
+
+    List<Floor> getFloors();
+
+    List<Room> getRooms(int floorNr);
+
+    Room getRoom(int floorNr, int roomNr);
+
+    HotelConfiguration getHotelConfig();
 }
