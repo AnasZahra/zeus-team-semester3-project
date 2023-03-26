@@ -46,15 +46,28 @@ public class sceneController
      * meaning, we are going to get the source of this event and cast it to a node
      * cast the source to a node then cast it again to a Stage
      */
-    public void switchToDashboard(ActionEvent event) throws IOException
-    {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Dashboard.fxml")));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+
+
+    public void switchToDashboard(ActionEvent event) throws IOException {
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Dashboard.fxml")));
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+    }
+
+
+    public void switchToRoom(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Rooms.fxml")));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
 
     }
+
 
     public void switchToGuest(ActionEvent event) throws IOException
     {
@@ -78,31 +91,6 @@ public class sceneController
         stage.show();
     }
 
-/**
- @FXML private void handleBookRoomButtonAction(ActionEvent event) {
- if (nameField != null) {
- String roundButton = nameField.getText();
- }
-
- String roundButtonText = roundButton.getText();
- String roomNumber = roomField.getText();
-
- // Code to book the specified room in the hotel goes here
- // ...
-
- Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
- alert.setTitle("Room Booking Confirmation");
- alert.setHeaderText("Room Booked");
- alert.setContentText("Thank you, " + roundButtonText + ", for booking room number " + roomNumber + ".");
- Optional<ButtonType> result = alert.showAndWait();
-
- if (result.isPresent() && result.get() == ButtonType.OK) {
- // User clicked OK button
- }
- }
-
-
- */
 
 
     @FXML
@@ -118,32 +106,7 @@ public class sceneController
 
     }
 
-/**
-    @FXML
-    private void handleBookRoomButtonAction(ActionEvent event) {
-        if (nameField != null) {
-            String roundButton = nameField.getText();
-        }
 
-        String roundButtonText = roundButton.getText();
-        String roomNumber = roomField.getText();
-
-        // Code to book the specified room in the hotel goes here
-        // ...
-
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Room Booking Confirmation");
-        alert.setHeaderText("Room Booked");
-        alert.setContentText("Thank you, " + roundButtonText + ", for booking room number " + roomNumber + ".");
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            // User clicked OK button
-        }
-    }
-
-
-*/
 
 
 
