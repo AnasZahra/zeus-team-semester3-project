@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -32,6 +33,9 @@ public class sceneController
 
     @FXML
     private Button roundButton;
+
+    @FXML
+    private Button dashboardButton;
     /**
      //handleBookRoomButtonAction is an booking button event
      public void initialize() {
@@ -57,11 +61,19 @@ public class sceneController
 
     public void switchToGuest(ActionEvent event) throws IOException
     {
+        onDashboardSelected();
+        /*
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Guest.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+         */
+    }
+
+    public void onDashboardSelected()
+    {
+        dashboardButton.getStyleClass().add("on_click_menu_bar");
     }
 
 

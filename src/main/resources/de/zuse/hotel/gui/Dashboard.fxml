@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@Styling/background.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.sceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@Styling/background.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.sceneController">
    <children>
       <Button fx:id="roundButton" layoutX="1175.0" layoutY="613.0" mnemonicParsing="false" onAction="#handleBookRoomButtonAction" prefHeight="18.0" prefWidth="50.0" styleClass="roundBottun" stylesheets="@Styling/background.css" text="+" textAlignment="CENTER" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
          <font>
@@ -35,7 +32,7 @@
                   </Text>
                   <VBox layoutX="26.0" layoutY="214.0" prefHeight="504.0" prefWidth="184.0" styleClass="menu_container" stylesheets="@Styling/NavMenu.css" AnchorPane.topAnchor="214.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#switchToGuest" prefHeight="41.0" prefWidth="127.0" text="Dashboard">
+                        <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#switchToGuest" prefHeight="41.0" prefWidth="127.0" text="Dashboard">
                            <font>
                               <Font name="System Bold" size="22.0" />
                            </font>

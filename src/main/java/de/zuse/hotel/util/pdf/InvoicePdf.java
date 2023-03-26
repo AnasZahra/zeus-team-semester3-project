@@ -47,7 +47,6 @@ public class InvoicePdf implements PdfFile
 
                 Chunk linebreak = new Chunk(new LineSeparator());
                 document.add(linebreak);
-                document.add(new Paragraph("\n\n"));
             }
 
             //Booking details
@@ -64,7 +63,6 @@ public class InvoicePdf implements PdfFile
                 document.add(new Paragraph("Room: " + booking.getRoomNumber()));
                 Chunk linebreak = new Chunk(new DottedLineSeparator());
                 document.add(linebreak);
-                document.add(new Paragraph("\n\n"));
             }
 
             // Booked By
@@ -82,14 +80,13 @@ public class InvoicePdf implements PdfFile
 
             // Price Description
             {
-                float[] pointColumnWidths = {150.0f, 150.0f};
-                PdfPTable table = new PdfPTable(pointColumnWidths);
-                table.addCell("Description");
-                table.addCell("Amount");
+                Paragraph description = PDFWriter.createCustomParagraph(20, BaseFont.TIMES_BOLDITALIC,
+                        BaseColor.BLACK, "Description:");
+
+                document.add(description);
 
                 double roomPrice = HotelCore.get().getRoom(booking.getFloorNumber(), booking.getRoomNumber()).getPrice();
-                table.addCell("1 x Room Price(" + roomPrice + ")");
-                table.addCell(roomPrice + EURO_SYMOBL);
+                document.add(new Paragraph(roomPrice + EURO_SYMOBL));
 
                 StringBuffer services = new StringBuffer();
                 double totalPrice = 0.0f;
@@ -98,12 +95,11 @@ public class InvoicePdf implements PdfFile
                 while (it.hasNext())
                 {
                     String next = it.next();
-                    services.append("1 x ").append(next);
+                    services.append("(1 x " + next + ")");
                     totalPrice += HotelCore.get().getHotelConfig().getRoomServicePrice(next);
                 }
 
-                table.addCell(services.toString());
-                table.addCell(totalPrice + EURO_SYMOBL);
+                document.add(new Paragraph(services + ": " + totalPrice + EURO_SYMOBL));
             }
 
             document.close();

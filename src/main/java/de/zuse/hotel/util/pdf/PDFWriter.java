@@ -12,7 +12,6 @@ import java.io.IOException;
 
 public class PDFWriter
 {
-
     public static Paragraph createCustomParagraph(int fontSize, String fontType, BaseColor color, String text)
     {
         BaseFont bf = null;
@@ -28,5 +27,4 @@ public class PDFWriter
         Font font = new Font(bf, fontSize);
         return new Paragraph(text, font);
     }
-
 }
