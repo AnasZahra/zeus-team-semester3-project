@@ -6,10 +6,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import java.sql.PreparedStatement;
 import java.util.List;
 
-public class AdressConnecter implements DataBankOperation {
+public class AdressConnecter implements DatabaseOperations
+{
     private EntityManager manager ;
     private EntityManagerFactory managerFactory;
 

@@ -1,6 +1,5 @@
 package de.zuse.hotel.db;
 
-import de.zuse.hotel.core.Address;
 import de.zuse.hotel.core.Person;
 
 import javax.persistence.EntityManager;
@@ -11,7 +10,8 @@ import java.util.List;
 
 
 
-public class PresonConnecter implements DataBankOperation {
+public class PresonConnecter implements DatabaseOperations
+{
     private EntityManager manager ;
     private EntityManagerFactory managerFactory;
 

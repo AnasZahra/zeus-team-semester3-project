@@ -1,11 +1,24 @@
 package de.zuse.hotel.core;
 
 import de.zuse.hotel.util.ZuseCore;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Booking
 {
+    public int getFloorNumber()
+    {
+        return floorNumber;
+    }
+
+    public void setFloorNumber(int floorNumber)
+    {
+        this.floorNumber = floorNumber;
+    }
+
     public static class Payment
     {
         public enum Status
@@ -21,17 +34,22 @@ public class Booking
         public LocalDate date;
         public Status status;
         public Type type;
+        public float price;
+        private static float TAX = 10.0f;//TODO
 
-        public Payment(LocalDate date, Status status, Type type)
+        public Payment(LocalDate date, Status status, Type type, float price)
         {
+            ZuseCore.check(price >= 0.0f, "price must be >= 0");
+
             this.date = date;
             this.status = status;
             this.type = type;
+            this.price = price;
         }
 
         public Payment()
         {
-            this(LocalDate.now(), Status.NOT_PAID, Type.CASH);
+            this(LocalDate.now(), Status.NOT_PAID, Type.CASH, 0.0f);
         }
 
         @Override
@@ -54,8 +72,10 @@ public class Booking
     private LocalDate endDate;
     private Guest guest;
     private Payment payment;
+    private ArrayList<String> extraServices;
 
-    public Booking(int roomNumber , int floorNumber, LocalDate startDate, LocalDate endDate, Guest guest)
+
+    public Booking(int roomNumber, int floorNumber, LocalDate startDate, LocalDate endDate, Guest guest)
     {
         ZuseCore.check(roomNumber >= 0, "Number of Room should be greater than zero!!");
         ZuseCore.check(floorNumber >= 0, "Number of Room should be greater than zero!!");
@@ -63,8 +83,8 @@ public class Booking
         ZuseCore.check(endDate != null, "EndDate is null!!");
         ZuseCore.check(guest != null, "Guest is null!!");
 
-        ZuseCore.isValidDate(startDate,"not Valid startDate!!");
-        ZuseCore.isValidDate(endDate,"not Valid endDate!!");
+        ZuseCore.isValidDate(startDate, "not Valid startDate!!");
+        ZuseCore.isValidDate(endDate, "not Valid endDate!!");
 
         this.roomNumber = roomNumber;
         this.startDate = startDate;
@@ -72,6 +92,9 @@ public class Booking
         this.guest = guest;
         this.floorNumber = floorNumber;
         payment = new Payment();
+
+        //Service with size of available services in hotel
+        extraServices = new ArrayList<>(HotelCore.get().getHotelConfig().getRoomServiceNum());
     }
 
     public int createInvoice()
@@ -95,14 +118,12 @@ public class Booking
         return text;
     }
 
-    public void pay(LocalDate paymentDate, Payment.Type type)
+    public void pay(LocalDate paymentDate, Payment.Type type, float price)
     {
-        ZuseCore.check(paymentDate != null, "paymentDate is null!!");
-        ZuseCore.isValidDate(paymentDate,"not Valid Date!!");
+        ZuseCore.coreAssert(paymentDate != null, "paymentDate is null!!");
+        ZuseCore.isValidDate(paymentDate, "not Valid Date!!");
 
-        payment.status = Payment.Status.PAID;
-        payment.date = paymentDate;
-        payment.type = type;
+        payment = new Payment(paymentDate, Payment.Status.PAID,type,price);
     }
 
     public int getBookingID()
@@ -145,7 +166,7 @@ public class Booking
     public void setStartDate(LocalDate startDate)
     {
         ZuseCore.check(startDate != null, "StartDate is null!!");
-        ZuseCore.isValidDate(startDate,"not Valid startDate!!");
+        ZuseCore.isValidDate(startDate, "not Valid startDate!!");
 
         this.startDate = startDate;
     }
@@ -153,9 +174,27 @@ public class Booking
     public void setEndDate(LocalDate endDate)
     {
         ZuseCore.check(endDate != null, "EndDate is null!!");
-        ZuseCore.isValidDate(endDate,"not Valid startDate!!");
+        ZuseCore.isValidDate(endDate, "not Valid startDate!!");
 
         this.endDate = endDate;
+    }
+
+    public Guest getGuest()
+    {
+        return guest;
+    }
+
+    public void addExtraService(String serviceName)
+    {
+        ZuseCore.check(HotelCore.get().getHotelConfig().hasServiceName(serviceName), "Service Name is not valid!");
+        ZuseCore.check(extraServices.contains(serviceName) == false, "Room has already this service");
+
+        extraServices.add(serviceName);
+    }
+
+    public List<String> getBookedServices()
+    {
+        return extraServices;
     }
 
 }

@@ -4,17 +4,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import de.zuse.hotel.core.Floor;
+import de.zuse.hotel.core.HotelConfiguration;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 
 public class HotelSerializer
 {
     ObjectMapper mapper;
 
     private static final String YAML_WARNING_MESSAGE = "# Do not modify this file manually";
+    private static final String PROJECT_PATH = System.getProperty("user.dir");
+    private static final String SERIALIZING_LOCATION = "/src/main/resources/de/zuse/hotel/core/";
+    private static final String HOTEL_FILE_NAME = "hotel.yaml";
 
     public HotelSerializer()
     {
@@ -22,32 +27,43 @@ public class HotelSerializer
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, true);
     }
 
-    // TODO: (Basel) make it with generics!
-    public void serializeFloor(Floor floor) throws IOException
+    public void serializeHotel(HotelConfiguration hotelConfiguration) throws IOException
     {
-        File file = new File("room.yaml");
+        String path = PROJECT_PATH + SERIALIZING_LOCATION + HOTEL_FILE_NAME;
+        File file = new File(path);
 
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
         bufferedWriter.write(YAML_WARNING_MESSAGE);
 
-        mapper.writeValue(bufferedWriter, floor);
+        mapper.writeValue(bufferedWriter, hotelConfiguration);
         bufferedWriter.close();
     }
 
-    public Floor deserializeFloor(String filePath) throws IOException
+    public HotelConfiguration deserializeHotel() throws IOException
     {
-        File file = new File(filePath);
-        if (file.exists() && file.canRead())
+        String path = PROJECT_PATH + SERIALIZING_LOCATION + HOTEL_FILE_NAME;
+        if (!canDeserialize(path))
         {
-            // Deserialize
-            Floor floor = mapper.readValue(file, Floor.class);
-            ZuseCore.coreAssert(floor != null,"floor is null, Check Serializer!!");
-
-            return floor;
+            HotelConfiguration defaultConfig = new HotelConfiguration();
+            defaultConfig.setDefaultFloorsAndRooms();
+            return defaultConfig;
         }
 
-        ZuseCore.coreAssert(false,"can not find or read the file!!");
-        return null;
+        File file = new File(path);
+        // deserialize
+        HotelConfiguration hotelConfiguration = mapper.readValue(file, HotelConfiguration.class);
+        ZuseCore.coreAssert(hotelConfiguration != null, "floor is null, Check Serializer!!");
+
+        return hotelConfiguration;
+    }
+
+    public <T> boolean canDeserialize(String fileName)
+    {
+        File file = new File(fileName);
+        if (fileName == null || file == null || !file.exists() || !file.canRead())
+            return false;
+
+        return true;
     }
 
 }

@@ -90,7 +90,7 @@ class AddressTest {
     void testHouseNr() {
         final int expectedHouseNr = 30;
         Address address = new Address();
-        address.setHausnur(expectedHouseNr);
+        address.setHouseNr(expectedHouseNr);
         final int actualHouseNr = address.getHouseNr();
         assertEquals(expectedHouseNr, actualHouseNr);
 

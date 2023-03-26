@@ -30,6 +30,7 @@ public class Floor
     {
         ZuseCore.check(capacity >= rooms.size(), "Floor can not take any more rooms");
         ZuseCore.check(room.getFloorNr() == floorNr, "Floor Number must be the same!!");
+        ZuseCore.check(!rooms.contains(room), "Floor has same Room!!" + room.getRoomNr());
 
         rooms.add(room);
     }

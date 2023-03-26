@@ -16,8 +16,6 @@ public class Gui extends Application implements Layer
     public void onStart()
     {
         System.out.println("On Starting The Hotel App...");
-
-        HotelCore.init();
     }
 
     @Override
