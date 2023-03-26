@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -35,27 +36,30 @@
                   </Text>
                   <VBox layoutX="26.0" layoutY="214.0" prefHeight="504.0" prefWidth="184.0" styleClass="menu_container" stylesheets="@Styling/NavMenu.css" AnchorPane.topAnchor="214.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#switchToGuest" prefHeight="41.0" prefWidth="127.0" text="Dashboard">
+                        <Button fx:id="DshButton" mnemonicParsing="false" onAction="#switchToDashboard" prefHeight="41.0" prefWidth="105.0" text="Dashboard">
                            <font>
                               <Font name="System Bold" size="22.0" />
                            </font>
 
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#switchToGuest" prefHeight="47.0" prefWidth="146.0" text="Guests">
+                        <Button mnemonicParsing="false" onAction="#switchToGuest" prefHeight="47.0" prefWidth="72.0" text="Guests">
                            <font>
                               <Font name="System Bold" size="22.0" />
                            </font>
 
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#switchToGuest" prefHeight="47.0" prefWidth="146.0" text="Rooms">
+                        <Button mnemonicParsing="false" onAction="#switchToRoom" prefHeight="47.0" prefWidth="71.0" text="Rooms">
                            <font>
                               <Font name="System Bold" size="22.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#switchToGuest" prefHeight="47.0" prefWidth="146.0" text="Settings">
+                        <Button mnemonicParsing="false" onAction="#switchToDashboard" prefHeight="47.0" prefWidth="86.0" text="Settings">
                            <font>
                               <Font name="System Bold" size="22.0" />
                            </font>
+                           <VBox.margin>
+                              <Insets top="220.0" />
+                           </VBox.margin>
                         </Button>
                      </children>
                   </VBox>

@@ -43,6 +43,8 @@ public class sceneController {
      * meaning, we are going to get the source of this event and cast it to a node
      * cast the source to a node then cast it again to a Stage
      */
+
+
     public void switchToDashboard(ActionEvent event) throws IOException {
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Dashboard.fxml")));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -54,6 +56,15 @@ public class sceneController {
 
     public void switchToGuest(ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Guest.fxml")));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+    public void switchToRoom(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Rooms.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
