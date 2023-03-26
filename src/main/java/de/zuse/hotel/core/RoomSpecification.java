@@ -14,4 +14,5 @@ public class RoomSpecification
     {
         FREE, OCCUPIED, NOT_AVAILABLE
     }
+
 }

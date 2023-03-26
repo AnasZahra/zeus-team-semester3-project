@@ -15,6 +15,7 @@ public class Room
     private int roomNr;
     private int floorNr;
     private double price;
+
     private RoomSpecification.Types roomType;
 
     @JsonIgnore
