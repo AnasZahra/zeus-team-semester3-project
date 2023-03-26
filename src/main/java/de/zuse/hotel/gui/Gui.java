@@ -9,6 +9,9 @@ import javafx.stage.Stage;
 
 public class Gui extends Application implements Layer
 {
+
+
+
     @Override
     public void onStart()
     {
@@ -46,5 +49,7 @@ public class Gui extends Application implements Layer
         stage.show();
 
     }
-    
+
+
+
 }

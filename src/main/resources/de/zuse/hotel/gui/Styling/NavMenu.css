@@ -1,16 +1,16 @@
 .main_menu{
-    -fx-background-color: #232323;
+    -fx-background-color: #191717;
     -fx-alignment: center;
 }
 
 .left_container{
-    -fx-background-color: #232323;
+    -fx-background-color: #191717;
     -fx-background-radius: 10;
-    -fx-effect: dropshadow(two-pass-box, #232323,5,0,0,4);
+    -fx-effect: dropshadow(two-pass-box, #191717,5,0,0,4);
 }
 
 .title_container{
-    -fx-background-color: #232323;
+    -fx-background-color: #191717;
     -fx-background-radius: 20,20,0,0;
 }
 
@@ -27,7 +27,7 @@
 .menu_container Button{
     -fx-pref-width: 150;
     -fx-pref-height: 40;
-    -fx-background-color: #232323;
+    -fx-background-color: #191717;
     -fx-text-fill: #FFFFFF ;
     -fx-font-size: 1.4em;
     -fx-font-weight: Bold;
