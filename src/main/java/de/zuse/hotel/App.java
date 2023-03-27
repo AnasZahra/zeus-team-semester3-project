@@ -19,11 +19,6 @@ public class App
         layer.onStart();
         layer.run(args);
         layer.onClose();
-
-
-        //Test
-
-
     }
 }
 
