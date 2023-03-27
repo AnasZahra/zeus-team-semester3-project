@@ -8,9 +8,13 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <!-- Define your entity classes here -->
+        <class>de.zuse.hotel.core.Address</class>
         <class>de.zuse.hotel.core.Person</class>
+        <class>de.zuse.hotel.core.Payment</class>
+        <class>de.zuse.hotel.core.Booking</class>
 
         <!-- Database connection details -->
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbc.JDBCDriver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:file:src/main/resources/de/zuse/hotel/db/example"/>
