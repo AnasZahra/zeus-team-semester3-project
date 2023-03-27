@@ -9,7 +9,7 @@ public interface HotelCoreApi
     void setHotelName(String name);
     String getHotelName();
 
-    boolean addGuest(Guest guest);
+    boolean addGuest(Person guest);
 
     boolean removeGuest(int guestID);
 
@@ -20,13 +20,13 @@ public interface HotelCoreApi
 
     Booking getBooking(int bookingID);
 
-    Guest getGuest(int personID);
-    List<Guest> getAllGuest();
+    Person getGuest(int personID);
+    List<Person> getAllGuest();
     List<Booking> getAllBooking();
 
     PdfFile getInvoiceAsPdf(int bookingID);
 
-    boolean updateGuest(Guest guest);
+    boolean updateGuest(Person guest);
 
     boolean updateBooking(Booking booking);
 

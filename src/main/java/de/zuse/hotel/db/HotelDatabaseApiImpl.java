@@ -1,14 +1,30 @@
 package de.zuse.hotel.db;
 
 import de.zuse.hotel.core.Booking;
-import de.zuse.hotel.core.Guest;
+import de.zuse.hotel.core.Person;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 
 public class HotelDatabaseApiImpl implements HotelDatabaseApi
 {
+    private Connection dbConnecter;
+
+    public HotelDatabaseApiImpl()
+    {
+        try
+        {
+            dbConnecter = JDBCConnecter.getConnection();
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
     @Override
-    public boolean addGuest(Guest guest)
+    public boolean addGuest(Person guest)
     {
         PresonConnecter presonConnecter = new PresonConnecter();
         presonConnecter.dbCreate(guest);
@@ -24,7 +40,7 @@ public class HotelDatabaseApiImpl implements HotelDatabaseApi
     }
 
     @Override
-    public boolean updateGuest( Guest updatedGuest)
+    public boolean updateGuest( Person updatedGuest)
     {
         PresonConnecter presonConnecter = new PresonConnecter();
         presonConnecter.dbUpdate(updatedGuest);
@@ -33,18 +49,18 @@ public class HotelDatabaseApiImpl implements HotelDatabaseApi
     }
 
     @Override
-    public Guest getGuest(int guestID)
+    public Person getGuest(int guestID)
     {
         PresonConnecter presonConnecter = new PresonConnecter();
         return presonConnecter.dbsearchById(guestID);
     }
 
     @Override
-    public List<Guest> getAllGuest()
+    public List<Person> getAllGuest()
     {
         PresonConnecter presonConnecter = new PresonConnecter();
         presonConnecter.dbsearchAll();
-        return (List<Guest>) presonConnecter.dbsearchAll();
+        return (List<Person>) presonConnecter.dbsearchAll();
     }
 
     @Override
@@ -89,6 +105,12 @@ public class HotelDatabaseApiImpl implements HotelDatabaseApi
     @Override
     public void shutdown()
     {
-
+        try
+        {
+            dbConnecter.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 }

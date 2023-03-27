@@ -1,17 +1,17 @@
 package de.zuse.hotel.db;
 
 import de.zuse.hotel.core.Booking;
-import de.zuse.hotel.core.Guest;
+import de.zuse.hotel.core.Person;
 import java.util.List;
 
 public interface HotelDatabaseApi
 {
     //Guest
-    public boolean addGuest(Guest guest);
+    public boolean addGuest(Person guest);
     public boolean removeGuest(int guestId);
-    public boolean updateGuest( Guest updatedGuest); //should we use the Id or not
-    public Guest getGuest(int guestID);
-    public List<Guest> getAllGuest();
+    public boolean updateGuest( Person updatedGuest); //should we use the Id or not
+    public Person getGuest(int guestID);
+    public List<Person> getAllGuest();
 
     //Booking
     public boolean addBooking(Booking booking);
