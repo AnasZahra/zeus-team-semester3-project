@@ -21,7 +21,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class bookingWindow implements Initializable {
+public class BookingWindow implements Initializable {
     @FXML
     TextField nameFill;
     @FXML
@@ -35,7 +35,6 @@ public class bookingWindow implements Initializable {
     @FXML
     private ChoiceBox<Booking.Payment.Type> payment_ChoiceBox;
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         List<Room> roomlist =  HotelCore.get().getRooms(0 );
@@ -48,8 +47,6 @@ public class bookingWindow implements Initializable {
         }
         RoomChoiceBox.getItems().addAll(arr);
         payment_ChoiceBox.getItems().addAll(Booking.Payment.Type.values());
-
-
     }
 
 

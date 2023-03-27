@@ -36,6 +36,9 @@ public class HotelSerializer
         bufferedWriter.write(YAML_WARNING_MESSAGE);
 
         mapper.writeValue(bufferedWriter, hotelConfiguration);
+        mapper.writerWithDefaultPrettyPrinter()
+                .writeValueAsString(hotelConfiguration.getRoomServices());
+
         bufferedWriter.close();
     }
 

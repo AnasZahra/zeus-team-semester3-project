@@ -1,0 +1,26 @@
+# Do not modify this file manually---
+HotelConfiguration: !<HotelConfiguration>
+  hotelName: "Zuse Hotel"
+  hotelFloors:
+  - !<Floor>
+    floorNr: 1
+    capacity: 10
+    rooms:
+    - !<Room>
+      roomNr: 1
+      floorNr: 1
+      price: 100.0
+      roomType: null
+    - !<Room>
+      roomNr: 2
+      floorNr: 1
+      price: 100.0
+      roomType: null
+    - !<Room>
+      roomNr: 3
+      floorNr: 1
+      price: 100.0
+      roomType: null
+  roomServices:
+    Dinner: 20.0
+    Wifi: 10.0
