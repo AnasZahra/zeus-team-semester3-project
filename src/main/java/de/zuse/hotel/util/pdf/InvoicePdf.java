@@ -29,7 +29,7 @@ public class InvoicePdf implements PdfFile
     @Override
     public void saveFile(String filePath)
     {
-        Document document = new Document();
+        Document document = new Document(PageSize.A5);
 
         try
         {

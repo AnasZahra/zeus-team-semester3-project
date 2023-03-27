@@ -35,6 +35,7 @@ public class HotelConfiguration
 
     public void setDefaultFloorsAndRooms()
     {
+        //TODO: delete later
         if (hotelFloors == null)
             hotelFloors = new ArrayList<>(1);
 

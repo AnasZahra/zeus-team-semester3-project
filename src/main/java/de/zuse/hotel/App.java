@@ -2,7 +2,6 @@ package de.zuse.hotel;
 
 import de.zuse.hotel.gui.Gui;
 
-
 public class App
 {
     public static void main(String[] args)

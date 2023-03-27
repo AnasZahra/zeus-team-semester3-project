@@ -45,8 +45,6 @@
             <version>2.14.2</version>
         </dependency>
 
-
-
         <!-- Hibernate and Database -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -55,7 +53,6 @@
         </dependency>
 
         <dependency>
-
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <version>2.7.1</version>
