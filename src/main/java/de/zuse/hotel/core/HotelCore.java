@@ -6,6 +6,7 @@ import de.zuse.hotel.util.HotelSerializer;
 import de.zuse.hotel.util.ZuseCore;
 import de.zuse.hotel.util.pdf.PdfFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public class HotelCore implements HotelCoreApi
@@ -153,6 +154,34 @@ public class HotelCore implements HotelCoreApi
     public HotelConfiguration getHotelConfig()
     {
         return hotelConfiguration;
+    }
+
+    public void addNewRoomToHotel(int floorNr, Room room)
+    {
+        hotelConfiguration.addNewRoom(floorNr,room);
+
+        HotelSerializer hotelSerializer = new HotelSerializer();
+        try
+        {
+            hotelSerializer.serializeHotel(hotelConfiguration); // in case the app crash, the data does get lost
+        } catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void addNewFloorToHotel(Floor floor)
+    {
+        hotelConfiguration.addNewFloor(floor);
+
+        HotelSerializer hotelSerializer = new HotelSerializer();
+        try
+        {
+            hotelSerializer.serializeHotel(hotelConfiguration); // in case the app crash, the data does get lost
+        } catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

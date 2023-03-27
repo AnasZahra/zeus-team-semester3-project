@@ -16,7 +16,7 @@ public class HotelConfiguration
 {
     private String hotelName = "Zuse Hotel";
     private ArrayList<Floor> hotelFloors;
-    private HashMap<String, Float> roomServices;
+    private HashMap<String, Float> roomServices;//Let Admin dynamic add services
 
     public HotelConfiguration()
     {
@@ -35,6 +35,7 @@ public class HotelConfiguration
 
     public void setDefaultFloorsAndRooms()
     {
+        //TODO: delete later
         if (hotelFloors == null)
             hotelFloors = new ArrayList<>(1);
 
@@ -78,7 +79,7 @@ public class HotelConfiguration
 
     public void addNewRoomService(String serviceName, float price)
     {
-        ZuseCore.check(!roomServices.containsKey(serviceName),
+        ZuseCore.check(roomServices.containsKey(serviceName) == false,
                 "a service with same name has already been added!");
 
         roomServices.put(serviceName, price);
@@ -101,6 +102,11 @@ public class HotelConfiguration
     public boolean hasServiceName(String name)
     {
         return roomServices.get(name) != null;
+    }
+
+    public Map<String, Float> getRoomServices()
+    {
+        return roomServices;
     }
 
 

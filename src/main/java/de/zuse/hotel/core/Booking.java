@@ -66,7 +66,6 @@ public class Booking
 
     private int bookingID;
     private int roomNumber;
-
     private int floorNumber;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -123,7 +122,7 @@ public class Booking
         ZuseCore.coreAssert(paymentDate != null, "paymentDate is null!!");
         ZuseCore.isValidDate(paymentDate, "not Valid Date!!");
 
-        payment = new Payment(paymentDate, Payment.Status.PAID,type,price);
+        payment = new Payment(paymentDate, Payment.Status.PAID, type, price);
     }
 
     public int getBookingID()

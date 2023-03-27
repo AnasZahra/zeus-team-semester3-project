@@ -42,8 +42,6 @@ public class Room
         if (!(obj instanceof Room))
             return false;
 
-        Room c = (Room) obj;
-
         return ((Room) obj).getRoomNr() == this.getRoomNr();
     }
 

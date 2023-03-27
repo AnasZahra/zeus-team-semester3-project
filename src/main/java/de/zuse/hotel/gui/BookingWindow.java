@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class bookingWindow implements Initializable {
+public class BookingWindow implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
