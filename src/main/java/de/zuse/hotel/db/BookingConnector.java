@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.List;
+import java.util.function.Consumer;
 
 
 public class BookingConnector implements DatabaseOperations
@@ -48,25 +49,20 @@ public class BookingConnector implements DatabaseOperations
 
     @Override
     public void dbRemoveAll() {
-        manager.getTransaction().begin();
-        manager.createNativeQuery("INSERT INTO Booking_trash_collection SELECT * FROM Booking").executeUpdate();
-        manager.createNativeQuery("DELETE FROM Booking").executeUpdate();
-        manager.getTransaction().commit();
-        manager.close();
-
+        dbsearchAll().forEach(new Consumer<Object>() {
+            @Override
+            public void accept(Object o) {
+                dbRemoveById(((Booking) o ).getBookingID()); // cast to Booking and get id
+            }
+        });
     }
 
     @Override
     public void dbRemoveById(int id) {
-        manager.getTransaction().begin();
-        manager.createNativeQuery("INSERT INTO Booking_trash_collection SELECT * FROM Booking WHERE Id = :id")
-                .setParameter("id", id)
-                .executeUpdate();
-        manager.createNativeQuery("DELETE FROM Booking WHERE Id = :id")
-                .setParameter("id", id)
-                .executeUpdate();
-        manager.getTransaction().commit();
-        manager.close();
+        Booking booking = dbsearchById(id);
+        booking.canceledBooking();
+        dbUpdate(booking);
+
     }
 
     @Override

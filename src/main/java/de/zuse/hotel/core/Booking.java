@@ -73,6 +73,7 @@ public class Booking
     private Guest guest;
     private Payment payment;
     private ArrayList<String> extraServices;
+    private boolean canceled = false;
 
 
     public Booking(int roomNumber, int floorNumber, LocalDate startDate, LocalDate endDate, Guest guest)
@@ -195,6 +196,10 @@ public class Booking
     public List<String> getBookedServices()
     {
         return extraServices;
+    }
+
+    public void canceledBooking (){
+        canceled = true;
     }
 
 }
