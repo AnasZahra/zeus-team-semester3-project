@@ -16,7 +16,7 @@ public class HotelDatabaseApiImpl implements HotelDatabaseApi
     {
         try
         {
-            dbConnecter = JDBCConnecter.getConnection();
+            JDBCConnecter.getConnection();
         }catch (Exception e)
         {
             e.printStackTrace();
