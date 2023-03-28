@@ -31,13 +31,14 @@ public class Booking
     private Person guest;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Payment_id", nullable = false)
+    @JoinColumn(name = "Payment_Id", nullable = false)
     private Payment payment;
+
+    @Column(name = "Guests_Num", nullable = false)
+    private int guestsNum;
 
     //private ArrayList<String> extraServices;
     private boolean canceled = false;
-
-
     //private ArrayList<String> extraServices; TODO later
 
     public Booking(int roomNumber, int floorNumber, LocalDate startDate, LocalDate endDate, Person guest)
@@ -69,20 +70,20 @@ public class Booking
         return 0;
     }
 
-    public String[] generatePdf()
+    @Override
+    public String toString()
     {
-        //TODO(Basel): format text
-        String[] text =
-                {
-                        "BookingID: " + bookingID,
-                        "RoomNumber: " + roomNumber,
-                        "StartDate: " + startDate,
-                        "EndDate: " + endDate,
-                        "Guest: " + guest.toString(),
-                        payment.toString()
-                };
-
-        return text;
+        return "Booking{" +
+                "bookingID=" + bookingID +
+                ", roomNumber=" + roomNumber +
+                ", floorNumber=" + floorNumber +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", guest=" + guest +
+                ", payment=" + payment +
+                ", guestsNum=" + guestsNum +
+                ", canceled=" + canceled +
+                '}';
     }
 
     public void pay(LocalDate paymentDate, Payment.Type type, float price)
@@ -180,4 +181,13 @@ public class Booking
         canceled = true;
     }
 
+    public int getGuestsNum()
+    {
+        return guestsNum;
+    }
+
+    public void setGuestsNum(int guestsNum)
+    {
+        this.guestsNum = guestsNum;
+    }
 }

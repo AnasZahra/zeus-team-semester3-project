@@ -33,7 +33,7 @@ public class PresonConnecter implements DatabaseOperations
 
     @Override
     public List<?> dbsearchAll() {
-        List<Person> allPerson = manager.createNativeQuery("SELECT * FROM address", Person.class)
+        List<Person> allPerson = manager.createNativeQuery("SELECT * FROM Person", Person.class)
                 .getResultList();
         return allPerson;
     }
