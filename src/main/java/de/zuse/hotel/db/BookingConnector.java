@@ -33,7 +33,7 @@ public class BookingConnector implements DatabaseOperations
 
     @Override
     public List<?> dbsearchAll() {
-        List<Booking> allBooking = manager.createNativeQuery("SELECT * FROM Booking", Booking.class)
+        List<Booking> allBooking = manager.createNativeQuery("SELECT * FROM Bookings", Booking.class)
                 .getResultList();
         return allBooking;
     }

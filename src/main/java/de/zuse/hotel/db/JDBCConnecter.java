@@ -12,14 +12,11 @@ import java.util.Enumeration;
 
 public class JDBCConnecter
 {
-    ////localhost/testdb
-    //file:src/main/db/dbFiles
-    private static final String DB_NAME = "jdbc:hsqldb:hsql://localhost/testdb";
-    //src/main/resources/de/zuse/hotel/db/example
-    private static final String USER_NAME = "SA";
-    private static final String PASSWORD = "";
+    //jdbc:hsqldb:hsql://localhost/testdb
+    private static final String DB_NAME = "jdbc:hsqldb:file:src/main/resources/de/zuse/hotel/db/example";
+    private static final String USER_NAME = "root";
+    private static final String PASSWORD = "root123";
     public static final String PERSISTENCE_NAME = "ZuseHotel";
-
     private static Connection conn;
 
 
@@ -35,43 +32,45 @@ public class JDBCConnecter
 
     public static void getConnection() throws Exception
     {
-
         String dbTablesCreationCommando = readFile("src/main/resources/de/zuse/hotel/db/dbTablesCreation.sql");
 
-        //return DriverManager.getConnection(DB_NAME, USER_NAME, PASSWORD);
-        try{
+        try
+        {
             Class.forName("org.hsqldb.jdbcDriver");
-        }catch (ClassNotFoundException e)
+        } catch (ClassNotFoundException e)
         {
             System.err.println("ERROR: failed to load HSQLDB JDBC driver.");
             return;
         }
 
-        try{
+        try
+        {
             conn = DriverManager.getConnection(DB_NAME, USER_NAME, PASSWORD);
-
-
-            //trash tables creation commando
-            //conn.createStatement().executeUpdate(dbTablesCreationCommando);
-
-
-        }catch (SQLException e){
+        } catch (SQLException e)
+        {
             e.printStackTrace();
-        }finally {
-            conn.close();
         }
-
-
     }
 
-    public static String readFile(String fileName) throws Exception{
+    public static void shutdown()
+    {
+        try
+        {
+            conn.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static String readFile(String fileName) throws Exception
+    {
 
         File file = new File(fileName);
         String s = FileUtils.readFileToString(file, "utf-8");
         return s;
 
     }
-
 
 
 }
