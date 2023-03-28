@@ -27,24 +27,6 @@ public class Room
     // Without a default constructor, Jackson will throw an exception
     public Room(){}
 
-    @Override
-    public int hashCode()
-    {
-        return super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (obj == this)
-            return true;
-
-        if (!(obj instanceof Room))
-            return false;
-
-        return ((Room) obj).getRoomNr() == this.getRoomNr();
-    }
-
     public Room(Floor floor, int roomNr, double price)
     {
         ZuseCore.check(roomNr >= 0, "roomNr can not be null");
@@ -53,6 +35,12 @@ public class Room
         this.floorNr = floor.getFloorNr();
         this.roomNr = roomNr;
         this.price = price;
+    }
+
+    public Room(Floor floor, int roomNr, double price, RoomSpecification.Types roomType)
+    {
+        this(floor,roomNr,price);
+        this.roomType = roomType;
     }
 
     public int getRoomNr()
@@ -128,6 +116,24 @@ public class Room
                 ", status=" + status +
                 ", bookings=" + bookings +
                 '}';
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == this)
+            return true;
+
+        if (!(obj instanceof Room))
+            return false;
+
+        return ((Room) obj).getRoomNr() == this.getRoomNr();
     }
 
 

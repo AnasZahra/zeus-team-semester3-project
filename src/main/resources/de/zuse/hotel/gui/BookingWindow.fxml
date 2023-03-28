@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="Window" prefHeight="720.0" prefWidth="500.0" styleClass="bg" stylesheets="@Styling/BookingWindow.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.BookingWindow">
+    <children>
+        <Label layoutX="61.0" layoutY="68.0" text="New Guest" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Label>
+        <TextField fx:id="guestName" layoutX="61.0" layoutY="151.0" prefHeight="35.0" prefWidth="381.0" promptText="Name" styleClass="nameFill" />
+        <DatePicker fx:id="arrivalDate" layoutX="55.0" layoutY="253.0" prefHeight="45.0" prefWidth="174.0" styleClass="date" stylesheets="@Styling/datePickerStyle.css" />
+        <DatePicker fx:id="depatureDate" layoutX="268.0" layoutY="253.0" prefHeight="45.0" prefWidth="174.0" stylesheets="@Styling/datePickerStyle.css" />
+        <Label layoutX="55.0" layoutY="219.0" text="Arrival" textFill="WHITE">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Label layoutX="268.0" layoutY="219.0" text="Depature" textFill="WHITE">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <ChoiceBox layoutX="55.0" layoutY="365.0" prefHeight="30.0" prefWidth="174.0" />
+        <Label layoutX="55.0" layoutY="337.0" text="Floor" textFill="WHITE">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <ChoiceBox layoutX="268.0" layoutY="367.0" prefHeight="30.0" prefWidth="174.0" />
+        <Label layoutX="268.0" layoutY="339.0" text="Room" textFill="WHITE">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Label layoutX="55.0" layoutY="414.0" prefHeight="25.0" prefWidth="66.0" text="Payment" textFill="WHITE">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Label layoutX="268.0" layoutY="416.0" text="Guests" textFill="WHITE">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Button fx:id="book" layoutX="137.0" layoutY="568.0" mnemonicParsing="false" onAction="#addBooking" prefHeight="35.0" prefWidth="229.0" styleClass="book" stylesheets="@Styling/BookingWindow.css" text="add booking" textFill="WHITE">
+            <font>
+                <Font size="17.0" />
+            </font>
+        </Button>
+        <Button fx:id="closeBtnId" layoutX="177.0" layoutY="612.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="229.0" styleClass="cancel" text="cancel">
+            <font>
+                <Font size="17.0" />
+            </font>
+        </Button>
+        <TextField layoutX="57.0" layoutY="504.0" prefHeight="35.0" prefWidth="388.0" promptText="price" styleClass="nameFill" />
+        <ChoiceBox fx:id="paymentChoiceBox" layoutX="55.0" layoutY="444.0" prefHeight="30.0" prefWidth="174.0" />
+        <TextField fx:id="guestsNumber" layoutX="268.0" layoutY="444.0" prefHeight="30.0" prefWidth="174.0" promptText="number" styleClass="guestsNumber" />
+    </children>
+</AnchorPane>

@@ -46,3 +46,4 @@ build/
 *.properties
 *.lck
 *.script
+*.yaml

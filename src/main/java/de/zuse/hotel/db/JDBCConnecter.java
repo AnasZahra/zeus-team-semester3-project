@@ -2,6 +2,8 @@ package de.zuse.hotel.db;
 
 import org.apache.commons.io.FileUtils;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.Driver;
@@ -18,6 +20,7 @@ public class JDBCConnecter
     private static final String PASSWORD = "root123";
     public static final String PERSISTENCE_NAME = "ZuseHotel";
     private static Connection conn;
+    private static EntityManagerFactory factory;
 
 
     public static void printDrivers()
@@ -52,15 +55,10 @@ public class JDBCConnecter
         }
     }
 
-    public static void shutdown()
+    public static void shutdown() throws Exception
     {
-        try
-        {
-            conn.close();
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
+        conn.close();
+        factory.close();
     }
 
     public static String readFile(String fileName) throws Exception
@@ -69,8 +67,21 @@ public class JDBCConnecter
         File file = new File(fileName);
         String s = FileUtils.readFileToString(file, "utf-8");
         return s;
-
     }
 
-
+    public static EntityManagerFactory getEntityManagerFactory()
+    {
+        try
+        {
+            if (factory == null)
+            {
+                factory = Persistence.createEntityManagerFactory(PERSISTENCE_NAME);
+            }
+            return factory;
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

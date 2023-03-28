@@ -32,6 +32,7 @@ public class ConsoleDialogLayer implements Layer
     {
         System.out.println("Start Loading Database..");
         input = new Scanner(System.in);
+        HotelCore.init();
     }
 
     @Override

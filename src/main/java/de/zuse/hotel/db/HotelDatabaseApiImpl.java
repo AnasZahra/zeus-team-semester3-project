@@ -10,19 +10,19 @@ import java.util.Objects;
 
 public class HotelDatabaseApiImpl implements HotelDatabaseApi
 {
-    private Connection dbConnecter;
-
     public HotelDatabaseApiImpl()
     {
         try
         {
             JDBCConnecter.getConnection();
-        }catch (Exception e)
+            JDBCConnecter.getEntityManagerFactory();
+        } catch (Exception e)
         {
             e.printStackTrace();
         }
 
     }
+
     @Override
     public boolean addGuest(Person guest)
     {
@@ -40,7 +40,7 @@ public class HotelDatabaseApiImpl implements HotelDatabaseApi
     }
 
     @Override
-    public boolean updateGuest( Person updatedGuest)
+    public boolean updateGuest(Person updatedGuest)
     {
         PresonConnecter presonConnecter = new PresonConnecter();
         presonConnecter.dbUpdate(updatedGuest);
@@ -80,7 +80,7 @@ public class HotelDatabaseApiImpl implements HotelDatabaseApi
     }
 
     @Override
-    public boolean updateBooking( Booking updatedBooking)
+    public boolean updateBooking(Booking updatedBooking)
     {
         BookingConnector bookingConnector = new BookingConnector();
         bookingConnector.dbUpdate(updatedBooking);
@@ -103,14 +103,8 @@ public class HotelDatabaseApiImpl implements HotelDatabaseApi
     }
 
     @Override
-    public void shutdown()
+    public void shutdown() throws Exception
     {
-        try
-        {
-            dbConnecter.close();
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
+        JDBCConnecter.shutdown();
     }
 }

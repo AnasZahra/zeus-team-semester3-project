@@ -1,84 +1,108 @@
 package de.zuse.hotel.gui;
 
 import de.zuse.hotel.core.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
-import java.net.URL;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.Arrays;
+import java.util.function.Consumer;
 
-public class BookingWindow implements Initializable {
+public class BookingWindow implements ControllerApi
+{
+    public Button closeBtnId;
+    public TextField guestsNumber;
     @FXML
-    TextField nameFill;
+    TextField guestName;
     @FXML
-    private DatePicker ArrivalDate;
+    private DatePicker arrivalDate;
     @FXML
-    private DatePicker DepatureDate; // small leter pls jan
-
-    @FXML
-    private ChoiceBox<Integer> RoomChoiceBox;
-
-    @FXML
-    private ChoiceBox<Payment.Type> payment_ChoiceBox;
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
-
+    private DatePicker depatureDate; // small leter pls jan
 
     @FXML
-    void handleBookRoomButtonAction(ActionEvent event) throws Exception{
+    private ChoiceBox<Integer> roomChoiceBox;
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("bookingWindow.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 400, 720);
-        Stage stage = new Stage();
-        stage.setTitle("Book a room");
-        stage.setScene(scene);
-        stage.initModality(Modality.APPLICATION_MODAL); //default, for closing th pop up window
-        stage.show();
+    @FXML
+    private ChoiceBox<Payment.Type> paymentChoiceBox;
+
+    @FXML
+    void closeWindow()
+    {
+        Stage stage = (Stage) closeBtnId.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
-    void addBooking (ActionEvent event)throws Exception{
-        String gustname = nameFill.getText();
-
-        LocalDate arrivalDate = ArrivalDate.getValue();
-        LocalDate depatureDate = DepatureDate.getValue();
-
-        Payment.Type pymentType = payment_ChoiceBox.getValue();
-        int roomChoiceBox = RoomChoiceBox.getValue();
-
-        List<Room> roomlist =  HotelCore.get().getRooms(0 );
-        Integer[] arr = new Integer[roomlist.size()];
-        for (int i = 0; i< roomlist.size();i++)
+    void addBooking(ActionEvent event) throws Exception
+    {
+        String gustname = guestName.getText();
+        Person person = HotelCore.get().getGuest(1);
+        if (person == null)//Delete Later
         {
-            Room room = roomlist.get(i);
-            if (room != null)
-                arr[i] = room.getRoomNr();
+            person = new Person("basel", "saad", LocalDate.of(1999, 5, 22), "email@gmail"
+                    , "123456789111", new Address("de", "vk", "st", 66333, 24));
+
+            HotelCore.get().addGuest(person);
         }
 
-        RoomChoiceBox.getItems().addAll(arr);
-        payment_ChoiceBox.getItems().addAll(Payment.Type.values());
-        /*
-        Booking booking = new Booking(roomChoiceBox, floor,  arrivalDate, depatureDate, );
-
+        Booking booking = new Booking(0, 0, arrivalDate.getValue(), depatureDate.getValue(), person);
+        booking.getPayment().type = paymentChoiceBox.getValue();
+        booking.addExtraService("Dinner");
+        booking.addExtraService("Wifi");
         HotelCore.get().addBooking(booking);
-        */
+        closeWindow();
     }
 
+    @Override
+    public void onStart()
+    {
+        // Set payment ChoiceBox values
+        Arrays.stream(Payment.Type.values()).toList().forEach(new Consumer<Payment.Type>()
+        {
+            @Override
+            public void accept(Payment.Type type)
+            {
+                paymentChoiceBox.getItems().add(type);
+            }
+        });
+        paymentChoiceBox.setValue(Payment.Type.CASH);
 
+        //guestsNumber Take only numbers
+        guestsNumber.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (!newValue.matches("\\d*"))
+                    guestsNumber.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
 
+        // for guest Name take only chars
+        guestName.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (!newValue.matches("[A-Za-z]+"))
+                {
+                    guestName.setText(newValue.replaceAll("[^A-Za-z]", ""));
+                }
+            }
+        });
 
+    }
+
+    @Override
+    public void onUpdateDb()
+    {
+    }
 }

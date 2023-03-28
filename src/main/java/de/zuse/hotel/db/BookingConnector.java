@@ -12,61 +12,71 @@ import java.util.function.Consumer;
 
 public class BookingConnector implements DatabaseOperations
 {
-    private EntityManager manager ;
-    private EntityManagerFactory managerFactory;
-
-
-    public BookingConnector(){
-        managerFactory  = Persistence.createEntityManagerFactory(JDBCConnecter.PERSISTENCE_NAME);
-        manager = managerFactory.createEntityManager();
-    }
-
     @Override
-    public void dbCreate(Object object) {
-        if (object instanceof Booking) {
+    public void dbCreate(Object object)
+    {
+        if (object instanceof Booking)
+        {
+            EntityManager manager = JDBCConnecter.getEntityManagerFactory().createEntityManager();
             Booking booking = (Booking) object;
             manager.getTransaction().begin();
             manager.persist(booking);
             manager.getTransaction().commit();
+            manager.close();
         }
     }
 
     @Override
-    public List<?> dbsearchAll() {
+    public List<?> dbsearchAll()
+    {
+        EntityManager manager = JDBCConnecter.getEntityManagerFactory().createEntityManager();
+        manager.getTransaction().begin();
         List<Booking> allBooking = manager.createNativeQuery("SELECT * FROM Bookings", Booking.class)
                 .getResultList();
+        manager.getTransaction().commit();
+        manager.close();
+
         return allBooking;
     }
 
     @Override
-    public <T> T dbsearchById  (int id) {
+    public <T> T dbsearchById(int id)
+    {
+        EntityManager manager = JDBCConnecter.getEntityManagerFactory().createEntityManager();
         manager.getTransaction().begin();
         Booking booking = manager.find(Booking.class, id);
         manager.getTransaction().commit();
         manager.close();
-        return (T) booking ;
+        return (T) booking;
     }
 
     @Override
-    public void dbRemoveAll() {
-        dbsearchAll().forEach(new Consumer<Object>() {
+    public void dbRemoveAll()
+    {
+        dbsearchAll().forEach(new Consumer<Object>()
+        {
             @Override
-            public void accept(Object o) {
-                dbRemoveById(((Booking) o ).getBookingID()); // cast to Booking and get id
+            public void accept(Object o)
+            {
+                dbRemoveById(((Booking) o).getBookingID()); // cast to Booking and get id
             }
         });
     }
 
     @Override
-    public void dbRemoveById(int id) {
+    public void dbRemoveById(int id)
+    {
         Booking booking = dbsearchById(id);
         booking.canceledBooking();
         dbUpdate(booking);
     }
 
     @Override
-    public void dbUpdate(Object object) {
-        if(object instanceof Person) {
+    public void dbUpdate(Object object)
+    {
+        if (object instanceof Person)
+        {
+            EntityManager manager = JDBCConnecter.getEntityManagerFactory().createEntityManager();
             Person person = (Person) object;
             System.out.println((Person) dbsearchById(person.getId()));
             manager.getTransaction().begin();
@@ -78,7 +88,8 @@ public class BookingConnector implements DatabaseOperations
     }
 
     @Override
-    public List<?> dbSerscheforanythinhg(String searchTerm) { // basel
+    public List<?> dbSerscheforanythinhg(String searchTerm)
+    { // basel
         /*String query = "SELECT * FROM address WHERE ";
         query += "Id = ?1 OR ";
         query += "roomNumber = ?3 OR ";
@@ -97,7 +108,6 @@ public class BookingConnector implements DatabaseOperations
         return result;*/
         return null;
     }
-
 
 
 }
