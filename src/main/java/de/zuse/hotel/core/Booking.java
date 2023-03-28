@@ -34,6 +34,10 @@ public class Booking
     @JoinColumn(name = "Payment_id", nullable = false)
     private Payment payment;
 
+    //private ArrayList<String> extraServices;
+    private boolean canceled = false;
+
+
     //private ArrayList<String> extraServices; TODO later
 
     public Booking(int roomNumber, int floorNumber, LocalDate startDate, LocalDate endDate, Person guest)
@@ -170,6 +174,10 @@ public class Booking
     public void setFloorNumber(int floorNumber)
     {
         this.floorNumber = floorNumber;
+    }
+
+    public void canceledBooking (){
+        canceled = true;
     }
 
 }
