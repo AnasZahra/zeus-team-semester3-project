@@ -4,26 +4,33 @@ import de.zuse.hotel.util.ZuseCore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 
 
-
-
+@Entity
+@Table(name = "Person")
 public class Person {
-
-
-
-
     private static final int TELEPHONE_NUMBER_COUNT = 12;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "Firstname", nullable = false)
     private String firstname;
+    @Column(name = "Lastname", nullable = false)
     private String lastname;
+    @Column(name = "Birthday", nullable = false)
     private LocalDate birthday;
+    @Column(name = "Email")
     private String email;
+    @Column(name = "Phone_Number", length = TELEPHONE_NUMBER_COUNT)
     private String teleNumber;
-
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", nullable = false)
     private Address address;
+
+    //private ArrayList<Integer> bookingID;
 
     public Person(String firstname, String lastname, LocalDate birthday, String email, String teleNumber, Address address)
     {

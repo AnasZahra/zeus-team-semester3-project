@@ -6,7 +6,6 @@ import de.zuse.hotel.util.HotelSerializer;
 import de.zuse.hotel.util.ZuseCore;
 import de.zuse.hotel.util.pdf.PdfFile;
 
-import java.io.IOException;
 import java.util.List;
 
 public class HotelCore implements HotelCoreApi
@@ -71,7 +70,7 @@ public class HotelCore implements HotelCoreApi
     }
 
     @Override
-    public boolean addGuest(Guest guest)
+    public boolean addGuest(Person guest)
     {
         return hotelDatabaseApi.addGuest(guest);
     }
@@ -101,13 +100,13 @@ public class HotelCore implements HotelCoreApi
     }
 
     @Override
-    public Guest getGuest(int personID)
+    public Person getGuest(int personID)
     {
         return hotelDatabaseApi.getGuest(personID);
     }
 
     @Override
-    public List<Guest> getAllGuest()
+    public List<Person> getAllGuest()
     {
         return hotelDatabaseApi.getAllGuest();
     }
@@ -125,7 +124,7 @@ public class HotelCore implements HotelCoreApi
     }
 
     @Override
-    public boolean updateGuest(Guest guest)
+    public boolean updateGuest(Person guest)
     {
         return hotelDatabaseApi.updateGuest(guest);
     }
@@ -154,34 +153,6 @@ public class HotelCore implements HotelCoreApi
     public HotelConfiguration getHotelConfig()
     {
         return hotelConfiguration;
-    }
-
-    public void addNewRoomToHotel(int floorNr, Room room)
-    {
-        hotelConfiguration.addNewRoom(floorNr,room);
-
-        HotelSerializer hotelSerializer = new HotelSerializer();
-        try
-        {
-            hotelSerializer.serializeHotel(hotelConfiguration); // in case the app crash, the data does get lost
-        } catch (IOException e)
-        {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void addNewFloorToHotel(Floor floor)
-    {
-        hotelConfiguration.addNewFloor(floor);
-
-        HotelSerializer hotelSerializer = new HotelSerializer();
-        try
-        {
-            hotelSerializer.serializeHotel(hotelConfiguration); // in case the app crash, the data does get lost
-        } catch (IOException e)
-        {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override

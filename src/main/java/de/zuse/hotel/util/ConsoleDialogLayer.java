@@ -1,10 +1,7 @@
 package de.zuse.hotel.util;
 
 import de.zuse.hotel.Layer;
-import de.zuse.hotel.core.Address;
-import de.zuse.hotel.core.Booking;
-import de.zuse.hotel.core.Guest;
-import de.zuse.hotel.core.HotelCore;
+import de.zuse.hotel.core.*;
 
 
 import java.time.LocalDate;
@@ -93,7 +90,7 @@ public class ConsoleDialogLayer implements Layer
 
     private void addGuest()
     {
-        Guest guest = readGuestInfo();
+        Person guest = readGuestInfo();
 
         HotelCore.get().addGuest(guest);
     }
@@ -108,7 +105,7 @@ public class ConsoleDialogLayer implements Layer
 
     private void updateGuest()
     {
-        Guest guest = readGuestInfo();
+        Person guest = readGuestInfo();
         HotelCore.get().updateGuest(guest);
     }
 
@@ -116,19 +113,19 @@ public class ConsoleDialogLayer implements Layer
     {
         System.out.print("Enter Guest ID: ");
         int id = readInteger();
-        Guest guest = HotelCore.get().getGuest(id);
+        Person guest = HotelCore.get().getGuest(id);
 
         System.out.println(guest.toString());
     }
 
     private void getAllGuests()
     {
-        List<Guest> guests = HotelCore.get().getAllGuest();
+        List<Person> guests = HotelCore.get().getAllGuest();
         //guests.forEach(System.out::println);
 
         if (guests != null)
         {
-            for (Guest guest : guests)
+            for (Person guest : guests)
                 if (guest != null)
                     System.out.println(guest);
         }
@@ -222,7 +219,7 @@ public class ConsoleDialogLayer implements Layer
         return new Address(country, city, street, plz, houseNr);
     }
 
-    private Guest readGuestInfo()
+    private Person readGuestInfo()
     {
         System.out.print("FirstName: ");
         String firstName = readString();
@@ -235,12 +232,11 @@ public class ConsoleDialogLayer implements Layer
         System.out.print("Email: ");
         String email = readString();
 
-
         System.out.print("TelephoneNr: ");
         String telNr = readString();
 
         Address address = readAddressInfo();
-        return new Guest(firstName, lastName, birthday, email, telNr, address);
+        return new Person(firstName, lastName, birthday, email, telNr, address);
     }
 
     public Booking readBookingInfo()
@@ -257,28 +253,28 @@ public class ConsoleDialogLayer implements Layer
         System.out.println("Enter Guest Id: ");
         int guestID = readInteger();
 
-        Guest guest = HotelCore.get().getGuest(guestID);
+        Person guest = HotelCore.get().getGuest(guestID);
         Booking booking = new Booking(roomNr, floorNr, startDate, endDate, guest);
 
         System.out.println("is it Paid?: ");
-        System.out.println("Paid: " + Booking.Payment.Status.PAID.ordinal());
-        System.out.println("Not Paid: " + Booking.Payment.Status.NOT_PAID.ordinal());
+        System.out.println("Paid: " + Payment.Status.PAID.ordinal());
+        System.out.println("Not Paid: " + Payment.Status.NOT_PAID.ordinal());
         int paymentStatus = readInteger();
 
-        if (paymentStatus == Booking.Payment.Status.PAID.ordinal())
+        if (paymentStatus == Payment.Status.PAID.ordinal())
         {
             LocalDate payDate = readDate("Payment_Date");
             System.out.println("\n----PaymentType---\n");
-            System.out.println("CASH: " + Booking.Payment.Type.CASH.ordinal());
-            System.out.println("CREDIT_CARD: " + Booking.Payment.Type.CREDIT_CARD.ordinal());
-            System.out.println("DEBIT_CARD: " + Booking.Payment.Type.DEBIT_CARD.ordinal());
-            System.out.println("MOBILE_PAYMENT: " + Booking.Payment.Type.MOBILE_PAYMENT.ordinal());
+            System.out.println("CASH: " + Payment.Type.CASH.ordinal());
+            System.out.println("CREDIT_CARD: " + Payment.Type.CREDIT_CARD.ordinal());
+            System.out.println("DEBIT_CARD: " + Payment.Type.DEBIT_CARD.ordinal());
+            System.out.println("MOBILE_PAYMENT: " + Payment.Type.MOBILE_PAYMENT.ordinal());
             int paymentTypeInput = readInteger();
 
             System.out.println("Enter Price(float): ");
             float price = readFloat();
 
-            booking.pay(payDate, Booking.Payment.Type.values()[paymentTypeInput], price);
+            booking.pay(payDate, Payment.Type.values()[paymentTypeInput], price);
         }
 
         return booking;
