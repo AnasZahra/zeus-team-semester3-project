@@ -1,9 +1,6 @@
 package de.zuse.hotel.gui;
 
-import de.zuse.hotel.core.Booking;
-import de.zuse.hotel.core.Guest;
-import de.zuse.hotel.core.HotelCore;
-import de.zuse.hotel.core.Room;
+import de.zuse.hotel.core.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,20 +30,11 @@ public class BookingWindow implements Initializable {
     private ChoiceBox<Integer> RoomChoiceBox;
 
     @FXML
-    private ChoiceBox<Booking.Payment.Type> payment_ChoiceBox;
+    private ChoiceBox<Payment.Type> payment_ChoiceBox;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<Room> roomlist =  HotelCore.get().getRooms(0 );
-        Integer[] arr = new Integer[roomlist.size()];
-        for (int i = 0; i< roomlist.size();i++)
-        {
-            Room room = roomlist.get(i);
-            if (room != null)
-                arr[i] = room.getRoomNr();
-        }
-        RoomChoiceBox.getItems().addAll(arr);
-        payment_ChoiceBox.getItems().addAll(Booking.Payment.Type.values());
+
     }
 
 
@@ -69,18 +57,25 @@ public class BookingWindow implements Initializable {
         LocalDate arrivalDate = ArrivalDate.getValue();
         LocalDate depatureDate = DepatureDate.getValue();
 
-        Booking.Payment.Type pymentType = payment_ChoiceBox.getValue();
+        Payment.Type pymentType = payment_ChoiceBox.getValue();
         int roomChoiceBox = RoomChoiceBox.getValue();
 
+        List<Room> roomlist =  HotelCore.get().getRooms(0 );
+        Integer[] arr = new Integer[roomlist.size()];
+        for (int i = 0; i< roomlist.size();i++)
+        {
+            Room room = roomlist.get(i);
+            if (room != null)
+                arr[i] = room.getRoomNr();
+        }
+
+        RoomChoiceBox.getItems().addAll(arr);
+        payment_ChoiceBox.getItems().addAll(Payment.Type.values());
         /*
         Booking booking = new Booking(roomChoiceBox, floor,  arrivalDate, depatureDate, );
 
         HotelCore.get().addBooking(booking);
         */
-
-
-
-
     }
 
 

@@ -62,7 +62,6 @@ public class BookingConnector implements DatabaseOperations
         Booking booking = dbsearchById(id);
         booking.canceledBooking();
         dbUpdate(booking);
-
     }
 
     @Override
