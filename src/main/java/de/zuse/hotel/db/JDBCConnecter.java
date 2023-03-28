@@ -1,26 +1,27 @@
 package de.zuse.hotel.db;
 
-import de.zuse.hotel.core.Address;
-import de.zuse.hotel.core.Booking;
-import de.zuse.hotel.core.Person;
+import org.apache.commons.io.FileUtils;
 
-import javax.persistence.*;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.Driver;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.Enumeration;
 import java.sql.DriverManager;
-import java.util.List;
+import java.sql.SQLException;
+import java.util.Enumeration;
 
 
 public class JDBCConnecter
 {
-    private static final String DB_NAME = "jdbc:hsqldb:file:src/main/resources/de/zuse/hotel/db/example";
-    private static final String USER_NAME = "root";
-    private static final String PASSWORD = "root123";
-
+    ////localhost/testdb
+    //file:src/main/db/dbFiles
+    private static final String DB_NAME = "jdbc:hsqldb:hsql://localhost/testdb";
+    //src/main/resources/de/zuse/hotel/db/example
+    private static final String USER_NAME = "SA";
+    private static final String PASSWORD = "";
     public static final String PERSISTENCE_NAME = "ZuseHotel";
+
+    private static Connection conn;
+
 
     public static void printDrivers()
     {
@@ -32,9 +33,43 @@ public class JDBCConnecter
         }
     }
 
-    public static Connection getConnection() throws SQLException
+    public static void getConnection() throws Exception
     {
-        return DriverManager.getConnection(DB_NAME, USER_NAME, PASSWORD);
+
+        String dbTablesCreationCommando = readFile("src/main/resources/de/zuse/hotel/db/dbTablesCreation.sql");
+
+        //return DriverManager.getConnection(DB_NAME, USER_NAME, PASSWORD);
+        try{
+            Class.forName("org.hsqldb.jdbcDriver");
+        }catch (ClassNotFoundException e)
+        {
+            System.err.println("ERROR: failed to load HSQLDB JDBC driver.");
+            return;
+        }
+
+        try{
+            conn = DriverManager.getConnection(DB_NAME, USER_NAME, PASSWORD);
+
+
+            //trash tables creation commando
+            //conn.createStatement().executeUpdate(dbTablesCreationCommando);
+
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            conn.close();
+        }
+
+
+    }
+
+    public static String readFile(String fileName) throws Exception{
+
+        File file = new File(fileName);
+        String s = FileUtils.readFileToString(file, "utf-8");
+        return s;
+
     }
 
 

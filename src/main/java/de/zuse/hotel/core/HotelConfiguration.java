@@ -103,5 +103,10 @@ public class HotelConfiguration
         return roomServices.get(name) != null;
     }
 
+    public Map<String,Float> getRoomServices()
+    {
+        return roomServices;
+    }
+
 
 }
