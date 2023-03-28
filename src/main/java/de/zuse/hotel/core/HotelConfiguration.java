@@ -39,9 +39,9 @@ public class HotelConfiguration
             hotelFloors = new ArrayList<>(1);
 
         Floor floor = new Floor(1, 10);
-        floor.addRoom(new Room(floor, 1, 100.0));
-        floor.addRoom(new Room(floor, 2, 100.0));
-        floor.addRoom(new Room(floor, 3, 100.0));
+        floor.addRoom(new Room(floor, 1, 100.0, RoomSpecification.Types.SINGLE));
+        floor.addRoom(new Room(floor, 2, 100.0, RoomSpecification.Types.DOUBLE));
+        floor.addRoom(new Room(floor, 3, 100.0, RoomSpecification.Types.FAMILY));
         hotelFloors.add(floor);
 
         addNewRoomService("Dinner", 20.0f);

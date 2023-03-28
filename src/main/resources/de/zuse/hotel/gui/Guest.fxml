@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@Styling/background.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.SceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@Styling/background.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.GuestController">
    <children>
       <Text fill="WHITE" layoutX="14.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Guests" wrappingWidth="190.99610137939453">
          <font>
@@ -16,17 +16,17 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
         </content>
       </ScrollPane>
-      <Button layoutX="127.0" layoutY="614.0" mnemonicParsing="false" onAction="#onClickDashboardBtn" prefHeight="48.0" prefWidth="233.0" styleClass="FunctionButton" text="add guest">
+      <Button layoutX="127.0" layoutY="614.0" mnemonicParsing="false" onAction="#addGuest" prefHeight="48.0" prefWidth="233.0" styleClass="FunctionButton" text="add guest">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
       </Button>
-      <Button layoutX="376.0" layoutY="614.0" mnemonicParsing="false" onAction="#onClickDashboardBtn" prefHeight="48.0" prefWidth="233.0" styleClass="FunctionButton" text="delete guest">
+      <Button layoutX="376.0" layoutY="614.0" mnemonicParsing="false" onAction="#updateGuest" prefHeight="48.0" prefWidth="233.0" styleClass="FunctionButton" text="delete guest">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
       </Button>
-      <Button layoutX="625.0" layoutY="614.0" mnemonicParsing="false" onAction="#onClickDashboardBtn" prefHeight="48.0" prefWidth="233.0" styleClass="FunctionButton" text="edit guest">
+      <Button layoutX="625.0" layoutY="614.0" mnemonicParsing="false" onAction="#deleteGuest" prefHeight="48.0" prefWidth="233.0" styleClass="FunctionButton" text="edit guest">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>

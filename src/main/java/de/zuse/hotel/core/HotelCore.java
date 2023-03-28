@@ -2,8 +2,10 @@ package de.zuse.hotel.core;
 
 import de.zuse.hotel.db.HotelDatabaseApi;
 import de.zuse.hotel.db.HotelDatabaseApiImpl;
+import de.zuse.hotel.gui.ControllerApi;
 import de.zuse.hotel.util.HotelSerializer;
 import de.zuse.hotel.util.ZuseCore;
+import de.zuse.hotel.util.pdf.InvoicePdf;
 import de.zuse.hotel.util.pdf.PdfFile;
 
 import java.util.List;
@@ -14,12 +16,20 @@ public class HotelCore implements HotelCoreApi
     private HotelDatabaseApi hotelDatabaseApi;
     private HotelConfiguration hotelConfiguration;
 
+    private ControllerApi currentScene; // used to update current scene when db updated
+
     public static HotelCore get()
     {
-        if (instance == null)
-            instance = new HotelCore();
+        ZuseCore.coreAssert(instance != null, "you should call HotelCore.init() on start of app!");
 
         return instance;
+    }
+
+    public static void init()
+    {
+        ZuseCore.coreAssert(instance == null, "call init only once!!");
+
+        instance = new HotelCore();
     }
 
     public static void shutdown()
@@ -29,6 +39,7 @@ public class HotelCore implements HotelCoreApi
         try
         {
             hotelSerializer.serializeHotel(instance.hotelConfiguration);
+            instance.hotelDatabaseApi.shutdown();
         } catch (Exception e)
         {
             ZuseCore.coreAssert(false, e.getMessage());
@@ -72,25 +83,33 @@ public class HotelCore implements HotelCoreApi
     @Override
     public boolean addGuest(Person guest)
     {
-        return hotelDatabaseApi.addGuest(guest);
+        boolean state = hotelDatabaseApi.addGuest(guest);
+        currentScene.onUpdateDb();
+        return state;
     }
 
     @Override
     public boolean removeGuest(int guestID)
     {
-        return hotelDatabaseApi.removeGuest(guestID);
+        boolean state = hotelDatabaseApi.removeGuest(guestID);
+        currentScene.onUpdateDb();
+        return state;
     }
 
     @Override
     public boolean addBooking(Booking booking)
     {
-        return hotelDatabaseApi.addBooking(booking);
+        boolean state = hotelDatabaseApi.addBooking(booking);
+        currentScene.onUpdateDb();
+        return state;
     }
 
     @Override
     public boolean removeBooking(int bookingID)
     {
-        return hotelDatabaseApi.removeBooking(bookingID);
+        boolean state = hotelDatabaseApi.removeBooking(bookingID);
+        currentScene.onUpdateDb();
+        return state;
     }
 
     @Override
@@ -118,21 +137,26 @@ public class HotelCore implements HotelCoreApi
     }
 
     @Override
-    public PdfFile getInvoiceAsPdf(int bookingID)
+    public PdfFile getBookingAsPdfFile(int bookingID)
     {
-        return null;
+        Booking booking = hotelDatabaseApi.getBooking(bookingID);
+        return new InvoicePdf(booking);
     }
 
     @Override
     public boolean updateGuest(Person guest)
     {
-        return hotelDatabaseApi.updateGuest(guest);
+        boolean state = hotelDatabaseApi.updateGuest(guest);
+        currentScene.onUpdateDb();
+        return state;
     }
 
     @Override
     public boolean updateBooking(Booking booking)
     {
-        return hotelDatabaseApi.updateBooking(booking);
+        boolean state = hotelDatabaseApi.updateBooking(booking);
+        currentScene.onUpdateDb();
+        return state;
     }
 
     @Override
@@ -159,11 +183,18 @@ public class HotelCore implements HotelCoreApi
     public Room getRoom(int floorNr, int roomNr)
     {
         Floor floor = hotelConfiguration.getHotelFloors().get(floorNr);
-        ZuseCore.check(floor != null, "Floor " + floorNr+ " is not in Hotel!");
+        ZuseCore.check(floor != null, "Floor " + floorNr + " is not in Hotel!");
 
         Room room = floor.getRooms().get(roomNr);
-        ZuseCore.check(room != null, "Room " + roomNr+ " is not in Hotel!");
+        ZuseCore.check(room != null, "Room " + roomNr + " is not in Hotel!");
 
         return room;
+    }
+
+    @Override
+    public void setCurrentScene(ControllerApi currentScene)
+    {
+        ZuseCore.coreAssert(currentScene != null, "Scene you try to add is null!!");
+        this.currentScene = currentScene;
     }
 }

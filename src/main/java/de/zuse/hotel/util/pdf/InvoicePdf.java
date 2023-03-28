@@ -6,6 +6,7 @@ import com.itextpdf.text.pdf.draw.DottedLineSeparator;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 import de.zuse.hotel.core.Booking;
 import de.zuse.hotel.core.HotelCore;
+import de.zuse.hotel.core.Room;
 import de.zuse.hotel.util.ZuseCore;
 
 import javafx.geometry.Insets;
@@ -85,13 +86,13 @@ public class InvoicePdf implements PdfFile
 
                 document.add(description);
 
-                double roomPrice = HotelCore.get().getRoom(booking.getFloorNumber(), booking.getRoomNumber()).getPrice();
-                document.add(new Paragraph(roomPrice + EURO_SYMOBL));
+                Room room = HotelCore.get().getRoom(booking.getFloorNumber(), booking.getRoomNumber());
+                double roomPrice = room.getPrice();
+                document.add(new Paragraph("Room (" + room.getRoomType() + ")" + roomPrice + EURO_SYMOBL));
 
                 StringBuffer services = new StringBuffer();
                 double totalPrice = 0.0f;
                 Iterator<String> it = booking.getBookedServices().iterator();
-
                 while (it.hasNext())
                 {
                     String next = it.next();
@@ -100,6 +101,7 @@ public class InvoicePdf implements PdfFile
                 }
 
                 document.add(new Paragraph(services + ": " + totalPrice + EURO_SYMOBL));
+                document.add(new Paragraph("Total: " + (totalPrice + roomPrice) + EURO_SYMOBL));
             }
 
             document.close();
