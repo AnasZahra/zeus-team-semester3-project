@@ -1,5 +1,10 @@
 /* target specific item by its id */
 
+@font-face {
+    -fx-font-family: myFont;
+    src:url(Gilroy.ttf);
+}
+
 .root{
 
     -fx-background-color: #131212;
@@ -20,7 +25,7 @@
 }
 
 .FunctionButton{
-
+    -fx-font-family: Gilroy;
     -fx-background-color: #191717;
     -fx-text-fill: #F24E1E;
     -fx-font-size: 1.2em ;
@@ -34,12 +39,12 @@
 .text-area{
 
     -fx-text-fill: "White";
-    -fx-text-family: "Gilroy";
+    -fx-font-family: Gilroy;
 }
 
 .texts{
     -fx-text-fill: "White";
-    -fx-text-family: "Gilroy";
+    -fx-font-family: Gilroy;
 }
 
 .roundBottun{
@@ -47,6 +52,7 @@
     -fx-pref-width: 50;
     -fx-pref-height: 50;
     -fx-background-color: #F24E1E;
+
 }
 
 .roundBottun:hover{
@@ -56,6 +62,6 @@
 
 #grandHotel{
     -fx-text-fill: #F24E1E;
-    -fx-text-family: "Gilroy";
+    -fx-font-family: Gilroy;
 
 }
