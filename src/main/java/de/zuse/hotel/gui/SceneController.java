@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -41,9 +40,11 @@ public class SceneController
 
     public void onClickDashboardBtn(ActionEvent event) throws IOException
     {
-        ControllerApi outObject = null;
-        Node node = JavaFxUtil.loadFxml(getClass().getResource("Dashboard.fxml"), outObject);
-        HotelCore.get().setCurrentScene(outObject);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
+        Node node = fxmlLoader.load();
+        ControllerApi dashboardController = (ControllerApi) fxmlLoader.getController();
+        dashboardController.onStart();
+        HotelCore.get().setCurrentScene(dashboardController);
 
         borderPane.setCenter(node);
         onSwitchPanel(dashboardBtnId);
@@ -51,30 +52,24 @@ public class SceneController
 
     public void onClickRoomBtn(ActionEvent event) throws IOException
     {
-        ControllerApi outObject = null;
-        Node node = JavaFxUtil.loadFxml(getClass().getResource("Rooms.fxml"), outObject);
-        HotelCore.get().setCurrentScene(outObject);
-
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Rooms.fxml"));
+        Node node = fxmlLoader.load();
         borderPane.setCenter(node);
         onSwitchPanel(roomsBtnId);
     }
 
     public void onClickGuestBtn(ActionEvent event) throws IOException
     {
-        ControllerApi outObject = null;
-        Node node = JavaFxUtil.loadFxml(getClass().getResource("Guest.fxml"), outObject);
-        HotelCore.get().setCurrentScene(outObject);
-
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Guest.fxml"));
+        Node node = fxmlLoader.load();
         borderPane.setCenter(node);
         onSwitchPanel(guestBtnId);
     }
 
     public void onClickSettingsBtn(ActionEvent event) throws IOException
     {
-        ControllerApi outObject = null;
-        Node node = JavaFxUtil.loadFxml(getClass().getResource("Guest.fxml"), outObject);
-        HotelCore.get().setCurrentScene(outObject);
-
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Settings.fxml"));
+        Node node = fxmlLoader.load();
         borderPane.setCenter(node);
         onSwitchPanel(settingsBtnId);
     }
@@ -103,8 +98,9 @@ public class SceneController
     @FXML
     void handleBookRoomButtonAction(ActionEvent event) throws Exception
     {
-        Parent node = JavaFxUtil.loadFxml(getClass().getResource("BookingWindow.fxml"));
-        Scene scene = new Scene(node,500, 720);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("BookingWindow.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 500, 720);
+        ((ControllerApi)fxmlLoader.getController()).onStart();
         Stage stage = new Stage();
         stage.setTitle("Book a room");
         stage.setScene(scene);
