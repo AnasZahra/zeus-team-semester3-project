@@ -2,20 +2,18 @@ package de.zuse.hotel.gui;
 
 
 import de.zuse.hotel.core.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.util.Arrays;
+
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -26,9 +24,15 @@ public class RoomController implements ControllerApi {
     @FXML
     ChoiceBox<Integer> floorChoiceBox;
 
+    @FXML
+    TableView<Room> roomTable;
+    @FXML
     private TableColumn<Room , Integer> roomNrCln;
+    @FXML
     private TableColumn<Room , RoomSpecification.Types> roomTypeCln;
+    @FXML
     private TableColumn<Room , Integer> priceCln;
+
 
     public TextField roomprice;
     @FXML
@@ -37,7 +41,9 @@ public class RoomController implements ControllerApi {
     public void viewRoomData()
     {
         int floorcount = floorChoiceBox.getValue() -1; //TODO hir the Indext is needet
+
        /* roomslistid.getItems().clear();
+
         List<Room> roomList = HotelCore.get().getRooms(floorcount);
         roomList.forEach(new Consumer<Room>()
         {

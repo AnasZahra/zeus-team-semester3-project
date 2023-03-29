@@ -6,13 +6,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.itextpdf.text.RomanList;
 import de.zuse.hotel.util.ZuseCore;
+import javafx.scene.control.TableColumn;
 
+
+import javax.persistence.Table;
 import java.util.ArrayList;
 
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
 public class Room
 {
     private int roomNr;
+
     private int floorNr;
     private double price;
     private RoomSpecification.Types roomType;
