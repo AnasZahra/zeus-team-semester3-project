@@ -33,7 +33,9 @@
     -fx-effect: dropshadow(two-pass-box, #131111,9,0,0,4);
 }
 
-
+.FunctionButton:hover {
+    -fx-cursor: hand;
+}
 
 
 .text-area{
