@@ -25,9 +25,11 @@ public class RoomController implements ControllerApi {
     TextField roomnumber;
     @FXML
     ChoiceBox<Integer> floorChoiceBox;
-
+    @FXML
     private TableColumn<Room , Integer> roomNrCln;
+    @FXML
     private TableColumn<Room , RoomSpecification.Types> roomTypeCln;
+    @FXML
     private TableColumn<Room , Integer> priceCln;
 
     public TextField roomprice;
