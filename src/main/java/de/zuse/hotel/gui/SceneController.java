@@ -106,8 +106,6 @@ public class SceneController
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("BookingWindow.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 500, 720);
         ((ControllerApi)fxmlLoader.getController()).onStart();
-        //HotelCore.get().setCurrentScene(); no need for this, it's mini Scene, will not get update any way
-
         Stage stage = new Stage();
         stage.setTitle("Book a room");
         stage.setScene(scene);

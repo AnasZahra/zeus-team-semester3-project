@@ -23,6 +23,7 @@ public class RoomController implements ControllerApi {
     TextField roomnumber;
     @FXML
     ChoiceBox<Integer> floorChoiceBox;
+
     @FXML
     TableView<Room> roomTable;
     @FXML
@@ -32,6 +33,7 @@ public class RoomController implements ControllerApi {
     @FXML
     private TableColumn<Room , Integer> priceCln;
 
+
     public TextField roomprice;
     @FXML
     ChoiceBox<RoomSpecification.Types> roomType;
@@ -40,7 +42,8 @@ public class RoomController implements ControllerApi {
     {
         int floorcount = floorChoiceBox.getValue() -1; //TODO hir the Indext is needet
 
-        /*roomslistid.getItems().clear();
+       /* roomslistid.getItems().clear();
+
         List<Room> roomList = HotelCore.get().getRooms(floorcount);
         roomList.forEach(new Consumer<Room>()
         {
@@ -56,6 +59,10 @@ public class RoomController implements ControllerApi {
     }
 
     @Override
+    public void onUpdate() {
+        viewRoomData();
+    }
+
     public void onStart() { // set a defult Floor 1
 
         List<Floor> floorlist =  HotelCore.get().getFloors();
@@ -78,12 +85,6 @@ public class RoomController implements ControllerApi {
     }
 
 
-    @Override
-    public void onUpdateDb() {
-        viewRoomData();
-    }
-
-
     @FXML
     void handleAddRoomButtonAction(ActionEvent event) throws Exception
     {
@@ -97,8 +98,6 @@ public class RoomController implements ControllerApi {
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL); //default, for closing th pop up window
         stage.show();
-
-
     }
 
 

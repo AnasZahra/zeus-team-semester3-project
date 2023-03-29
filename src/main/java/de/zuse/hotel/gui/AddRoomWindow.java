@@ -71,9 +71,11 @@ public class AddRoomWindow implements ControllerApi{
         floorChoiceBox.setValue(floorlist.get(0).getFloorNr() );
     }
 
+    @Override
+    public void onUpdate()
+    {
 
-
-
+    }
 
 
     public void addingRoom (ActionEvent actionEvent) throws Exception //TODO hir the Indext is needet
@@ -93,12 +95,6 @@ public class AddRoomWindow implements ControllerApi{
         stage.close();
     }
 
-    @Override
-    public void onUpdateDb() {
-
-
-
-    }
 
 
 }

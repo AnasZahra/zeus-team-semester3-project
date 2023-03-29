@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class HotelSerializer
 {
@@ -29,8 +31,10 @@ public class HotelSerializer
 
     public void serializeHotel(HotelConfiguration hotelConfiguration) throws IOException
     {
+        Files.createDirectories(Path.of(PROJECT_PATH + SERIALIZING_LOCATION));
         String path = PROJECT_PATH + SERIALIZING_LOCATION + HOTEL_FILE_NAME;
         File file = new File(path);
+
 
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
         bufferedWriter.write(YAML_WARNING_MESSAGE);
