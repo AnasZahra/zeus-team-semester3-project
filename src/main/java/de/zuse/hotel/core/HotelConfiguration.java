@@ -2,11 +2,14 @@ package de.zuse.hotel.core;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import de.zuse.hotel.util.HotelSerializer;
 import de.zuse.hotel.util.ZuseCore;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 /**
  * Used for saving how many floors in hotel (floors contain how many rooms)
@@ -113,6 +116,5 @@ public class HotelConfiguration
     {
         return roomServices;
     }
-
 
 }

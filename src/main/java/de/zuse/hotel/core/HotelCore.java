@@ -8,6 +8,7 @@ import de.zuse.hotel.util.ZuseCore;
 import de.zuse.hotel.util.pdf.InvoicePdf;
 import de.zuse.hotel.util.pdf.PdfFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public class HotelCore implements HotelCoreApi
@@ -84,7 +85,7 @@ public class HotelCore implements HotelCoreApi
     public boolean addGuest(Person guest)
     {
         boolean state = hotelDatabaseApi.addGuest(guest);
-        currentScene.onUpdateDb();
+        currentScene.onUpdate();
         return state;
     }
 
@@ -92,7 +93,7 @@ public class HotelCore implements HotelCoreApi
     public boolean removeGuest(int guestID)
     {
         boolean state = hotelDatabaseApi.removeGuest(guestID);
-        currentScene.onUpdateDb();
+        currentScene.onUpdate();
         return state;
     }
 
@@ -100,7 +101,7 @@ public class HotelCore implements HotelCoreApi
     public boolean addBooking(Booking booking)
     {
         boolean state = hotelDatabaseApi.addBooking(booking);
-        currentScene.onUpdateDb();
+        currentScene.onUpdate();
         return state;
     }
 
@@ -108,7 +109,7 @@ public class HotelCore implements HotelCoreApi
     public boolean removeBooking(int bookingID)
     {
         boolean state = hotelDatabaseApi.removeBooking(bookingID);
-        currentScene.onUpdateDb();
+        currentScene.onUpdate();
         return state;
     }
 
@@ -147,7 +148,7 @@ public class HotelCore implements HotelCoreApi
     public boolean updateGuest(Person guest)
     {
         boolean state = hotelDatabaseApi.updateGuest(guest);
-        currentScene.onUpdateDb();
+        currentScene.onUpdate();
         return state;
     }
 
@@ -155,7 +156,7 @@ public class HotelCore implements HotelCoreApi
     public boolean updateBooking(Booking booking)
     {
         boolean state = hotelDatabaseApi.updateBooking(booking);
-        currentScene.onUpdateDb();
+        currentScene.onUpdate();
         return state;
     }
 
@@ -196,5 +197,35 @@ public class HotelCore implements HotelCoreApi
     {
         ZuseCore.coreAssert(currentScene != null, "Scene you try to add is null!!");
         this.currentScene = currentScene;
+    }
+
+    public void addNewRoomToHotel(int floorNr, Room room)
+    {
+        hotelConfiguration.addNewRoom(floorNr, room);
+
+        HotelSerializer hotelSerializer = new HotelSerializer();
+        try
+        {
+            hotelSerializer.serializeHotel(hotelConfiguration); // in case the app crash, the data does get lost
+        } catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void addNewFloorToHotel(Floor floor)
+    {
+        hotelConfiguration.addNewFloor(floor);
+
+        HotelSerializer hotelSerializer = new HotelSerializer();
+        try
+        {
+            hotelSerializer.serializeHotel(hotelConfiguration); // in case the app crash, the data does get lost
+        } catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
+
+        currentScene.onUpdate();
     }
 }
