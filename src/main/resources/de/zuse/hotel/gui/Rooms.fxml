@@ -5,7 +5,6 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@Styling/background.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.RoomController">
 
    <children>
@@ -20,15 +19,11 @@
             <Font name="System Bold" size="22.0" />
          </font>
       </Button>
-
-
-      <ChoiceBox fx:id="floorChoiceBox" layoutX="86.0" layoutY="245.0" prefWidth="150.0" />
       
 
-      <TableView fx:id="roomTable" layoutX="11.0" layoutY="101.0" prefHeight="511.0" prefWidth="1021.0" style="-fx-background-color: silver;" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="248.0">
+      <TableView fx:id="roomTable" layoutX="14.0" layoutY="104.0" prefHeight="511.0" prefWidth="1021.0" style="-fx-background-color: silver;" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="245.0">
          <columns>
             <TableColumn fx:id="roomNrCln" prefWidth="75.0" text="RoomNr" />
-            <TableColumn fx:id="floorNrCln" prefWidth="75.0" text="FloorNr" />
             <TableColumn fx:id="priceCln" prefWidth="75.0" text="Price" />
             <TableColumn fx:id="roomTypeCln" prefWidth="75.0" text="Room Type" />
          </columns>
@@ -36,6 +31,9 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
+
+
+      <ChoiceBox fx:id="floorChoiceBox" layoutX="99.0" layoutY="61.0" prefWidth="150.0" />
 
 
    </children>
