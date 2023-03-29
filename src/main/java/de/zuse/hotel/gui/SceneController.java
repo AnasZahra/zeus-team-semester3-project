@@ -38,7 +38,6 @@ public class SceneController
 
     public SceneController()
     {
-
     }
 
     public void onClickDashboardBtn(ActionEvent event) throws IOException

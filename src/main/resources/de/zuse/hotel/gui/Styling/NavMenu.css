@@ -1,3 +1,12 @@
+@font-face {
+    -fx-font-family: myFont;
+    src:url(Gilroy.ttf);
+}
+
+.label{
+    -fx-font-family: Gilroy;
+}
+
 .main_menu {
     -fx-background-color: #191717;
     -fx-alignment: center;
@@ -17,6 +26,7 @@
 .title_container Text {
     -fx-fill: #FFFFFF;
     -fx-background-radius: 20, 20, 0, 0;
+    -fx-font-family: Gilroy;
 }
 
 .menu_container_not_selected {
@@ -33,6 +43,7 @@
     -fx-font-weight: Bold;
     -fx-alignment: center_left;
     -fx-background-radius: 0;
+    -fx-font-family: Gilroy;
 }
 
 .menu_container Button:hover {
@@ -60,8 +71,10 @@
     -fx-fill: #000000;
     -fx-font-size: 1.4em;
     -fx-alignment: center_left;
+    -fx-font-family: Gilroy;
 }
 
 .point {
     -fx-text-fill: #f24e1e;
+    -fx-font-family: Gilroy;
 }
