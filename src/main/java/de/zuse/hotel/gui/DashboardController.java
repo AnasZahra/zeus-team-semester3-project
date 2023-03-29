@@ -25,17 +25,18 @@ public class DashboardController implements ControllerApi
     @Override
     public void onStart()
     {
-        viewBookingData();
-        //Bind
-        listView.setOnMouseClicked(this::onListViewItemClicked);
-        selectedBookingId = UNSELECTED;
-        listView.setEditable(true);
+        //disable for now, waiting for design
+        // viewBookingData();
+        // //Bind
+        // listView.setOnMouseClicked(this::onListViewItemClicked);
+        // selectedBookingId = UNSELECTED;
+        // listView.setEditable(true);
     }
 
     @Override
     public void onUpdateDb()
     {
-        viewBookingData();
+        //viewBookingData();
     }
 
     public void viewBookingData()
