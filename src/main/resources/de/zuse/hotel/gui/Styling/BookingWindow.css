@@ -26,6 +26,7 @@
 
 .bg{
     -fx-background-color: #131212;
+
 }
 
 .Window{
@@ -54,6 +55,7 @@
 
 .choice-box > * {
     -fx-background-color: #191717;
+    -fx-text-fill: #FFFFFF ;
     -fx-mark-color: #F24E1E; // arrow color
     -fx-effect: dropshadow(two-pass-box, #131212,0,0,0,2);
     -fx-font-family: Gilroy;

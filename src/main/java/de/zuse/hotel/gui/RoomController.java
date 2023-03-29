@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -25,7 +26,9 @@ public class RoomController implements ControllerApi {
     @FXML
     ChoiceBox<Integer> floorChoiceBox;
 
-    public ListView<Room> roomslistid;
+    private TableColumn<Room , Integer> roomNrCln;
+    private TableColumn<Room , RoomSpecification.Types> roomTypeCln;
+    private TableColumn<Room , Integer> priceCln;
 
     public TextField roomprice;
     @FXML
@@ -34,7 +37,7 @@ public class RoomController implements ControllerApi {
     public void viewRoomData()
     {
         int floorcount = floorChoiceBox.getValue() -1; //TODO hir the Indext is needet
-        roomslistid.getItems().clear();
+       /* roomslistid.getItems().clear();
         List<Room> roomList = HotelCore.get().getRooms(floorcount);
         roomList.forEach(new Consumer<Room>()
         {
@@ -44,9 +47,9 @@ public class RoomController implements ControllerApi {
                 if (!roomslistid.getItems().contains(room))
                     roomslistid.getItems().add(room);
             }
-        });
+        });*/
 
-        roomslistid.refresh();
+        //roomslistid.refresh();
     }
 
     @Override
