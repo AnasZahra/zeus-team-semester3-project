@@ -103,7 +103,7 @@ public class BookingWindow implements ControllerApi
     }
 
     @Override
-    public void onUpdateDb()
+    public void onUpdate()
     {
     }
 }

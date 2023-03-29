@@ -53,6 +53,10 @@ public class RoomController implements ControllerApi {
     }
 
     @Override
+    public void onUpdate() {
+        viewRoomData();
+    }
+
     public void onStart() { // set a defult Floor 1
 
         List<Floor> floorlist =  HotelCore.get().getFloors();
@@ -75,12 +79,6 @@ public class RoomController implements ControllerApi {
     }
 
 
-    @Override
-    public void onUpdateDb() {
-        viewRoomData();
-    }
-
-
     @FXML
     void handleAddRoomButtonAction(ActionEvent event) throws Exception
     {
@@ -94,8 +92,6 @@ public class RoomController implements ControllerApi {
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL); //default, for closing th pop up window
         stage.show();
-
-
     }
 
 
