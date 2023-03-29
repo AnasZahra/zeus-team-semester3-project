@@ -36,9 +36,7 @@ public class SceneController
     private BorderPane borderPane;
 
 
-    public SceneController()
-    {
-    }
+    public SceneController(){}
 
     public void onClickDashboardBtn(ActionEvent event) throws IOException
     {
@@ -73,8 +71,11 @@ public class SceneController
         onSwitchPanel(guestBtnId);
     }
 
-    public void onClickSettingsBtn(ActionEvent event)
+    public void onClickSettingsBtn(ActionEvent event) throws IOException
     {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Settings.fxml"));
+        Node node = fxmlLoader.load();
+        borderPane.setCenter(node);
         onSwitchPanel(settingsBtnId);
     }
 

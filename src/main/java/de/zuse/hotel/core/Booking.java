@@ -1,6 +1,7 @@
 package de.zuse.hotel.core;
 
 import de.zuse.hotel.util.ZuseCore;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -32,9 +33,12 @@ public class Booking
     @JoinColumn(name = "Payment_Id", nullable = false)
     private Payment payment;
 
+    @Column(name = "canceled")
+    @Type(type = "org.hibernate.type.BooleanType")
+    private boolean canceled = false;
+
     @Column(name = "Guests_Num", nullable = false)
     private int guestsNum;
-    private boolean canceled = false;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> extraServices = new ArrayList<>();
@@ -58,9 +62,7 @@ public class Booking
         payment = new Payment();
     }
 
-    public Booking()
-    {
-    }
+    public Booking(){}
 
     public int createInvoice()
     {
