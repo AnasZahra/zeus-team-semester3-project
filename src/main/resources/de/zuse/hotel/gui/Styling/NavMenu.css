@@ -25,13 +25,14 @@
 }
 
 .menu_container Button {
-    -fx-pref-width: 150;
+    -fx-pref-width: 234;
     -fx-pref-height: 40;
     -fx-background-color: #191717;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 1.4em;
     -fx-font-weight: Bold;
     -fx-alignment: center_left;
+    -fx-background-radius: 0;
 }
 
 .menu_container Button:hover {
@@ -43,7 +44,7 @@
 .on_button_selected {
     -fx-padding: 10 10 10 20;
     -fx-spacing: 20;
-    -fx-pref-width: 150;
+    -fx-pref-width: 300;
     -fx-pref-height: 40;
     -fx-background-color: #f24e1e;
     -fx-text-fill: #FFFFFF;
