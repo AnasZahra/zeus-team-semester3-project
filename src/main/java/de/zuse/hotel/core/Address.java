@@ -9,6 +9,7 @@ public class Address
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "Address_id", nullable = false)
     private int id;
 
     @Column(name = "Country", nullable = false)

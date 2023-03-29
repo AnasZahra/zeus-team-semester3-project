@@ -1,26 +1,22 @@
 package de.zuse.hotel.db;
 
-import org.apache.commons.io.FileUtils;
-
-import java.io.File;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.Enumeration;
 
 
 public class JDBCConnecter
 {
-    ////localhost/testdb
-    //file:src/main/db/dbFiles
-    private static final String DB_NAME = "jdbc:hsqldb:hsql://localhost/testdb";
-    //src/main/resources/de/zuse/hotel/db/example
-    private static final String USER_NAME = "SA";
-    private static final String PASSWORD = "";
+    //jdbc:hsqldb:hsql://localhost/testdb
+    private static final String DB_NAME = "jdbc:hsqldb:file:src/main/resources/de/zuse/hotel/db/example";
+    private static final String USER_NAME = "root";
+    private static final String PASSWORD = "root123";
     public static final String PERSISTENCE_NAME = "ZuseHotel";
-
     private static Connection conn;
+    private static EntityManagerFactory factory;
 
 
     public static void printDrivers()
@@ -33,45 +29,34 @@ public class JDBCConnecter
         }
     }
 
-    public static void getConnection() throws Exception
+    public static Connection getConnection() throws Exception
     {
+        conn = DriverManager.getConnection(DB_NAME, USER_NAME, PASSWORD);
+        return conn;
+    }
 
-        String dbTablesCreationCommando = readFile("src/main/resources/de/zuse/hotel/db/dbTablesCreation.sql");
-
-        //return DriverManager.getConnection(DB_NAME, USER_NAME, PASSWORD);
-        try{
-            Class.forName("org.hsqldb.jdbcDriver");
-        }catch (ClassNotFoundException e)
-        {
-            System.err.println("ERROR: failed to load HSQLDB JDBC driver.");
-            return;
-        }
-
-        try{
-            conn = DriverManager.getConnection(DB_NAME, USER_NAME, PASSWORD);
-
-
-            //trash tables creation commando
-            //conn.createStatement().executeUpdate(dbTablesCreationCommando);
-
-
-        }catch (SQLException e){
-            e.printStackTrace();
-        }finally {
+    public static void shutdown() throws Exception
+    {
+        if (conn != null)
             conn.close();
+
+        if (factory != null)
+            factory.close();
+    }
+
+    public static EntityManagerFactory getEntityManagerFactory()
+    {
+        try
+        {
+            if (factory == null)
+            {
+                factory = Persistence.createEntityManagerFactory(PERSISTENCE_NAME);
+            }
+            return factory;
+        } catch (Exception e)
+        {
+            e.printStackTrace();
         }
-
-
+        return null;
     }
-
-    public static String readFile(String fileName) throws Exception{
-
-        File file = new File(fileName);
-        String s = FileUtils.readFileToString(file, "utf-8");
-        return s;
-
-    }
-
-
-
 }

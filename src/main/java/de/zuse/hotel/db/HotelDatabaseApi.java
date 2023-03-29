@@ -23,5 +23,5 @@ public interface HotelDatabaseApi
     /**
      * Optional
      */
-    public void shutdown();
+    public void shutdown() throws Exception;
 }

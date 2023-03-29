@@ -1,5 +1,6 @@
 package de.zuse.hotel.gui;
 
+import de.zuse.hotel.core.HotelCore;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -33,10 +35,17 @@ public class SceneController
     @FXML
     private BorderPane borderPane;
 
+
+    public SceneController(){}
+
     public void onClickDashboardBtn(ActionEvent event) throws IOException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
         Node node = fxmlLoader.load();
+        ControllerApi dashboardController = (ControllerApi) fxmlLoader.getController();
+        dashboardController.onStart();
+        HotelCore.get().setCurrentScene(dashboardController);
+
         borderPane.setCenter(node);
         onSwitchPanel(dashboardBtnId);
     }
@@ -45,8 +54,13 @@ public class SceneController
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Rooms.fxml"));
         Node node = fxmlLoader.load();
+        ControllerApi dashboardController = (ControllerApi) fxmlLoader.getController();
+        dashboardController.onStart();
+        HotelCore.get().setCurrentScene(dashboardController);
+
         borderPane.setCenter(node);
         onSwitchPanel(roomsBtnId);
+
     }
 
     public void onClickGuestBtn(ActionEvent event) throws IOException
@@ -57,8 +71,11 @@ public class SceneController
         onSwitchPanel(guestBtnId);
     }
 
-    public void onClickSettingsBtn(ActionEvent event)
+    public void onClickSettingsBtn(ActionEvent event) throws IOException
     {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Settings.fxml"));
+        Node node = fxmlLoader.load();
+        borderPane.setCenter(node);
         onSwitchPanel(settingsBtnId);
     }
 
@@ -86,8 +103,9 @@ public class SceneController
     @FXML
     void handleBookRoomButtonAction(ActionEvent event) throws Exception
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("bookingWindow.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("BookingWindow.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 500, 720);
+        ((ControllerApi)fxmlLoader.getController()).onStart();
         Stage stage = new Stage();
         stage.setTitle("Book a room");
         stage.setScene(scene);

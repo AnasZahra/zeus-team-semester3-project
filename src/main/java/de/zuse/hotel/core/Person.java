@@ -15,6 +15,7 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Person_id")
     private int id;
     @Column(name = "Firstname", nullable = false)
     private String firstname;
@@ -26,7 +27,7 @@ public class Person {
     private String email;
     @Column(name = "Phone_Number", length = TELEPHONE_NUMBER_COUNT)
     private String teleNumber;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 

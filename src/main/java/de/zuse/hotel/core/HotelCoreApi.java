@@ -1,5 +1,6 @@
 package de.zuse.hotel.core;
 
+import de.zuse.hotel.gui.ControllerApi;
 import de.zuse.hotel.util.pdf.PdfFile;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public interface HotelCoreApi
     List<Person> getAllGuest();
     List<Booking> getAllBooking();
 
-    PdfFile getInvoiceAsPdf(int bookingID);
+    PdfFile getBookingAsPdfFile(int bookingID);
 
     boolean updateGuest(Person guest);
 
@@ -37,4 +38,6 @@ public interface HotelCoreApi
     Room getRoom(int floorNr, int roomNr);
 
     HotelConfiguration getHotelConfig();
+
+    void setCurrentScene(ControllerApi currentScene);
 }

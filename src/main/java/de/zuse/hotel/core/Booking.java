@@ -1,6 +1,7 @@
 package de.zuse.hotel.core;
 
 import de.zuse.hotel.util.ZuseCore;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,8 +12,6 @@ import java.util.List;
 @Table(name = "Bookings")
 public class Booking
 {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Booking_id")
@@ -26,19 +25,23 @@ public class Booking
     @Column(name = "End_Date", nullable = false)
     private LocalDate endDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "PersonId", nullable = false)
-    private Person guest;
+    private Person guest;//to avoid EAGER loading maybe save person id and load it manually in db
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Payment_id", nullable = false)
+    @JoinColumn(name = "Payment_Id", nullable = false)
     private Payment payment;
 
-    //private ArrayList<String> extraServices;
+    @Column(name = "canceled")
+    @Type(type = "org.hibernate.type.BooleanType")
     private boolean canceled = false;
 
+    @Column(name = "Guests_Num", nullable = false)
+    private int guestsNum;
 
-    //private ArrayList<String> extraServices; TODO later
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> extraServices = new ArrayList<>();
 
     public Booking(int roomNumber, int floorNumber, LocalDate startDate, LocalDate endDate, Person guest)
     {
@@ -57,9 +60,6 @@ public class Booking
         this.guest = guest;
         this.floorNumber = floorNumber;
         payment = new Payment();
-
-        //Service with size of available services in hotel
-        //extraServices = new ArrayList<>(HotelCore.get().getHotelConfig().getRoomServiceNum()); // TODO later
     }
 
     public Booking(){}
@@ -69,20 +69,18 @@ public class Booking
         return 0;
     }
 
-    public String[] generatePdf()
+    @Override
+    public String toString()
     {
-        //TODO(Basel): format text
-        String[] text =
-                {
-                        "BookingID: " + bookingID,
-                        "RoomNumber: " + roomNumber,
-                        "StartDate: " + startDate,
-                        "EndDate: " + endDate,
-                        "Guest: " + guest.toString(),
-                        payment.toString()
-                };
-
-        return text;
+        return "roomNumber=" + roomNumber +
+                ", floorNumber=" + floorNumber +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", guest=" + guest.getFirstname() + " " + guest.getLastname() +
+                ", payment=" + payment +
+                ", guestsNum=" + guestsNum +
+                ", Services= " + extraServices.toString() +
+                ", canceled=" + canceled;
     }
 
     public void pay(LocalDate paymentDate, Payment.Type type, float price)
@@ -90,7 +88,7 @@ public class Booking
         ZuseCore.coreAssert(paymentDate != null, "paymentDate is null!!");
         ZuseCore.isValidDate(paymentDate, "not Valid Date!!");
 
-        payment = new Payment(paymentDate, Payment.Status.PAID,type,price);
+        payment = new Payment(paymentDate, Payment.Status.PAID, type, price);
     }
 
     public int getBookingID()
@@ -116,7 +114,6 @@ public class Booking
     public String getGuestName()
     {
         return guest.getFirstname() + " " + guest.getLastname();
-
     }
 
     public boolean isPaid()
@@ -153,17 +150,16 @@ public class Booking
 
     public void addExtraService(String serviceName)
     {
-        //TODO Later
-        //ZuseCore.check(HotelCore.get().getHotelConfig().hasServiceName(serviceName), "Service Name is not valid!");
-        //ZuseCore.check(extraServices.contains(serviceName) == false, "Room has already this service");
-//
-        //extraServices.add(serviceName);
+        //extraServices will not contain duplicate or not valid services
+        ZuseCore.check(HotelCore.get().getHotelConfig().hasServiceName(serviceName), "Service Name is not valid!");
+        ZuseCore.check(extraServices.contains(serviceName) == false, "Room has already this service");
+
+        extraServices.add(serviceName);
     }
 
     public List<String> getBookedServices()
     {
-        //return extraServices;
-        return null;
+        return extraServices;
     }
 
     public int getFloorNumber()
@@ -176,8 +172,24 @@ public class Booking
         this.floorNumber = floorNumber;
     }
 
-    public void canceledBooking (){
+    public void canceledBooking()
+    {
         canceled = true;
+    }
+
+    public int getGuestsNum()
+    {
+        return guestsNum;
+    }
+
+    public void setGuestsNum(int guestsNum)
+    {
+        this.guestsNum = guestsNum;
+    }
+
+    public Payment getPayment()
+    {
+        return payment;
     }
 
 }
