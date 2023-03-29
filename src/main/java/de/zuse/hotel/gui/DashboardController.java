@@ -34,7 +34,7 @@ public class DashboardController implements ControllerApi
     }
 
     @Override
-    public void onUpdateDb()
+    public void onUpdate()
     {
         //viewBookingData();
     }

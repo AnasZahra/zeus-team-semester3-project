@@ -18,7 +18,7 @@ public class RoomController implements ControllerApi
     }
 
     @Override
-    public void onUpdateDb()
+    public void onUpdate()
     {
 
     }

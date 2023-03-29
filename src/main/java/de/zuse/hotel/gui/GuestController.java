@@ -20,7 +20,7 @@ public class GuestController implements ControllerApi
     }
 
     @Override
-    public void onUpdateDb()
+    public void onUpdate()
     {
 
     }
