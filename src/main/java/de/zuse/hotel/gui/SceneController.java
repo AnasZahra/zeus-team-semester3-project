@@ -57,8 +57,13 @@ public class SceneController
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Rooms.fxml"));
         Node node = fxmlLoader.load();
+        ControllerApi dashboardController = (ControllerApi) fxmlLoader.getController();
+        dashboardController.onStart();
+        HotelCore.get().setCurrentScene(dashboardController);
+
         borderPane.setCenter(node);
         onSwitchPanel(roomsBtnId);
+
     }
 
     public void onClickGuestBtn(ActionEvent event) throws IOException
