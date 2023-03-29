@@ -33,40 +33,16 @@ public class JDBCConnecter
         }
     }
 
-    public static void getConnection() throws Exception
+    public static Connection getConnection() throws Exception
     {
-        String dbTablesCreationCommando = readFile("src/main/resources/de/zuse/hotel/db/dbTablesCreation.sql");
-
-        try
-        {
-            Class.forName("org.hsqldb.jdbcDriver");
-        } catch (ClassNotFoundException e)
-        {
-            System.err.println("ERROR: failed to load HSQLDB JDBC driver.");
-            return;
-        }
-
-        try
-        {
-            conn = DriverManager.getConnection(DB_NAME, USER_NAME, PASSWORD);
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
+        conn = DriverManager.getConnection(DB_NAME, USER_NAME, PASSWORD);
+        return conn;
     }
 
     public static void shutdown() throws Exception
     {
         conn.close();
         factory.close();
-    }
-
-    public static String readFile(String fileName) throws Exception
-    {
-
-        File file = new File(fileName);
-        String s = FileUtils.readFileToString(file, "utf-8");
-        return s;
     }
 
     public static EntityManagerFactory getEntityManagerFactory()

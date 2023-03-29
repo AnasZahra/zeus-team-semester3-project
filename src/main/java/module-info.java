@@ -12,7 +12,6 @@ module de.zuse.hotel
     requires java.sql;
     requires java.persistence;
     requires org.hibernate.orm.core;
-    requires org.apache.commons.io;
 
 
     opens de.zuse.hotel.gui to javafx.fxml, javafx.graphics;
@@ -22,7 +21,4 @@ module de.zuse.hotel
 
     exports de.zuse.hotel.util;
     exports de.zuse.hotel.util.pdf;
-
-    //exports de.zuse.hotel.util;
-
 }
