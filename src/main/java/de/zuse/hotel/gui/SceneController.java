@@ -36,9 +36,7 @@ public class SceneController
     private BorderPane borderPane;
 
 
-    public SceneController()
-    {
-    }
+    public SceneController(){}
 
     public void onClickDashboardBtn(ActionEvent event) throws IOException
     {
@@ -56,8 +54,13 @@ public class SceneController
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Rooms.fxml"));
         Node node = fxmlLoader.load();
+        ControllerApi dashboardController = (ControllerApi) fxmlLoader.getController();
+        dashboardController.onStart();
+        HotelCore.get().setCurrentScene(dashboardController);
+
         borderPane.setCenter(node);
         onSwitchPanel(roomsBtnId);
+
     }
 
     public void onClickGuestBtn(ActionEvent event) throws IOException
@@ -68,8 +71,11 @@ public class SceneController
         onSwitchPanel(guestBtnId);
     }
 
-    public void onClickSettingsBtn(ActionEvent event)
+    public void onClickSettingsBtn(ActionEvent event) throws IOException
     {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Settings.fxml"));
+        Node node = fxmlLoader.load();
+        borderPane.setCenter(node);
         onSwitchPanel(settingsBtnId);
     }
 
