@@ -47,6 +47,12 @@ public class HotelConfiguration
         floor.addRoom(new Room(floor, 3, 100.0, RoomSpecification.Types.FAMILY));
         hotelFloors.add(floor);
 
+        Floor floor2 = new Floor(2, 10);
+        floor2.addRoom(new Room(floor2, 69, 100.0, RoomSpecification.Types.SINGLE));
+        floor2.addRoom(new Room(floor2, 89, 100.0, RoomSpecification.Types.DOUBLE));
+        floor2.addRoom(new Room(floor2, 7, 100.0, RoomSpecification.Types.FAMILY));
+        hotelFloors.add(floor2);
+
         addNewRoomService("Dinner", 20.0f);
         addNewRoomService("Wifi", 10.0f);
     }
