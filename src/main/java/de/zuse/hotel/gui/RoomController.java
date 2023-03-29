@@ -37,7 +37,8 @@ public class RoomController implements ControllerApi {
     public void viewRoomData()
     {
         int floorcount = floorChoiceBox.getValue() -1; //TODO hir the Indext is needet
-       /* roomslistid.getItems().clear();
+
+        /*roomslistid.getItems().clear();
         List<Room> roomList = HotelCore.get().getRooms(floorcount);
         roomList.forEach(new Consumer<Room>()
         {
