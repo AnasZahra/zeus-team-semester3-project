@@ -211,6 +211,8 @@ public class HotelCore implements HotelCoreApi
         {
             throw new RuntimeException(e);
         }
+
+        currentScene.onUpdate();
     }
 
     public void addNewFloorToHotel(Floor floor)
