@@ -54,9 +54,9 @@ public class SceneController
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Rooms.fxml"));
         Node node = fxmlLoader.load();
-        ControllerApi dashboardController = (ControllerApi) fxmlLoader.getController();
-        dashboardController.onStart();
-        HotelCore.get().setCurrentScene(dashboardController);
+        ControllerApi roomController = (ControllerApi) fxmlLoader.getController();
+        roomController.onStart();
+        HotelCore.get().setCurrentScene(roomController);
 
         borderPane.setCenter(node);
         onSwitchPanel(roomsBtnId);
@@ -111,6 +111,6 @@ public class SceneController
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL); //default, for closing th pop up window
         stage.show();
+        stage.resizableProperty().setValue(false);
     }
-
 }
