@@ -23,7 +23,9 @@
             <Font name="System Bold" size="22.0" />
          </font>
       </Button>
+
       <TableView fx:id="roomTable" layoutX="88.0" layoutY="165.0" prefHeight="432.0" prefWidth="869.0" style="-fx-background-color: #191717;" stylesheets="@Styling/Tableview.css" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="323.0">
+
          <columns>
             <TableColumn fx:id="roomNrCln" prefWidth="75.0" text="RoomNr" />
             <TableColumn fx:id="priceCln" prefWidth="75.0" text="Price" />

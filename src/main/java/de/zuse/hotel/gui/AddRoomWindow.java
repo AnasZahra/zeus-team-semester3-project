@@ -96,6 +96,7 @@ public class AddRoomWindow implements ControllerApi
         String roomNr = roomnumber.getText();
         String price = roomprice.getText();
 
+
         if (roomNr.strip().isEmpty() || price.strip().isEmpty() || roomType.getValue() == null)
         {
             Message.show(Alert.AlertType.ERROR, "Room Number", "fill all information about room");
