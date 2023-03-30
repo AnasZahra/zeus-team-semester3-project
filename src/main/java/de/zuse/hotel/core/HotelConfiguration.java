@@ -24,6 +24,7 @@ public class HotelConfiguration
     public HotelConfiguration()
     {
         roomServices = new HashMap<>();
+        hotelFloors = new ArrayList<>();
     }
 
     public ArrayList<Floor> getHotelFloors()
@@ -38,19 +39,9 @@ public class HotelConfiguration
 
     public void setDefaultFloorsAndRooms()
     {
-        if (hotelFloors == null)
-            hotelFloors = new ArrayList<>(1);
-
         Floor floor = new Floor(1, 10);
-        floor.addRoom(new Room(floor, 1, 100.0, RoomSpecification.Types.SINGLE));
-        floor.addRoom(new Room(floor, 2, 100.0, RoomSpecification.Types.DOUBLE));
-        floor.addRoom(new Room(floor, 3, 100.0, RoomSpecification.Types.FAMILY));
-        hotelFloors.add(floor);
-
         Floor floor2 = new Floor(2, 10);
-        floor2.addRoom(new Room(floor2, 69, 100.0, RoomSpecification.Types.SINGLE));
-        floor2.addRoom(new Room(floor2, 89, 100.0, RoomSpecification.Types.DOUBLE));
-        floor2.addRoom(new Room(floor2, 7, 100.0, RoomSpecification.Types.FAMILY));
+        hotelFloors.add(floor);
         hotelFloors.add(floor2);
 
         addNewRoomService("Dinner", 20.0f);
@@ -112,7 +103,7 @@ public class HotelConfiguration
         return roomServices.get(name) != null;
     }
 
-    public Map<String,Float> getRoomServices()
+    public Map<String, Float> getRoomServices()
     {
         return roomServices;
     }

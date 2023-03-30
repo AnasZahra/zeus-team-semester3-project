@@ -4,8 +4,6 @@ import de.zuse.hotel.util.ZuseCore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
 
 
 @Entity
@@ -18,60 +16,60 @@ public class Person {
     @Column(name = "Person_id")
     private int id;
     @Column(name = "Firstname", nullable = false)
-    private String firstname;
+    private String firstName;
     @Column(name = "Lastname", nullable = false)
-    private String lastname;
+    private String lastName;
     @Column(name = "Birthday", nullable = false)
     private LocalDate birthday;
     @Column(name = "Email")
     private String email;
     @Column(name = "Phone_Number", length = TELEPHONE_NUMBER_COUNT)
-    private String teleNumber;
+    private String telNumber;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
-    //private ArrayList<Integer> bookingID;
+    //private ArrayList<Integer> bookingID; //TODO
 
-    public Person(String firstname, String lastname, LocalDate birthday, String email, String teleNumber, Address address)
+    public Person(String firstName, String lastName, LocalDate birthday, String email, String telNumber, Address address)
     {
-        ZuseCore.check(firstname != null && !firstname.strip().isEmpty(), "The FirstName can not be null!");
-        ZuseCore.check(lastname != null && !lastname.strip().isEmpty(), "The LastName can not be null!");
+        ZuseCore.check(firstName != null && !firstName.strip().isEmpty(), "The FirstName can not be null!");
+        ZuseCore.check(lastName != null && !lastName.strip().isEmpty(), "The LastName can not be null!");
         ZuseCore.check(email != null && !email.strip().isEmpty(), "The Email can not be null");
-        ZuseCore.check(teleNumber.length() == TELEPHONE_NUMBER_COUNT, "The Telefonnr must contains" + TELEPHONE_NUMBER_COUNT + " nummbers");
+        ZuseCore.check(telNumber.length() == TELEPHONE_NUMBER_COUNT, "The Telefonnr must contains" + TELEPHONE_NUMBER_COUNT + " nummbers");
         ZuseCore.check(address != null, "address can not be null!!");
         ZuseCore.check(is18OrOlder(birthday), "The Person must be 18 years old!!");
 
-        this.firstname = firstname;
-        this.lastname = lastname;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.birthday = birthday;
         this.email = email;
-        this.teleNumber = teleNumber;
+        this.telNumber = telNumber;
         this.address = address;
     }
 
     public Person() {}
 
-    public String getFirstname()
+    public String getFirstName()
     {
-        return firstname;
+        return firstName;
     }
 
-    public void setFirstname(String firstname)
+    public void setFirstName(String firstName)
     {
-        ZuseCore.check(firstname != null && !firstname.strip().isEmpty(), "The FirstName can not be null!");
-        this.firstname = firstname;
+        ZuseCore.check(firstName != null && !firstName.strip().isEmpty(), "The FirstName can not be null!");
+        this.firstName = firstName;
     }
 
-    public String getLastname()
+    public String getLastName()
     {
-        return lastname;
+        return lastName;
     }
 
-    public void setLastname(String lastname)
+    public void setLastName(String lastName)
     {
-        ZuseCore.check(lastname != null && !lastname.strip().isEmpty(), "The LastName can not be null!");
-        this.lastname = lastname;
+        ZuseCore.check(lastName != null && !lastName.strip().isEmpty(), "The LastName can not be null!");
+        this.lastName = lastName;
     }
 
     public int getId()
@@ -108,13 +106,13 @@ public class Person {
 
     public String getTelNumber()
     {
-        return teleNumber;
+        return telNumber;
     }
 
     public void setTelNumber(String telNumber)
     {
         ZuseCore.check(String.valueOf(telNumber).length() == 12, "The Telefonnr must contains 12 nummbers");
-        this.teleNumber = telNumber;
+        this.telNumber = telNumber;
     }
 
     public Address getAddress()
@@ -132,12 +130,12 @@ public class Person {
     public String toString()
     {
         return "{" +
-                "firstname='" + firstname + "," +
-                ", lastname='" + lastname + "," +
+                "firstname='" + firstName + "," +
+                ", lastname='" + lastName + "," +
                 ", id=" + id +
                 ", birthday=" + birthday +
                 ", email='" + email + "," +
-                ", telephone Number=" + teleNumber + "," +
+                ", telephone Number=" + telNumber + "," +
                 ", address=" + address + "\n" +
                 '}';
     }

@@ -79,7 +79,7 @@ public class Booking
                 ", floorNumber=" + floorNumber +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", guest=" + guest.getFirstname() + " " + guest.getLastname() +
+                ", guest=" + guest.getFirstName() + " " + guest.getLastName() +
                 ", payment=" + payment +
                 ", guestsNum=" + guestsNum +
                 ", Services= " + extraServices.toString() +
@@ -116,7 +116,7 @@ public class Booking
 
     public String getGuestName()
     {
-        return guest.getFirstname() + " " + guest.getLastname();
+        return guest.getFirstName() + " " + guest.getLastName();
     }
 
     public boolean isPaid()

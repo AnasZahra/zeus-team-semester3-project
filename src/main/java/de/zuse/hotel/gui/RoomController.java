@@ -2,104 +2,97 @@ package de.zuse.hotel.gui;
 
 
 import de.zuse.hotel.core.*;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.DoubleUnaryOperator;
 
-public class RoomController implements ControllerApi {
-
-    @FXML
-    TextField roomnumber;
+public class RoomController implements ControllerApi
+{
+    public TableView<Room> roomTable;
     @FXML
     ChoiceBox<Integer> floorChoiceBox;
 
     @FXML
-    TableView<Room> roomTable;
+    private TableColumn<Room, Integer> roomNrCln;
     @FXML
-    private TableColumn<Room , Integer> roomNrCln;
+    private TableColumn<Room, RoomSpecification.Types> roomTypeCln;
     @FXML
-    private TableColumn<Room , RoomSpecification.Types> roomTypeCln;
-    @FXML
-    private TableColumn<Room , Integer> priceCln;
-
-
-    public TextField roomprice;
-    @FXML
-    ChoiceBox<RoomSpecification.Types> roomType;
+    private TableColumn<Room, Double> priceCln;
 
     public void viewRoomData()
     {
-        int floorcount = floorChoiceBox.getValue() -1; //TODO hir the Indext is needet
+        int currentFloor = floorChoiceBox.getValue() - 1;
+        List<Room> rooms = HotelCore.get().getRooms(currentFloor);
 
-       /* roomslistid.getItems().clear();
-
-        List<Room> roomList = HotelCore.get().getRooms(floorcount);
-        roomList.forEach(new Consumer<Room>()
+        if (rooms != null)
         {
-            @Override
-            public void accept(Room room)
-            {
-                if (!roomslistid.getItems().contains(room))
-                    roomslistid.getItems().add(room);
-            }
-        });*/
+            ObservableList<Room> observableRooms = FXCollections.observableArrayList(rooms);
+            roomTable.setItems(observableRooms);
+        }
 
-        //roomslistid.refresh();
     }
 
     @Override
-    public void onUpdate() {
+    public void onUpdate()
+    {
         viewRoomData();
     }
 
-    public void onStart() { // set a defult Floor 1
+    public void onStart()
+    {
+        roomNrCln.setCellValueFactory(new PropertyValueFactory<>("roomNr"));
+        priceCln.setCellValueFactory(new PropertyValueFactory<>("price"));
+        roomTypeCln.setCellValueFactory(new PropertyValueFactory<>("roomType"));
 
-        List<Floor> floorlist =  HotelCore.get().getFloors();
-        floorlist.forEach(new Consumer<Floor>() {
+        // set a default Floor 1
+        List<Floor> floorlist = HotelCore.get().getFloors();
+        floorlist.forEach(new Consumer<Floor>()
+        {
             @Override
-            public void accept(Floor floor) {
+            public void accept(Floor floor)
+            {
                 floorChoiceBox.getItems().add(floor.getFloorNr());
             }
         });
 
         floorChoiceBox.setOnAction(this::onFloorChoiceChanged);
-        floorChoiceBox.setValue(floorlist.get(0).getFloorNr() );
-
+        if (floorlist.size() > 0)
+            floorChoiceBox.setValue(floorlist.get(0).getFloorNr());
     }
 
 
-    public void onFloorChoiceChanged (ActionEvent actionEvent)
+    public void onFloorChoiceChanged(ActionEvent actionEvent)
     {
         viewRoomData();
     }
 
-
     @FXML
     void handleAddRoomButtonAction(ActionEvent event) throws Exception
     {
-
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addRoom.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 331, 409);
-        ControllerApi dashboardController = (ControllerApi) fxmlLoader.getController();
-        dashboardController.onStart();
+        ((ControllerApi) fxmlLoader.getController()).onStart();
+
         Stage stage = new Stage();
         stage.setTitle("Add a room");
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL); //default, for closing th pop up window
         stage.show();
+        stage.resizableProperty().setValue(false);
     }
-
-
-
 }

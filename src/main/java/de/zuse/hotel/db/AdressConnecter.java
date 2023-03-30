@@ -1,6 +1,7 @@
 package de.zuse.hotel.db;
 
 import de.zuse.hotel.core.Address;
+import org.hibernate.cfg.NotYetImplementedException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -90,22 +91,8 @@ public class AdressConnecter implements DatabaseOperations
     }
 
     @Override
-    public List<?> dbSerscheforanythinhg(String searchTerm)
-    { // jan
-        String query = "SELECT * FROM address WHERE ";
-        query += "Id = ?1 OR ";
-        query += "Address LIKE ?2 OR ";
-        query += "City LIKE ?2 OR ";
-        query += "State LIKE ?2 OR ";
-        query += "PLZ = ?3 OR "; // ZIP = PLZ
-
-        EntityManager manager = JDBCConnecter.getEntityManagerFactory().createEntityManager();
-        Query nativeQuery = manager.createNativeQuery(query, Address.class);
-        nativeQuery.setParameter(1, Integer.parseInt(searchTerm));
-        nativeQuery.setParameter(2, "%" + searchTerm + "%");
-        nativeQuery.setParameter(3, Integer.parseInt(searchTerm));
-        List<Address> result = nativeQuery.getResultList();
-        return result;
+    public List<Address> dbSerschforanythinhg(Object searchFilter)
+    {
+        throw new NotYetImplementedException(); // we do not Support filter for address yet
     }
-
 }

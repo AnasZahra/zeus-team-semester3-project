@@ -1,7 +1,9 @@
 package de.zuse.hotel.core;
 
+import de.zuse.hotel.db.BookingSearchFilter;
 import de.zuse.hotel.db.HotelDatabaseApi;
 import de.zuse.hotel.db.HotelDatabaseApiImpl;
+import de.zuse.hotel.db.PersonSearchFilter;
 import de.zuse.hotel.gui.ControllerApi;
 import de.zuse.hotel.util.HotelSerializer;
 import de.zuse.hotel.util.ZuseCore;
@@ -85,7 +87,8 @@ public class HotelCore implements HotelCoreApi
     public boolean addGuest(Person guest)
     {
         boolean state = hotelDatabaseApi.addGuest(guest);
-        currentScene.onUpdate();
+        if (currentScene != null)
+            currentScene.onUpdate();
         return state;
     }
 
@@ -93,7 +96,9 @@ public class HotelCore implements HotelCoreApi
     public boolean removeGuest(int guestID)
     {
         boolean state = hotelDatabaseApi.removeGuest(guestID);
-        currentScene.onUpdate();
+        if (currentScene != null)
+            currentScene.onUpdate();
+
         return state;
     }
 
@@ -101,7 +106,8 @@ public class HotelCore implements HotelCoreApi
     public boolean addBooking(Booking booking)
     {
         boolean state = hotelDatabaseApi.addBooking(booking);
-        currentScene.onUpdate();
+        if (currentScene != null)
+            currentScene.onUpdate();
         return state;
     }
 
@@ -109,7 +115,8 @@ public class HotelCore implements HotelCoreApi
     public boolean removeBooking(int bookingID)
     {
         boolean state = hotelDatabaseApi.removeBooking(bookingID);
-        currentScene.onUpdate();
+        if (currentScene != null)
+            currentScene.onUpdate();
         return state;
     }
 
@@ -138,6 +145,18 @@ public class HotelCore implements HotelCoreApi
     }
 
     @Override
+    public List<Booking> getBookingByFilter(BookingSearchFilter bookingSearchFilter)
+    {
+        return hotelDatabaseApi.getBookingsByFilter(bookingSearchFilter);
+    }
+
+    @Override
+    public List<Person> getPersonsByFilter(PersonSearchFilter personSearchFilter)
+    {
+        return hotelDatabaseApi.getPersonsByFilter(personSearchFilter);
+    }
+
+    @Override
     public PdfFile getBookingAsPdfFile(int bookingID)
     {
         Booking booking = hotelDatabaseApi.getBooking(bookingID);
@@ -148,7 +167,8 @@ public class HotelCore implements HotelCoreApi
     public boolean updateGuest(Person guest)
     {
         boolean state = hotelDatabaseApi.updateGuest(guest);
-        currentScene.onUpdate();
+        if (currentScene != null)
+            currentScene.onUpdate();
         return state;
     }
 
@@ -156,7 +176,8 @@ public class HotelCore implements HotelCoreApi
     public boolean updateBooking(Booking booking)
     {
         boolean state = hotelDatabaseApi.updateBooking(booking);
-        currentScene.onUpdate();
+        if (currentScene != null)
+            currentScene.onUpdate();
         return state;
     }
 
@@ -211,6 +232,8 @@ public class HotelCore implements HotelCoreApi
         {
             throw new RuntimeException(e);
         }
+        if (currentScene != null)
+            currentScene.onUpdate();
     }
 
     public void addNewFloorToHotel(Floor floor)
@@ -225,7 +248,7 @@ public class HotelCore implements HotelCoreApi
         {
             throw new RuntimeException(e);
         }
-
-        currentScene.onUpdate();
+        if (currentScene != null)
+            currentScene.onUpdate();
     }
 }

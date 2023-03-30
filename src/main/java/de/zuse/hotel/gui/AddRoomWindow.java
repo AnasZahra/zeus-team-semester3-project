@@ -8,6 +8,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -17,7 +18,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class AddRoomWindow implements ControllerApi{
+public class AddRoomWindow implements ControllerApi
+{
 
     public TextField roomprice;
 
@@ -32,43 +34,55 @@ public class AddRoomWindow implements ControllerApi{
 
 
     @Override
-    public void onStart() {
+    public void onStart()
+    {
 
-        Arrays.stream(RoomSpecification.Types.values()).toList().forEach(new Consumer<RoomSpecification.Types>() {
+        Arrays.stream(RoomSpecification.Types.values()).toList().forEach(new Consumer<RoomSpecification.Types>()
+        {
             @Override
-            public void accept(RoomSpecification.Types types) {
+            public void accept(RoomSpecification.Types types)
+            {
                 roomType.getItems().add(types);
             }
         });
+        roomType.setValue(RoomSpecification.Types.SINGLE);
 
-        roomnumber.textProperty().addListener(new ChangeListener<String>() {
+        roomnumber.textProperty().addListener(new ChangeListener<String>()
+        {
             @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
                 if (!newValue.matches("\\d*"))
                     roomnumber.setText(newValue.replaceAll("[^\\d]", ""));
 
             }
         });
 
-        roomprice.textProperty().addListener(new ChangeListener<String>() {
+        roomprice.textProperty().addListener(new ChangeListener<String>()
+        {
             @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d*")){
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+            {
+                if (!newValue.matches("\\d*"))
+                {
                     roomprice.setText(newValue.replaceAll("[^\\d]", ""));
                 }
 
             }
         });
 
-        List<Floor> floorlist =  HotelCore.get().getFloors();
-        floorlist.forEach(new Consumer<Floor>() {
+        List<Floor> floorlist = HotelCore.get().getFloors();
+        floorlist.forEach(new Consumer<Floor>()
+        {
             @Override
-            public void accept(Floor floor) {
+            public void accept(Floor floor)
+            {
                 floorChoiceBox.getItems().add(floor.getFloorNr());
             }
         });
 
-        floorChoiceBox.setValue(floorlist.get(0).getFloorNr() );
+        if (floorlist.size() > 0)
+            floorChoiceBox.setValue(floorlist.get(0).getFloorNr());
     }
 
     @Override
@@ -77,15 +91,23 @@ public class AddRoomWindow implements ControllerApi{
 
     }
 
-
-    public void addingRoom (ActionEvent actionEvent) throws Exception //TODO hir the Indext is needet
+    public void addingRoom(ActionEvent actionEvent) throws Exception //TODO hir the Indext is needet
     {
-        String roomnum = roomnumber.getText();
+        String roomNr = roomnumber.getText();
         String price = roomprice.getText();
-        Room room = new Room(HotelCore.get().getFloors().get(floorChoiceBox.getValue()-1), Integer.parseInt(roomnum) , Integer.parseInt(price), roomType.getValue());
-        HotelCore.get().addNewRoomToHotel(room.getFloorNr() -1 ,room );  //TODO hir the Indext is needet
-        closeWindow();
 
+
+        if (roomNr.strip().isEmpty() || price.strip().isEmpty() || roomType.getValue() == null)
+        {
+            Message.show(Alert.AlertType.ERROR, "Room Number", "fill all information about room");
+            return;
+        }
+
+        Room room = new Room(HotelCore.get().getFloors().get(floorChoiceBox.getValue() - 1), Integer.parseInt(roomNr),
+                Double.parseDouble(price), roomType.getValue());
+
+        HotelCore.get().addNewRoomToHotel(room.getFloorNr() - 1, room);  //TODO hir the Indext is needet
+        closeWindow();
     }
 
     @FXML
@@ -94,7 +116,5 @@ public class AddRoomWindow implements ControllerApi{
         Stage stage = (Stage) roomnumber.getScene().getWindow();
         stage.close();
     }
-
-
 
 }

@@ -19,10 +19,10 @@ public class ZuseCore
     {
         if (!condition)
         {
+            callback.accept(msg);
+
             if (DEBUG_MODE)
                 throw new BreakPointException(msg);
-            else
-                callback.accept(msg);
         }
     }
 

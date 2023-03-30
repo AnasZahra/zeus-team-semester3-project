@@ -19,6 +19,9 @@ public interface HotelDatabaseApi
     public boolean updateBooking(Booking updatedBooking);
     public Booking getBooking(int bookingID);
     public List<Booking> getAllBooking();
+    public List<Booking> getBookingsByFilter(BookingSearchFilter bookingSearchFilter);
+
+    public List<Person> getPersonsByFilter(PersonSearchFilter personSearchFilter);
 
     /**
      * Optional
