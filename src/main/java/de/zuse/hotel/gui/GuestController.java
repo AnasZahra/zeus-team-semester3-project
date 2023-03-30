@@ -34,6 +34,7 @@ public class GuestController implements ControllerApi
         stage.setTitle("Add a Guest");
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL); //default, for closing th pop up window
+        stage.resizableProperty().setValue(false);
         stage.show();
     }
 
