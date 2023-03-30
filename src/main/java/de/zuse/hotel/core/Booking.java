@@ -7,6 +7,9 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 @Entity
 @Table(name = "Bookings")
@@ -191,5 +194,21 @@ public class Booking
     {
         return payment;
     }
+
+    public float coastPerNight(LocalDate startDate , LocalDate endDate , float price , String serviceName )
+    {
+        float total = 0.0f ;// F this is my choice
+        long daysBetween = DAYS.between(startDate, endDate);
+        float totalServicevalue = 0;
+        if (extraServices != null ){
+            for (String string: extraServices){
+                totalServicevalue += HotelCore.get().getHotelConfig().getRoomServicePrice(string);
+            }
+        }
+
+        total = price * daysBetween +  totalServicevalue;
+        return total;
+    }
+
 
 }

@@ -83,7 +83,7 @@ public class AddRoomWindow implements ControllerApi{
         String roomnum = roomnumber.getText();
         String price = roomprice.getText();
         Room room = new Room(HotelCore.get().getFloors().get(floorChoiceBox.getValue()-1), Integer.parseInt(roomnum) , Integer.parseInt(price), roomType.getValue());
-        HotelCore.get().getHotelConfig().addNewRoom(room.getFloorNr() -1 ,room );  //TODO hir the Indext is needet
+        HotelCore.get().addNewRoomToHotel(room.getFloorNr() -1 ,room );  //TODO hir the Indext is needet
         closeWindow();
 
     }

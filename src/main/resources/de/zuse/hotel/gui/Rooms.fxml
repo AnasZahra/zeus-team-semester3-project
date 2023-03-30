@@ -19,7 +19,7 @@
             <Font name="System Bold" size="22.0" />
          </font>
       </Button>
-      
+
       <TableView fx:id="roomTable" layoutX="14.0" layoutY="104.0" prefHeight="511.0" prefWidth="1021.0" style="-fx-background-color: silver;" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="245.0">
          <columns>
             <TableColumn fx:id="roomNrCln" prefWidth="75.0" text="RoomNr" />
