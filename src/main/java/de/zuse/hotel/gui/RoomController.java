@@ -8,11 +8,13 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -33,6 +35,8 @@ public class RoomController implements ControllerApi
     private TableColumn<Room, RoomSpecification.Types> roomTypeCln;
     @FXML
     private TableColumn<Room, Double> priceCln;
+
+    private Room currentSelectedRoom = null;
 
     public void viewRoomData()
     {
@@ -58,6 +62,23 @@ public class RoomController implements ControllerApi
         roomNrCln.setCellValueFactory(new PropertyValueFactory<>("roomNr"));
         priceCln.setCellValueFactory(new PropertyValueFactory<>("price"));
         roomTypeCln.setCellValueFactory(new PropertyValueFactory<>("roomType"));
+
+        roomTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        roomTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener()
+        {
+            @Override
+            public void changed(ObservableValue observableValue, Object oldValue, Object newValue)
+            {
+                if (roomTable.getSelectionModel().getSelectedItem() != null)
+                {
+                    TableView.TableViewSelectionModel<Room> selectionModel = roomTable.getSelectionModel();
+                    currentSelectedRoom = selectionModel.getSelectedItem();
+                }else
+                {
+                    currentSelectedRoom = null;
+                }
+            }
+        });
 
         // set a default Floor 1
         List<Floor> floorlist = HotelCore.get().getFloors();
