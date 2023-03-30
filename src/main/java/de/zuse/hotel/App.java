@@ -8,11 +8,23 @@ public class App
 {
     public static void main(String[] args)
     {
-        Layer layer = new Gui();
-        //Layer layer = new ConsoleDialogLayer();
-        layer.onStart();
-        layer.run(args);
-        layer.onClose();
+    	 Layer layer = new Gui();
+         //Layer layer = new ConsoleDialogLayer();
+
+         Thread onStartThread = new Thread(() -> layer.onStart());
+         Thread runThread = new Thread(() -> layer.run(args));
+
+         onStartThread.start();
+         runThread.start();
+
+         try {
+             onStartThread.join();
+             runThread.join();
+         } catch (InterruptedException e) {
+             e.printStackTrace();
+         }
+
+         layer.onClose();
     }
 }
 
