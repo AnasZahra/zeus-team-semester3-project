@@ -1,11 +1,16 @@
 package de.zuse.hotel.db;
 
 import de.zuse.hotel.core.Booking;
+import de.zuse.hotel.core.Payment;
 import de.zuse.hotel.core.Person;
+import de.zuse.hotel.util.ZuseCore;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -88,26 +93,60 @@ public class BookingConnector implements DatabaseOperations
     }
 
     @Override
-    public List<?> dbSerscheforanythinhg(String searchTerm)
-    { // basel
-        /*String query = "SELECT * FROM address WHERE ";
-        query += "Id = ?1 OR ";
-        query += "roomNumber = ?3 OR ";
-        query += "floorNumber = ?3 OR ";
-        query += "startDate = ?1 OR ";
-        query += "endDate = ?1 OR ";
-        query += "guest = ?2 OR ";
-        query += "payment = ?2 OR ";
+    public List<Booking> dbSerschforanythinhg(Object searchFilter)
+    {
+        if (!(searchFilter instanceof BookingSearchFilter))
+            ZuseCore.coreAssert(false, "the SearchFilter class you try to add is not BookingSearchFilter");
 
-        Query nativeQuery = manager.createNativeQuery(query, Person.class);
-        nativeQuery.setParameter(1, Integer.parseInt(searchTerm));
-        nativeQuery.setParameter(2, "%" + searchTerm + "%");
-        nativeQuery.setParameter(3, Integer.parseInt(searchTerm));
-        nativeQuery.setParameter(4, Integer.parseInt(searchTerm));
-        List<Person> result = nativeQuery.getResultList();
-        return result;*/
-        return null;
+        BookingSearchFilter bookingSearchFilter = (BookingSearchFilter) searchFilter;
+        EntityManager manager = JDBCConnecter.getEntityManagerFactory().createEntityManager();
+        CriteriaBuilder builder = manager.getCriteriaBuilder();
+        CriteriaQuery<Booking> criteria = builder.createQuery(Booking.class);
+        Root<Booking> bookingRoot = criteria.from(Booking.class);
+        criteria.select(bookingRoot);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (bookingSearchFilter.roomNumber != null)
+            predicates.add(builder.equal(bookingRoot.get("roomNumber"), bookingSearchFilter.roomNumber));
+
+        if (bookingSearchFilter.floorNumber != null)
+            predicates.add(builder.equal(bookingRoot.get("floorNumber"), bookingSearchFilter.floorNumber));
+
+        if (bookingSearchFilter.startDate != null)
+            predicates.add(builder.greaterThanOrEqualTo(bookingRoot.get("startDate"), bookingSearchFilter.startDate));
+
+        if (bookingSearchFilter.endDate != null)
+            predicates.add(builder.lessThanOrEqualTo(bookingRoot.get("endDate"), bookingSearchFilter.endDate));
+
+        if (bookingSearchFilter.guest != null)
+        {
+            Join<Booking, Person> guestJoin = bookingRoot.join("guest");
+            predicates.add(builder.equal(guestJoin.get("id"), bookingSearchFilter.guest.getId()));
+        }
+
+        if (bookingSearchFilter.payment != null)
+        {
+            Join<Booking, Payment> paymentJoin = bookingRoot.join("payment");
+            predicates.add(builder.equal(paymentJoin.get("id"), bookingSearchFilter.payment.paymentID));
+        }
+
+        if (bookingSearchFilter.canceled != null)
+            predicates.add(builder.equal(bookingRoot.get("canceled"), bookingSearchFilter.canceled));
+
+        if (bookingSearchFilter.guestsNum != null)
+            predicates.add(builder.equal(bookingRoot.get("guestsNum"), bookingSearchFilter.guestsNum));
+
+        if (bookingSearchFilter.extraServices != null && !bookingSearchFilter.extraServices.isEmpty())
+        {
+            Join<Booking, List<String>> extraServicesJoin = bookingRoot.join("extraServices");
+            predicates.add(extraServicesJoin.get("name").in(bookingSearchFilter.extraServices));
+        }
+
+        criteria.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
+        TypedQuery<Booking> query = manager.createQuery(criteria);
+
+        return query.getResultList();
     }
-
 
 }
