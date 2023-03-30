@@ -1,5 +1,7 @@
 package de.zuse.hotel.core;
 
+import de.zuse.hotel.db.BookingSearchFilter;
+import de.zuse.hotel.db.PersonSearchFilter;
 import de.zuse.hotel.gui.ControllerApi;
 import de.zuse.hotel.util.pdf.PdfFile;
 
@@ -24,6 +26,9 @@ public interface HotelCoreApi
     Person getGuest(int personID);
     List<Person> getAllGuest();
     List<Booking> getAllBooking();
+    List<Booking> getBookingByFilter(BookingSearchFilter bookingSearchFilter);
+
+    List<Person> getPersonsByFilter(PersonSearchFilter personSearchFilter);
 
     PdfFile getBookingAsPdfFile(int bookingID);
 

@@ -17,23 +17,23 @@ class PersonTest {
     void testFirstname() {
         final String expectedName = "WoW";
         Person person = new Person();
-        person.setFirstname("WoW");
-        final String actualName = person.getFirstname();
+        person.setFirstName("WoW");
+        final String actualName = person.getFirstName();
         assertEquals(expectedName, actualName);
 
         Assertions.assertThrows(Exception.class, () ->
         {
-            person.setLastname(null);
+            person.setLastName(null);
         });
 
         Assertions.assertThrows(Exception.class, () ->
         {
-            person.setLastname("");
+            person.setLastName("");
         });
 
         Assertions.assertThrows(Exception.class, () ->
         {
-            person.setLastname("123");
+            person.setLastName("123");
         });
 
     }
@@ -42,23 +42,23 @@ class PersonTest {
     void testtLastname() {
         final String expectedName = "WoW";
         Person person = new Person();
-        person.setLastname(expectedName);
-        final String actualName = person.getLastname();
+        person.setLastName(expectedName);
+        final String actualName = person.getLastName();
         assertEquals(expectedName, actualName);
 
         Assertions.assertThrows(Exception.class, () ->
         {
-            person.setLastname(null);
+            person.setLastName(null);
         });
 
         Assertions.assertThrows(Exception.class, () ->
         {
-            person.setLastname("");
+            person.setLastName("");
         });
 
         Assertions.assertThrows(Exception.class, () ->
         {
-            person.setLastname("123");
+            person.setLastName("123");
         });
     }
 

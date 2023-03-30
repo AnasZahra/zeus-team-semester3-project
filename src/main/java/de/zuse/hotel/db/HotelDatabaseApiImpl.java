@@ -2,6 +2,7 @@ package de.zuse.hotel.db;
 
 import de.zuse.hotel.core.Booking;
 import de.zuse.hotel.core.Person;
+import de.zuse.hotel.util.ZuseCore;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -100,6 +101,23 @@ public class HotelDatabaseApiImpl implements HotelDatabaseApi
         BookingConnector bookingConnector = new BookingConnector();
         bookingConnector.dbsearchAll();
         return (List<Booking>) bookingConnector.dbsearchAll();
+    }
+
+    @Override
+    public List<Booking> getBookingsByFilter(BookingSearchFilter bookingSearchFilter)
+    {
+        ZuseCore.coreAssert(bookingSearchFilter != null, "Not valid bookingSearchFilter Object");
+
+        BookingConnector bookingConnector = new BookingConnector();
+        return bookingConnector.dbSerschforanythinhg(bookingSearchFilter);
+    }
+
+    @Override
+    public List<Person> getPersonsByFilter(PersonSearchFilter personSearchFilter)
+    {
+
+        PresonConnecter personConnector = new PresonConnecter();
+        return personConnector.dbSerschforanythinhg(personSearchFilter);
     }
 
     @Override

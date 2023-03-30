@@ -13,7 +13,7 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JoinColumn(name = "payment_id", referencedColumnName = "Booking_id")
-    private int paymentID;
+    public int paymentID;
 
     public enum Status
     {
