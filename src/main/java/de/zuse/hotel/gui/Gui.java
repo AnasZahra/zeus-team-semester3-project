@@ -2,20 +2,21 @@ package de.zuse.hotel.gui;
 
 import de.zuse.hotel.Layer;
 import de.zuse.hotel.core.HotelCore;
+import de.zuse.hotel.util.ZuseCore;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 public class Gui extends Application implements Layer
 {
-
-
-
     @Override
     public void onStart()
     {
         System.out.println("On Starting The Hotel App...");
+        HotelCore.init();
+        ZuseCore.setCallbackError(this::handleErrorMessages); // example for now
     }
 
     @Override
@@ -28,6 +29,7 @@ public class Gui extends Application implements Layer
     public void onClose()
     {
         System.out.println("On Closing The Hotel App...");
+        HotelCore.shutdown();
     }
 
     @Override
@@ -43,6 +45,10 @@ public class Gui extends Application implements Layer
         stage.show();
     }
 
+    public void handleErrorMessages(String msg)
+    {
+        Message.show(Alert.AlertType.ERROR, "Error", msg);
+    }
 
 
 }

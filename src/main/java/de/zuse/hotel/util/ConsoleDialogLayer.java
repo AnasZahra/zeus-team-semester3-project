@@ -2,6 +2,8 @@ package de.zuse.hotel.util;
 
 import de.zuse.hotel.Layer;
 import de.zuse.hotel.core.*;
+import de.zuse.hotel.db.BookingSearchFilter;
+import de.zuse.hotel.db.PersonSearchFilter;
 
 
 import java.time.LocalDate;
@@ -22,6 +24,8 @@ public class ConsoleDialogLayer implements Layer
     private static final int UPDATE_BOOKING = 8;
     private static final int GET_BOOKING = 9;
     private static final int GET_ALL_BOOKING = 10;
+
+    private static final int AUTO_TEST_SEARCH_BY_FILTER = 11;
     private static final int END = 0;
     //--------------------------------------------------------------//
 
@@ -32,6 +36,7 @@ public class ConsoleDialogLayer implements Layer
     {
         System.out.println("Start Loading Database..");
         input = new Scanner(System.in);
+        HotelCore.init();
     }
 
     @Override
@@ -67,6 +72,7 @@ public class ConsoleDialogLayer implements Layer
         System.out.println("Update Booking: " + UPDATE_BOOKING);
         System.out.println("Get Booking: " + GET_BOOKING);
         System.out.println("Get All Booking: " + GET_ALL_BOOKING);
+        System.out.println("Auto test by filter: " + AUTO_TEST_SEARCH_BY_FILTER);
         System.out.println("Close App: " + END);
     }
 
@@ -74,17 +80,41 @@ public class ConsoleDialogLayer implements Layer
     {
         switch (inputParam)
         {
-            case ADD_GUEST:         addGuest();         break;
-            case REMOVE_GUEST:      removeGuest();      break;
-            case UPDATE_GUEST:      updateGuest();      break;
-            case GET_GUEST:         getGuest();         break;
-            case GET_ALL_GUEST:     getAllGuests();     break;
-            case ADD_BOOKING:       addBooking();       break;
-            case REMOVE_BOOKING:    removeBooking();    break;
-            case UPDATE_BOOKING:    updateBooking();    break;
-            case GET_BOOKING:       getBooking();       break;
-            case GET_ALL_BOOKING:   getAllBooking();    break;
-            default:                return;
+            case ADD_GUEST:
+                addGuest();
+                break;
+            case REMOVE_GUEST:
+                removeGuest();
+                break;
+            case UPDATE_GUEST:
+                updateGuest();
+                break;
+            case GET_GUEST:
+                getGuest();
+                break;
+            case GET_ALL_GUEST:
+                getAllGuests();
+                break;
+            case ADD_BOOKING:
+                addBooking();
+                break;
+            case REMOVE_BOOKING:
+                removeBooking();
+                break;
+            case UPDATE_BOOKING:
+                updateBooking();
+                break;
+            case GET_BOOKING:
+                getBooking();
+                break;
+            case GET_ALL_BOOKING:
+                getAllBooking();
+                break;
+            case AUTO_TEST_SEARCH_BY_FILTER:
+                autoTestByFilter();
+                break;
+            default:
+                return;
         }
     }
 
@@ -292,6 +322,30 @@ public class ConsoleDialogLayer implements Layer
         int day = readInteger();
 
         return LocalDate.of(year, month, day);
+    }
+
+    private void autoTestByFilter()
+    {
+        Person person = new Person("bs", "sd", LocalDate.of(1999, 5, 22), "2002@gmail"
+                , "123456789111", new Address("de", "vk", "st", 66333, 24));
+
+        Booking booking = new Booking(2, 1, LocalDate.of(2023, 5, 1)
+                , LocalDate.of(2023, 6, 1), person);
+
+        HotelCore.get().addGuest(person);
+        HotelCore.get().addBooking(booking);
+
+        BookingSearchFilter bookingSearchFilter = new BookingSearchFilter();
+        bookingSearchFilter.startDate = LocalDate.of(2023,5,1);
+
+        PersonSearchFilter personSearchFilter = new PersonSearchFilter();
+        personSearchFilter.email = "2002@gmail";
+
+        List<Booking> bookings = HotelCore.get().getBookingByFilter(bookingSearchFilter);
+        List<Person> personList = HotelCore.get().getPersonsByFilter(personSearchFilter);
+
+        bookings.forEach(System.out::println);
+        personList.forEach(System.out::println);
     }
 
 }

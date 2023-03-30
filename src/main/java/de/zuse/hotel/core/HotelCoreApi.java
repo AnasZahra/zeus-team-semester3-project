@@ -1,5 +1,8 @@
 package de.zuse.hotel.core;
 
+import de.zuse.hotel.db.BookingSearchFilter;
+import de.zuse.hotel.db.PersonSearchFilter;
+import de.zuse.hotel.gui.ControllerApi;
 import de.zuse.hotel.util.pdf.PdfFile;
 
 import java.util.List;
@@ -23,8 +26,11 @@ public interface HotelCoreApi
     Person getGuest(int personID);
     List<Person> getAllGuest();
     List<Booking> getAllBooking();
+    List<Booking> getBookingByFilter(BookingSearchFilter bookingSearchFilter);
 
-    PdfFile getInvoiceAsPdf(int bookingID);
+    List<Person> getPersonsByFilter(PersonSearchFilter personSearchFilter);
+
+    PdfFile getBookingAsPdfFile(int bookingID);
 
     boolean updateGuest(Person guest);
 
@@ -37,4 +43,6 @@ public interface HotelCoreApi
     Room getRoom(int floorNr, int roomNr);
 
     HotelConfiguration getHotelConfig();
+
+    void setCurrentScene(ControllerApi currentScene);
 }

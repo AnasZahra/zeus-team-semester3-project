@@ -2,6 +2,7 @@ package de.zuse.hotel.db;
 
 import de.zuse.hotel.core.Booking;
 import de.zuse.hotel.core.Person;
+import de.zuse.hotel.util.ZuseCore;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -10,19 +11,19 @@ import java.util.Objects;
 
 public class HotelDatabaseApiImpl implements HotelDatabaseApi
 {
-    private Connection dbConnecter;
-
     public HotelDatabaseApiImpl()
     {
         try
         {
             JDBCConnecter.getConnection();
-        }catch (Exception e)
+            JDBCConnecter.getEntityManagerFactory();
+        } catch (Exception e)
         {
             e.printStackTrace();
         }
 
     }
+
     @Override
     public boolean addGuest(Person guest)
     {
@@ -40,7 +41,7 @@ public class HotelDatabaseApiImpl implements HotelDatabaseApi
     }
 
     @Override
-    public boolean updateGuest( Person updatedGuest)
+    public boolean updateGuest(Person updatedGuest)
     {
         PresonConnecter presonConnecter = new PresonConnecter();
         presonConnecter.dbUpdate(updatedGuest);
@@ -80,7 +81,7 @@ public class HotelDatabaseApiImpl implements HotelDatabaseApi
     }
 
     @Override
-    public boolean updateBooking( Booking updatedBooking)
+    public boolean updateBooking(Booking updatedBooking)
     {
         BookingConnector bookingConnector = new BookingConnector();
         bookingConnector.dbUpdate(updatedBooking);
@@ -103,14 +104,25 @@ public class HotelDatabaseApiImpl implements HotelDatabaseApi
     }
 
     @Override
-    public void shutdown()
+    public List<Booking> getBookingsByFilter(BookingSearchFilter bookingSearchFilter)
     {
-        try
-        {
-            dbConnecter.close();
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
+        ZuseCore.coreAssert(bookingSearchFilter != null, "Not valid bookingSearchFilter Object");
+
+        BookingConnector bookingConnector = new BookingConnector();
+        return bookingConnector.dbSerschforanythinhg(bookingSearchFilter);
+    }
+
+    @Override
+    public List<Person> getPersonsByFilter(PersonSearchFilter personSearchFilter)
+    {
+
+        PresonConnecter personConnector = new PresonConnecter();
+        return personConnector.dbSerschforanythinhg(personSearchFilter);
+    }
+
+    @Override
+    public void shutdown() throws Exception
+    {
+        JDBCConnecter.shutdown();
     }
 }

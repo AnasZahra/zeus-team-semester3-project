@@ -11,8 +11,9 @@ import java.time.LocalDate;
 @Table(name = "Payments")
 public class Payment {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JoinColumn(name = "payment_id", referencedColumnName = "Booking_id")
-    private int paymentID;
+    public int paymentID;
 
     public enum Status
     {
@@ -42,7 +43,7 @@ public class Payment {
 
     public Payment()
     {
-        this(LocalDate.now(), Status.NOT_PAID, Type.CASH, 0.0f);
+        this(null, Status.NOT_PAID, Type.CASH, 0.0f);
     }
 
     @Override

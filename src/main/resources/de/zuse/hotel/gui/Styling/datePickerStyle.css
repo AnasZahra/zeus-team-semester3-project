@@ -1,3 +1,12 @@
+@font-face {
+    -fx-font-family: myFont;
+    src:url(Gilroy.ttf);
+}
+
+.label{
+    -fx-font-family: Gilroy;
+}
+
 .date-picker {
     -fx-background-color: #131212;
     -fx-text-fill: white;
@@ -20,6 +29,7 @@
 .date-picker .cell {
     -fx-background-color: #131212;
     -fx-text-fill: white;
+    -fx-font-family: Gilroy;
 }
 
 .date-picker .cell:hover {
@@ -64,6 +74,7 @@
 .date-picker .text-field {
     -fx-background-color: #191717;
     -fx-text-fill: white;
+    -fx-font-family: Gilroy;
 }
 
 .date-picker .day-name-cell {

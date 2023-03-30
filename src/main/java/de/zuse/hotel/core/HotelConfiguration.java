@@ -2,11 +2,14 @@ package de.zuse.hotel.core;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import de.zuse.hotel.util.HotelSerializer;
 import de.zuse.hotel.util.ZuseCore;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 /**
  * Used for saving how many floors in hotel (floors contain how many rooms)
@@ -21,6 +24,7 @@ public class HotelConfiguration
     public HotelConfiguration()
     {
         roomServices = new HashMap<>();
+        hotelFloors = new ArrayList<>();
     }
 
     public ArrayList<Floor> getHotelFloors()
@@ -35,14 +39,10 @@ public class HotelConfiguration
 
     public void setDefaultFloorsAndRooms()
     {
-        if (hotelFloors == null)
-            hotelFloors = new ArrayList<>(1);
-
         Floor floor = new Floor(1, 10);
-        floor.addRoom(new Room(floor, 1, 100.0));
-        floor.addRoom(new Room(floor, 2, 100.0));
-        floor.addRoom(new Room(floor, 3, 100.0));
+        Floor floor2 = new Floor(2, 10);
         hotelFloors.add(floor);
+        hotelFloors.add(floor2);
 
         addNewRoomService("Dinner", 20.0f);
         addNewRoomService("Wifi", 10.0f);
@@ -103,10 +103,9 @@ public class HotelConfiguration
         return roomServices.get(name) != null;
     }
 
-    public Map<String,Float> getRoomServices()
+    public Map<String, Float> getRoomServices()
     {
         return roomServices;
     }
-
 
 }

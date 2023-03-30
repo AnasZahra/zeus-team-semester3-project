@@ -12,6 +12,8 @@
         <class>de.zuse.hotel.core.Person</class>
         <class>de.zuse.hotel.core.Payment</class>
         <class>de.zuse.hotel.core.Booking</class>
+        <class>de.zuse.hotel.db.Address_trash_collection</class>
+        <class>de.zuse.hotel.db.Person_trash_collection</class>
 
         <!-- Database connection details -->
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
