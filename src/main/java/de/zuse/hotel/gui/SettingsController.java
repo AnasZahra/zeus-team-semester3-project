@@ -32,8 +32,12 @@ public class SettingsController implements ControllerApi, Initializable
 	ImageView imageL;
 	
 	public void changeToDarkmood() {
+	
+	
+	
 		imageD.setOnMouseClicked(e -> {
-			 anchor.setStyle("-fx-background-color: black; -fx-border-color: #27ae60; -fx-border-width: 2px; -fx-padding: 10px;");
+			anchor.getParent().setStyle("-fx-background-color: black; -fx-border-color: #27ae60; -fx-border-width: 2px; -fx-padding: 10px;");
+			// anchor.setStyle("-fx-background-color: black; -fx-border-color: #27ae60; -fx-border-width: 2px; -fx-padding: 10px;");
 			 System.out.println("change to darkmood");
 		});
   	
@@ -42,7 +46,8 @@ public class SettingsController implements ControllerApi, Initializable
 
 	public void changeToLightmood() {
 imageL.setOnMouseClicked(e -> {
-	 anchor.setStyle("-fx-background-color: white; -fx-border-color: #27ae60; -fx-border-width: 2px; -fx-padding: 10px;");
+	anchor.getParent().setStyle("-fx-background-color: white; -fx-border-color: #27ae60; -fx-border-width: 2px; -fx-padding: 10px;");
+	// anchor.setStyle("-fx-background-color: white; -fx-border-color: #27ae60; -fx-border-width: 2px; -fx-padding: 10px;");
 	 System.out.println("change to lightmood");
 		});
 		
