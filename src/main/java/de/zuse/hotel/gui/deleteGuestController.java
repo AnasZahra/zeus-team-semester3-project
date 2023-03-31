@@ -45,6 +45,8 @@ public class deleteGuestController implements ControllerApi
             {
                 InfoController.showMessage(InfoController.LogLevel.Error,"Delete Guest"
                         ,"The Guest id you is not valid");
+
+                return;
             }
 
             List<Booking> bookings = HotelCore.get().getBookingByFilter(bookingSearchFilter);
