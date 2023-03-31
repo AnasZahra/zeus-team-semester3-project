@@ -23,8 +23,10 @@ public class LoadingPageController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		FadeTransition fadeTransition= new FadeTransition(Duration.millis(5000), anchor);
         fadeTransition.setFromValue(1.0);
+        
         fadeTransition.setToValue(0);
 
+        
         
         fadeTransition.setOnFinished(e -> {
             
