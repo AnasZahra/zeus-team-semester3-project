@@ -2,14 +2,11 @@ package de.zuse.hotel.core;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import de.zuse.hotel.util.HotelSerializer;
 import de.zuse.hotel.util.ZuseCore;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
 
 /**
  * Used for saving how many floors in hotel (floors contain how many rooms)
@@ -19,7 +16,7 @@ public class HotelConfiguration
 {
     private String hotelName = "Zuse Hotel";
     private ArrayList<Floor> hotelFloors;
-    private HashMap<String, Float> roomServices;
+    private HashMap<String, Double> roomServices;
 
     public HotelConfiguration()
     {
@@ -66,6 +63,11 @@ public class HotelConfiguration
         hotelFloors.get(floorNr).addRoom(room);
     }
 
+    public void removeRoom(int floorNr, int roomNr)
+    {
+        hotelFloors.get(floorNr).getRooms().remove(roomNr);
+    }
+
     public String getHotelName()
     {
         return hotelName;
@@ -76,17 +78,19 @@ public class HotelConfiguration
         this.hotelName = hotelName;
     }
 
-    public void addNewRoomService(String serviceName, float price)
+    public void addNewRoomService(String serviceName, double price)
     {
         ZuseCore.check(!roomServices.containsKey(serviceName),
                 "a service with same name has already been added!");
 
+        serviceName = serviceName.toLowerCase();
         roomServices.put(serviceName, price);
     }
 
-    public float getRoomServicePrice(String serviceName)
+    public double getRoomServicePrice(String serviceName)
     {
-        Float price = roomServices.get(serviceName);
+        serviceName = serviceName.toLowerCase();
+        Double price = roomServices.get(serviceName);
         ZuseCore.check(price != null, "The Service Name is not valid!");
 
         return price;
@@ -100,10 +104,11 @@ public class HotelConfiguration
 
     public boolean hasServiceName(String name)
     {
+        name = name.toLowerCase();
         return roomServices.get(name) != null;
     }
 
-    public Map<String, Float> getRoomServices()
+    public Map<String, Double> getRoomServices()
     {
         return roomServices;
     }

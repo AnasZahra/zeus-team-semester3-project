@@ -97,7 +97,7 @@ public class InvoicePdf implements PdfFile
                 {
                     String next = it.next();
                     services.append("(1 x " + next + ")");
-                    totalPrice += HotelCore.get().getHotelConfig().getRoomServicePrice(next);
+                    totalPrice += HotelCore.get().getRoomServicePrice(next);
                 }
 
                 document.add(new Paragraph(services + ": " + totalPrice + EURO_SYMOBL));

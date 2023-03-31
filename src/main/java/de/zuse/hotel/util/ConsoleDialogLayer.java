@@ -80,41 +80,18 @@ public class ConsoleDialogLayer implements Layer
     {
         switch (inputParam)
         {
-            case ADD_GUEST:
-                addGuest();
-                break;
-            case REMOVE_GUEST:
-                removeGuest();
-                break;
-            case UPDATE_GUEST:
-                updateGuest();
-                break;
-            case GET_GUEST:
-                getGuest();
-                break;
-            case GET_ALL_GUEST:
-                getAllGuests();
-                break;
-            case ADD_BOOKING:
-                addBooking();
-                break;
-            case REMOVE_BOOKING:
-                removeBooking();
-                break;
-            case UPDATE_BOOKING:
-                updateBooking();
-                break;
-            case GET_BOOKING:
-                getBooking();
-                break;
-            case GET_ALL_BOOKING:
-                getAllBooking();
-                break;
-            case AUTO_TEST_SEARCH_BY_FILTER:
-                autoTestByFilter();
-                break;
-            default:
-                return;
+            case ADD_GUEST:                     addGuest();             break;
+            case REMOVE_GUEST:                  removeGuest();          break;
+            case UPDATE_GUEST:                  updateGuest();          break;
+            case GET_GUEST:                     getGuest();             break;
+            case GET_ALL_GUEST:                 getAllGuests();         break;
+            case ADD_BOOKING:                   addBooking();           break;
+            case REMOVE_BOOKING:                removeBooking();        break;
+            case UPDATE_BOOKING:                updateBooking();        break;
+            case GET_BOOKING:                   getBooking();           break;
+            case GET_ALL_BOOKING:               getAllBooking();        break;
+            case AUTO_TEST_SEARCH_BY_FILTER:    autoTestByFilter();     break;
+            default:                            return;
         }
     }
 

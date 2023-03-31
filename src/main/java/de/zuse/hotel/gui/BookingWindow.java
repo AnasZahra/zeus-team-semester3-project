@@ -76,30 +76,8 @@ public class BookingWindow implements ControllerApi
         });
         paymentChoiceBox.setValue(Payment.Type.CASH);
 
-        //guestsNumber Take only numbers
-        guestsNumber.textProperty().addListener(new ChangeListener<String>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
-            {
-                if (!newValue.matches("\\d*"))
-                    guestsNumber.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });
-
-        // for guest Name take only chars
-        guestName.textProperty().addListener(new ChangeListener<String>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
-            {
-                if (!newValue.matches("[A-Za-z]+"))
-                {
-                    guestName.setText(newValue.replaceAll("[^A-Za-z]", ""));
-                }
-            }
-        });
-
+        JavaFxUtil.makeFieldOnlyNumbers(guestsNumber); //guestsNumber Take only numbers
+        JavaFxUtil.makeFieldOnlyChars(guestName);// for guest Name take only chars
     }
 
     @Override

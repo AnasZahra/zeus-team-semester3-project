@@ -10,7 +10,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -47,29 +46,8 @@ public class AddRoomWindow implements ControllerApi
         });
         roomType.setValue(RoomSpecification.Types.SINGLE);
 
-        roomnumber.textProperty().addListener(new ChangeListener<String>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
-            {
-                if (!newValue.matches("\\d*"))
-                    roomnumber.setText(newValue.replaceAll("[^\\d]", ""));
-
-            }
-        });
-
-        roomprice.textProperty().addListener(new ChangeListener<String>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
-            {
-                if (!newValue.matches("\\d*"))
-                {
-                    roomprice.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-
-            }
-        });
+        JavaFxUtil.makeFieldOnlyNumbers(roomnumber);
+        JavaFxUtil.makeFieldOnlyNumbers(roomprice);
 
         List<Floor> floorlist = HotelCore.get().getFloors();
         floorlist.forEach(new Consumer<Floor>()
@@ -88,7 +66,6 @@ public class AddRoomWindow implements ControllerApi
     @Override
     public void onUpdate()
     {
-
     }
 
     public void addingRoom(ActionEvent actionEvent) throws Exception //TODO hir the Indext is needet
@@ -96,10 +73,9 @@ public class AddRoomWindow implements ControllerApi
         String roomNr = roomnumber.getText();
         String price = roomprice.getText();
 
-
         if (roomNr.strip().isEmpty() || price.strip().isEmpty() || roomType.getValue() == null)
         {
-            Message.show(Alert.AlertType.ERROR, "Room Number", "fill all information about room");
+            InfoController.showMessage(InfoController.LogLevel.Error, "Room Number", "fill all information about room");
             return;
         }
 
