@@ -66,10 +66,14 @@ public class PresonConnecter implements DatabaseOperations
     {
         EntityManager manager = JDBCConnecter.getEntityManagerFactory().createEntityManager();
         manager.getTransaction().begin();
+
+        /*
         manager.createNativeQuery("INSERT INTO Person_trash_collection SELECT * FROM Person WHERE Id = :id")
                 .setParameter("id", id)
                 .executeUpdate();
-        manager.createNativeQuery("DELETE FROM Person WHERE Id = :id")
+        */
+
+        manager.createNativeQuery("DELETE FROM Person WHERE Person_id = :id")
                 .setParameter("id", id)
                 .executeUpdate();
         manager.getTransaction().commit();

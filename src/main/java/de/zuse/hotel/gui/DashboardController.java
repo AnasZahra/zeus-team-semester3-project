@@ -4,14 +4,12 @@ import de.zuse.hotel.core.Booking;
 import de.zuse.hotel.core.HotelCore;
 import de.zuse.hotel.util.pdf.PdfFile;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -67,7 +65,7 @@ public class DashboardController implements ControllerApi
     {
         if (selectedBookingId == UNSELECTED)
         {
-            Message.show(Alert.AlertType.WARNING, "", "Select Booking to save!");
+            InfoController.showMessage(InfoController.LogLevel.Warn, "", "Select Booking to save!");
             return;
         }
 
@@ -81,7 +79,7 @@ public class DashboardController implements ControllerApi
         {
             PdfFile bookingFile = HotelCore.get().getBookingAsPdfFile(selectedBookingId);
             bookingFile.saveFile(file.getPath());
-            Message.show(Alert.AlertType.INFORMATION, "Successful", file.getName() + " saved in " + file.getPath());
+            InfoController.showMessage(InfoController.LogLevel.Info, "Successful", file.getName() + " saved in " + file.getPath());
         }
     }
 

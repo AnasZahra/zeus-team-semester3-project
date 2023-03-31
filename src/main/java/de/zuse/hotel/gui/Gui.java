@@ -47,8 +47,6 @@ public class Gui extends Application implements Layer
 
     public void handleErrorMessages(String msg)
     {
-        Message.show(Alert.AlertType.ERROR, "Error", msg);
+        InfoController.showMessage(InfoController.LogLevel.Error, "Error", msg);
     }
-
-
 }

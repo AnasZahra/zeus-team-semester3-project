@@ -42,7 +42,15 @@ public interface HotelCoreApi
 
     Room getRoom(int floorNr, int roomNr);
 
-    HotelConfiguration getHotelConfig();
+    void removeRoomFromHotel(int floorNr, int roomNr);
+
+    /**
+     * Room Services
+     */
+    void addNewRoomService(String serviceName, double price);
+    double getRoomServicePrice(String serviceName);
+    boolean hasRoomService(String serviceName);
+
 
     void setCurrentScene(ControllerApi currentScene);
 }
