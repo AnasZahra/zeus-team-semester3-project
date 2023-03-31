@@ -27,28 +27,28 @@ public class LoadingPageController implements Initializable
     {
         FadeTransition fadeTransition = new FadeTransition(Duration.millis(5000), anchor);
         fadeTransition.setFromValue(1.0);
+        
         fadeTransition.setToValue(0);
 
-        fadeTransition.setOnFinished(e ->
-        {
-            Stage loginScreen = new Stage();
-            Parent root = null;
+        fadeTransition.setOnFinished(e -> {
+            
+                
+                Stage loginScreen=new Stage();
+                Parent root=null;
+                
+                try {
+                    root=FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
+                } catch (Exception e1) {
+                }
+                
+                Stage current=(Stage)anchor.getScene().getWindow();
+                Scene scene=new Scene(root,1280,720);
+                
+                loginScreen.setScene(scene);
+               
+                current.hide();
+                loginScreen.show();
 
-            try
-            {
-                root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
-            } catch (Exception e1)
-            {
-                e1.printStackTrace();
-            }
-
-            Stage current = (Stage) anchor.getScene().getWindow();
-            Scene scene = new Scene(root, 1280, 720);
-
-            loginScreen.setScene(scene);
-
-            current.hide();
-            loginScreen.show();
         });
         fadeTransition.play();
 
