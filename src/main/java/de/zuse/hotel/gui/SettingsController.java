@@ -16,81 +16,59 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class SettingsController implements ControllerApi
+public class SettingsController implements ControllerApi, Initializable
 {
-    // private static final String PREF_FONT_SIZE = "font_size";
-    @FXML
-    private Button saveButton;
-    @FXML
-    Slider sliderFont;
-    @FXML
-    Slider sliderColor;
-    @FXML
-    Label labelSetting;
-    @FXML
-    AnchorPane pane;
+	@FXML
+	AnchorPane anchor;
+	@FXML
+	ImageView imageD;
+	@FXML
+	ImageView imageL;
+	
+	public void changeToDarkmood() {
+	
+	
+	
+		imageD.setOnMouseClicked(e -> {
+			anchor.getParent().setStyle("-fx-background-color: black; -fx-border-color: #27ae60; -fx-border-width: 2px; -fx-padding: 10px;");
+			// anchor.setStyle("-fx-background-color: black; -fx-border-color: #27ae60; -fx-border-width: 2px; -fx-padding: 10px;");
+			 System.out.println("change to darkmood");
+		});
+  	
+		
+	}
 
-    public void changeFont()
-    {
-        // Load the font size from preferences
-        Preferences prefs = Preferences.userNodeForPackage(getClass());
-        double fontSize = prefs.getDouble("font_size", 12.0);
-        labelSetting.setFont(Font.font(fontSize));
-
-        // Add a listener to the slider
-        sliderFont.valueProperty().addListener((observable, oldValue, newValue) ->
-        {
-            labelSetting.setFont(Font.font(newValue.doubleValue()));
-
-            // Save the font size to preferences
-            prefs.putDouble("font_size", newValue.doubleValue());
-            sliderFont.setValue(newValue.doubleValue());
-        });
-    }
-
+	public void changeToLightmood() {
+imageL.setOnMouseClicked(e -> {
+	anchor.getParent().setStyle("-fx-background-color: white; -fx-border-color: #27ae60; -fx-border-width: 2px; -fx-padding: 10px;");
+	// anchor.setStyle("-fx-background-color: white; -fx-border-color: #27ae60; -fx-border-width: 2px; -fx-padding: 10px;");
+	 System.out.println("change to lightmood");
+		});
+		
+		
+	}
+    
     @Override
     public void onStart()
     {
-        changeFont();
-
-        sliderColor.valueProperty().addListener((o, n1, n2) ->
-        {
-            if (n1.doubleValue() == 0)
-            {
-                pane.setStyle("-fx-background-color: grey;");
-            }
-            if (n2.doubleValue() == 0.5)
-            {
-                labelSetting.setTextFill(Color.YELLOW);
-            }
-            if (n2.doubleValue() == 1)
-            {
-                pane.setStyle("-fx-background-color: yellow;");
-            }
-        });
-
-
-        saveButton.setOnAction(e ->
-        {
-            try{
-                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Dashboard.fxml")));
-                Stage stage = (Stage) saveButton.getScene().getWindow();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
-            } catch (Exception exception) {
-                ZuseCore.check(false, exception.getMessage());
-            }
-        });
+        
     }
 
     @Override
     public void onUpdate()
     {
     }
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		changeToDarkmood();
+		changeToLightmood();
+		
+	}
 }

@@ -29,7 +29,7 @@ public class GuestController implements ControllerApi
     public void addGuest(ActionEvent event) throws Exception
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addGuest.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 331, 720);
+        Scene scene = new Scene(fxmlLoader.load(), 433, 720);
         Stage stage = new Stage();
         stage.setTitle("Add a Guest");
         stage.setScene(scene);
