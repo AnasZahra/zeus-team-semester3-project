@@ -2,26 +2,22 @@ package de.zuse.hotel.gui;
 
 
 import de.zuse.hotel.core.*;
-import javafx.beans.property.SimpleStringProperty;
+import de.zuse.hotel.db.BookingSearchFilter;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.function.DoubleUnaryOperator;
 
 public class RoomController implements ControllerApi
 {
@@ -73,7 +69,7 @@ public class RoomController implements ControllerApi
                 {
                     TableView.TableViewSelectionModel<Room> selectionModel = roomTable.getSelectionModel();
                     currentSelectedRoom = selectionModel.getSelectedItem();
-                }else
+                } else
                 {
                     currentSelectedRoom = null;
                 }
@@ -116,4 +112,42 @@ public class RoomController implements ControllerApi
         stage.show();
         stage.resizableProperty().setValue(false);
     }
+
+    @FXML
+    void handelRemoveRoomButton(ActionEvent event)
+    {
+        if (currentSelectedRoom == null)
+            return;
+
+        BookingSearchFilter bookingSearchFilter = new BookingSearchFilter();
+        bookingSearchFilter.roomNumber = currentSelectedRoom.getRoomNr();
+
+        List<Booking> bookings = HotelCore.get().getBookingByFilter(bookingSearchFilter);
+        if (bookings.size() > 0)
+        {
+            // Show message to confirm deleting
+            boolean state = InfoController.showConfirmMessage(Alert.AlertType.WARNING, "Removing Room Warning"
+                    , "There is/are " + bookings.size() + " with the room " + currentSelectedRoom.getRoomNr() +
+                            " in Floor " + currentSelectedRoom.getFloorNr() +
+                            " ,deleting the room will cancel all the bookings with it");
+            if (state)
+            {
+                HotelCore.get().removeRoomFromHotel(currentSelectedRoom.getFloorNr(), currentSelectedRoom.getRoomNr());
+                bookings.forEach(new Consumer<Booking>()
+                {
+                    @Override
+                    public void accept(Booking booking)
+                    {
+                        HotelCore.get().removeBooking(booking.getBookingID());//Cancel all the bookings
+                    }
+                });
+            }
+
+        } else
+        {
+            HotelCore.get().removeRoomFromHotel(currentSelectedRoom.getFloorNr(), currentSelectedRoom.getRoomNr());
+        }
+    }
+
+
 }

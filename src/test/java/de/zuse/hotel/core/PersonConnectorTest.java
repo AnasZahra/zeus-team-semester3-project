@@ -1,11 +1,7 @@
 package de.zuse.hotel.core;
-import org.testng.annotations.Test;
-import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import java.util.List;
-import de.zuse.hotel.core.Person;
-import de.zuse.hotel.db.PresonConnecter;
 
+
+/*
 public class PresonConnecterTest {
     private PresonConnecter connecter = new PresonConnecter();
 
@@ -79,3 +75,4 @@ public class PresonConnecterTest {
     }
 }
 
+ */

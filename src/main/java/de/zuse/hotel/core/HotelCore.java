@@ -9,6 +9,7 @@ import de.zuse.hotel.util.HotelSerializer;
 import de.zuse.hotel.util.ZuseCore;
 import de.zuse.hotel.util.pdf.InvoicePdf;
 import de.zuse.hotel.util.pdf.PdfFile;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,7 +20,9 @@ public class HotelCore implements HotelCoreApi
     private HotelDatabaseApi hotelDatabaseApi;
     private HotelConfiguration hotelConfiguration;
 
+    //TODO: for set CurrentScene and Stage maybe another solution at the end, with one function call for example or event system
     private ControllerApi currentScene; // used to update current scene when db updated
+    private Stage currentStage;
 
     public static HotelCore get()
     {
@@ -169,6 +172,7 @@ public class HotelCore implements HotelCoreApi
         boolean state = hotelDatabaseApi.updateGuest(guest);
         if (currentScene != null)
             currentScene.onUpdate();
+
         return state;
     }
 
@@ -178,6 +182,7 @@ public class HotelCore implements HotelCoreApi
         boolean state = hotelDatabaseApi.updateBooking(booking);
         if (currentScene != null)
             currentScene.onUpdate();
+
         return state;
     }
 
@@ -193,12 +198,6 @@ public class HotelCore implements HotelCoreApi
         ZuseCore.coreAssert(floorNr < hotelConfiguration.getHotelFloors().size(), "FloorNr > size, floorNr is the index!");
 
         return hotelConfiguration.getHotelFloors().get(floorNr).getRooms();
-    }
-
-    @Override
-    public HotelConfiguration getHotelConfig()
-    {
-        return hotelConfiguration;
     }
 
     @Override
@@ -220,34 +219,67 @@ public class HotelCore implements HotelCoreApi
         this.currentScene = currentScene;
     }
 
+    public Stage getCurrentStage()
+    {
+        return currentStage;
+    }
+
+    public void setCurrentStage(Stage stage)
+    {
+        currentStage = stage;
+    }
+
     public void addNewRoomToHotel(int floorNr, Room room)
     {
         hotelConfiguration.addNewRoom(floorNr, room);
-
-        HotelSerializer hotelSerializer = new HotelSerializer();
-        try
-        {
-            hotelSerializer.serializeHotel(hotelConfiguration); // in case the app crash, the data does get lost
-        } catch (IOException e)
-        {
-            throw new RuntimeException(e);
-        }
-        if (currentScene != null)
-            currentScene.onUpdate();
+        // in case the app crash, we do not lose any changes
+        serializeHotel();
     }
 
     public void addNewFloorToHotel(Floor floor)
     {
         hotelConfiguration.addNewFloor(floor);
+        // in case the app crash, we do not lose any changes
+        serializeHotel();
+    }
 
+    @Override
+    public void removeRoomFromHotel(int floorNr, int roomNr)
+    {
+        hotelConfiguration.removeRoom(floorNr, roomNr);
+        // in case the app crash, we do not lose any changes
+        serializeHotel();
+    }
+
+    @Override
+    public void addNewRoomService(String serviceName, double price)
+    {
+        hotelConfiguration.addNewRoomService(serviceName, price);
+    }
+
+    @Override
+    public double getRoomServicePrice(String serviceName)
+    {
+        return hotelConfiguration.getRoomServicePrice(serviceName);
+    }
+
+    @Override
+    public boolean hasRoomService(String serviceName)
+    {
+        return hotelConfiguration.hasServiceName(serviceName);
+    }
+
+    public void serializeHotel()
+    {
         HotelSerializer hotelSerializer = new HotelSerializer();
         try
         {
-            hotelSerializer.serializeHotel(hotelConfiguration); // in case the app crash, the data does get lost
+            hotelSerializer.serializeHotel(hotelConfiguration);
         } catch (IOException e)
         {
             throw new RuntimeException(e);
         }
+
         if (currentScene != null)
             currentScene.onUpdate();
     }

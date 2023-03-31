@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="161.0" prefWidth="370.0" styleClass="bg" stylesheets="@../../../../../../../../../../../../Users/basel/Desktop/zeus-team-semester3-project3/zeus-team-semester3-project3/src/main/resources/de/zuse/hotel/gui/Styling/BookingWindow.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.deleteGuestController">
+   <children>
+      <TextField fx:id="guestId" layoutX="11.0" layoutY="81.0" prefHeight="37.0" prefWidth="200.0" promptText="Guest-ID" />
+      <Button layoutX="218.0" layoutY="81.0" mnemonicParsing="false" onAction="#deleteGuest" prefHeight="37.0" prefWidth="72.0" styleClass="book" stylesheets="@../../../../../../../../../../../../Users/basel/Desktop/zeus-team-semester3-project3/zeus-team-semester3-project3/src/main/resources/de/zuse/hotel/gui/Styling/BookingWindow.css" text="Delete" textAlignment="CENTER" textFill="WHITE" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="11.0" />
+      <Text fill="WHITE" layoutX="28.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Guest-ID to delete" textAlignment="CENTER" wrappingWidth="313.0625">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
