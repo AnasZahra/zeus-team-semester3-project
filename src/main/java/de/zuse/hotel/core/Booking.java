@@ -28,7 +28,7 @@ public class Booking
     private LocalDate endDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "PersonId", nullable = false)
+    @JoinColumn(name = "Person_id", nullable = false)
     private Person guest;//to avoid EAGER loading maybe save person id and load it manually in db
 
     @OneToOne(cascade = CascadeType.ALL)

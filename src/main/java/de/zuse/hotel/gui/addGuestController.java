@@ -42,7 +42,7 @@ public class addGuestController implements ControllerApi
     {
         if (houseNr.getText().strip().isEmpty() || plz.getText().strip().isEmpty())
         {
-            InfoController.showMessage(InfoController.LogLevel.Error, "Room Number", "fill all information about room");
+            InfoController.showMessage(InfoController.LogLevel.Error, "Room Number", "fill all information about Guest");
             return;
         }
 

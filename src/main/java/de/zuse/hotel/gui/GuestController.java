@@ -71,7 +71,7 @@ public class GuestController implements ControllerApi
 
     public void addGuestBtn(ActionEvent event) throws Exception
     {
-        createFXMLoader("addGuest.fxml", 331, 720, "Add a Guest");
+        createFXMLoader("addGuest.fxml", 450, 720, "Add a Guest");
     }
 
     public void deleteGuestBtn(ActionEvent event) throws Exception
