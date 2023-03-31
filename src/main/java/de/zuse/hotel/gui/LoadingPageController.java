@@ -49,8 +49,6 @@ public class LoadingPageController implements Initializable
 
             current.hide();
             loginScreen.show();
-
-
         });
         fadeTransition.play();
 
