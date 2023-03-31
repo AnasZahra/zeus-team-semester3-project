@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.hibernate.annotations.Parent;
+
 public class SceneController
 {
     private static final String BUTTON_SELECTED_STYLE_NAME = "on_button_selected";
