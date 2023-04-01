@@ -7,31 +7,40 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane fx:id="bookingContainer" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="139.0" prefWidth="466.0" style="-fx-background-color: orange; -fx-background-radius: 30px;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="bookingContainer" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="184.0" prefWidth="466.0" style="-fx-background-color: orange; -fx-background-radius: 30px;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="guestName" layoutX="7.0" layoutY="53.0" text="guestName">
+      <Label fx:id="guestName" layoutX="15.0" layoutY="88.0" text="guestName">
          <font>
-            <Font name="System Bold" size="24.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
          <cursor>
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </Label>
-      <Label fx:id="date" layoutX="197.0" layoutY="52.0" text="date">
+      <Label fx:id="arrivalDate" layoutX="120.0" layoutY="88.0" text="arrivalDate">
          <font>
-            <Font name="System Bold" size="24.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
          <cursor>
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </Label>
-      <Label fx:id="personNr" layoutX="346.0" layoutY="53.0" text="personNr">
+      <Label fx:id="personNr" layoutX="378.0" layoutY="88.0" text="personNr">
          <font>
-            <Font name="System Bold" size="24.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
          <cursor>
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
+      </Label>
+      <Label layoutX="21.0" layoutY="14.0" text="Name" textFill="WHITE" />
+      <Label layoutX="126.0" layoutY="14.0" text="Arrival Date" textFill="WHITE" />
+      <Label layoutX="237.0" layoutY="14.0" text="Departure Date" textFill="WHITE" />
+      <Label layoutX="384.0" layoutY="14.0" text="PersonNr" textFill="WHITE" />
+      <Label fx:id="departureDate" layoutX="233.0" layoutY="90.0" text="departureDate">
+         <font>
+            <Font size="14.0" />
+         </font>
       </Label>
    </children>
    <effect>

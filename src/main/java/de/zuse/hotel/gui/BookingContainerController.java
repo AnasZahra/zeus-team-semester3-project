@@ -18,7 +18,10 @@ public class BookingContainerController {
     public AnchorPane bookingContainer;
 
     @FXML
-    public Label bookingDate;
+    public Label arrivalDate;
+
+    @FXML
+    public Label departureDate;
 
     @FXML
     public Label guestName;
@@ -27,54 +30,28 @@ public class BookingContainerController {
     public Label personNr;
     
    public BookingContainerController() {
-	   bookingContainer = new AnchorPane();
-	   bookingDate = new Label();
-	   guestName = new Label();
-	   personNr = new Label();
-	   bookingContainer.getChildren().addAll(bookingDate,guestName,personNr);
+	  
 	}
 
     public BookingContainerController(AnchorPane bookingContainer, Label bookingDate, Label guestName, Label personNr) {
 
-		super();
-		this.bookingContainer = bookingContainer;
-		this.bookingDate = bookingDate;
-		this.guestName = guestName;
-		this.personNr = personNr;
+		
 	}
     
-    public AnchorPane getBookingContainer(String l1, String l2, String l3) throws IOException {
+    public AnchorPane getBookingContainer(String l1, String l2, String l3,String l4) throws IOException {
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("BookingContainer.fxml"));
     	bookingContainer  = loader.load();
     
     	
     	guestName = (Label) bookingContainer.lookup("#guestName");
-    	bookingDate = (Label) bookingContainer.lookup("#date");
+    	arrivalDate = (Label) bookingContainer.lookup("#arrivalDate");
+    	departureDate = (Label) bookingContainer.lookup("#departureDate");
     	personNr = (Label) bookingContainer.lookup("#personNr");
     	guestName.setText(l1);
-    	bookingDate.setText(l2);
-    	 personNr.setText(l3);
-//       bookingContainer = new AnchorPane();
-//       bookingContainer.setPrefHeight(100);
-//  	   bookingDate = new Label();
-//  	   bookingDate.setText(l2);
-//  	   bookingDate.setFont(Font.font(30));
-//  	   guestName = new Label();
-//  	   guestName.setText(l1);
-//  	   guestName.setFont(Font.font(30));
-//  	   personNr = new Label();
-//  	   personNr.setText(l3);
-//  	   personNr.setFont(Font.font(30));
-//       AnchorPane.setLeftAnchor(guestName, 10.0);
-//       AnchorPane.setLeftAnchor(bookingDate, 200.0);
-//       AnchorPane.setLeftAnchor(personNr, 400.0);
-//       bookingContainer.setStyle("-fx-background-color: orange;"
-//               + "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0.0, 0, 4);"
-//               + "-fx-border-color: white;"
-//               + "-fx-border-width: 2px;"
-//               + "-fx-border-radius: 10px;");
-//       
-//  	   bookingContainer.getChildren().addAll(bookingDate,guestName,personNr);
+    	arrivalDate.setText(l2);
+    	departureDate.setText(l3);
+    	 personNr.setText(l4);
+
   	   
   	   return bookingContainer;
   	
