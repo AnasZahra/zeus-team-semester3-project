@@ -7,7 +7,6 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -29,7 +28,7 @@ public class Booking
     private LocalDate endDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "PersonId", nullable = false)
+    @JoinColumn(name = "Person_id", nullable = false)
     private Person guest;//to avoid EAGER loading maybe save person id and load it manually in db
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -65,7 +64,9 @@ public class Booking
         payment = new Payment();
     }
 
-    public Booking(){}
+    public Booking()
+    {
+    }
 
     public int createInvoice()
     {
@@ -154,7 +155,7 @@ public class Booking
     public void addExtraService(String serviceName)
     {
         //extraServices will not contain duplicate or not valid services
-        ZuseCore.check(HotelCore.get().getHotelConfig().hasServiceName(serviceName), "Service Name is not valid!");
+        ZuseCore.check(HotelCore.get().hasRoomService(serviceName), "Service Name is not valid!");
         ZuseCore.check(extraServices.contains(serviceName) == false, "Room has already this service");
 
         extraServices.add(serviceName);
@@ -195,18 +196,18 @@ public class Booking
         return payment;
     }
 
-    public float coastPerNight(LocalDate startDate , LocalDate endDate , float price , String serviceName )
+    public double coastPerNight(LocalDate startDate, LocalDate endDate, float price, String serviceName)
     {
-        float total = 0.0f ;// F this is my choice
+        double total = 0.0;
         long daysBetween = DAYS.between(startDate, endDate);
-        float totalServicevalue = 0;
-        if (extraServices != null ){
-            for (String string: extraServices){
-                totalServicevalue += HotelCore.get().getHotelConfig().getRoomServicePrice(string);
-            }
+        double totalServicevalue = 0.0;
+
+        for (String string : extraServices)
+        {
+            totalServicevalue += HotelCore.get().getRoomServicePrice(string);
         }
 
-        total = price * daysBetween +  totalServicevalue;
+        total = price * daysBetween + totalServicevalue;
         return total;
     }
 

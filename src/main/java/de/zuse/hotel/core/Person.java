@@ -13,7 +13,7 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Person_id")
+    @Column(name = "Person_id", nullable = false, updatable = false)
     private int id;
     @Column(name = "Firstname", nullable = false)
     private String firstName;
@@ -26,7 +26,7 @@ public class Person {
     @Column(name = "Phone_Number", length = TELEPHONE_NUMBER_COUNT)
     private String telNumber;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", nullable = false)
+    @JoinColumn(name = "Address_id", nullable = false)
     private Address address;
 
     //private ArrayList<Integer> bookingID; //TODO

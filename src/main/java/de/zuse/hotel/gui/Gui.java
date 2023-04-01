@@ -35,7 +35,7 @@ public class Gui extends Application implements Layer
     @Override
     public void start(Stage stage) throws Exception
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LoadingPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
         //CSS
         String cssStyle = this.getClass().getResource("Styling/background.css").toExternalForm();
@@ -47,8 +47,6 @@ public class Gui extends Application implements Layer
 
     public void handleErrorMessages(String msg)
     {
-        Message.show(Alert.AlertType.ERROR, "Error", msg);
+        InfoController.showMessage(InfoController.LogLevel.Error, "Error", msg);
     }
-
-
 }

@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.hibernate.annotations.Parent;
+
 public class SceneController
 {
     private static final String BUTTON_SELECTED_STYLE_NAME = "on_button_selected";
@@ -42,10 +44,8 @@ public class SceneController
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
         Node node = fxmlLoader.load();
-        ControllerApi dashboardController = (ControllerApi) fxmlLoader.getController();
-        dashboardController.onStart();
-        HotelCore.get().setCurrentScene(dashboardController);
-
+        ((ControllerApi) fxmlLoader.getController()).onStart();
+        HotelCore.get().setCurrentScene(fxmlLoader.getController());
         borderPane.setCenter(node);
         onSwitchPanel(dashboardBtnId);
     }
@@ -54,9 +54,8 @@ public class SceneController
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Rooms.fxml"));
         Node node = fxmlLoader.load();
-        ControllerApi roomController = (ControllerApi) fxmlLoader.getController();
-        roomController.onStart();
-        HotelCore.get().setCurrentScene(roomController);
+        ((ControllerApi) fxmlLoader.getController()).onStart();
+        HotelCore.get().setCurrentScene(fxmlLoader.getController());
 
         borderPane.setCenter(node);
         onSwitchPanel(roomsBtnId);
@@ -67,6 +66,8 @@ public class SceneController
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Guest.fxml"));
         Node node = fxmlLoader.load();
+        ((ControllerApi) fxmlLoader.getController()).onStart();
+        HotelCore.get().setCurrentScene(fxmlLoader.getController());
         borderPane.setCenter(node);
         onSwitchPanel(guestBtnId);
     }
@@ -75,6 +76,7 @@ public class SceneController
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Settings.fxml"));
         Node node = fxmlLoader.load();
+        HotelCore.get().setCurrentScene(fxmlLoader.getController());
         borderPane.setCenter(node);
         onSwitchPanel(settingsBtnId);
     }

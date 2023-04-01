@@ -13,6 +13,8 @@ module de.zuse.hotel
     requires java.persistence;
     requires org.hibernate.orm.core;
     requires java.prefs;
+	requires javafx.graphics;
+	requires javafx.base;
 
 
     opens de.zuse.hotel.gui to javafx.fxml, javafx.graphics;
