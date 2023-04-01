@@ -6,8 +6,6 @@ import de.zuse.hotel.core.Person;
 import de.zuse.hotel.util.ZuseCore;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
@@ -20,15 +18,15 @@ public class BookingConnector implements DatabaseOperations
     @Override
     public void dbCreate(Object object)
     {
-        if (object instanceof Booking)
-        {
-            EntityManager manager = JDBCConnecter.getEntityManagerFactory().createEntityManager();
-            Booking booking = (Booking) object;
-            manager.getTransaction().begin();
-            manager.persist(booking);
-            manager.getTransaction().commit();
-            manager.close();
-        }
+        if (!(object instanceof Booking))
+            ZuseCore.coreAssert(false, "object must be Booking");
+
+        EntityManager manager = JDBCConnecter.getEntityManagerFactory().createEntityManager();
+        Booking booking = (Booking) object;
+        manager.getTransaction().begin();
+        manager.persist(booking);
+        manager.getTransaction().commit();
+        manager.close();
     }
 
     @Override
@@ -72,24 +70,23 @@ public class BookingConnector implements DatabaseOperations
     public void dbRemoveById(int id)
     {
         Booking booking = dbsearchById(id);
-        booking.canceledBooking();
+        booking.cancelBooking();
         dbUpdate(booking);
     }
 
     @Override
     public void dbUpdate(Object object)
     {
-        if (object instanceof Person)
-        {
-            EntityManager manager = JDBCConnecter.getEntityManagerFactory().createEntityManager();
-            Person person = (Person) object;
-            System.out.println((Person) dbsearchById(person.getId()));
-            manager.getTransaction().begin();
-            manager.merge(person);
-            manager.getTransaction().commit();
-            manager.close();
-            System.out.println((Person) dbsearchById(person.getId()));
-        }
+        if (!(object instanceof Booking))
+            ZuseCore.coreAssert(false, "object must be Booking");
+
+        EntityManager manager = JDBCConnecter.getEntityManagerFactory().createEntityManager();
+        Booking person = (Booking) object;
+        manager.getTransaction().begin();
+        manager.merge(person);
+        manager.getTransaction().commit();
+        manager.close();
+
     }
 
     @Override

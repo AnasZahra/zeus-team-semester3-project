@@ -7,6 +7,7 @@ import de.zuse.hotel.util.ZuseCore;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 /**
  * Used for saving how many floors in hotel (floors contain how many rooms)
@@ -53,19 +54,61 @@ public class HotelConfiguration
     }
 
     /**
-     * @param floorNr - index of floor in hotelFloors
+     * @param floorNr - floor Number in hotelFloors
      * @param room    - room to add
      */
     public void addNewRoom(int floorNr, Room room)
     {
         ZuseCore.check(floorNr >= 0, "Floor number must be >= 0");
 
-        hotelFloors.get(floorNr).addRoom(room);
+        //TODO(Basel): optimization
+        for (Floor floor : hotelFloors)
+        {
+            if (floor.getFloorNr() == floorNr)
+                floor.addRoom(room);
+        }
     }
 
     public void removeRoom(int floorNr, int roomNr)
     {
-        hotelFloors.get(floorNr).getRooms().remove(roomNr);
+        //TODO(Basel): optimization
+        for (Floor hotelFloor : hotelFloors)
+        {
+            if (hotelFloor.getFloorNr() == floorNr)
+            {
+                for (int j = 0; j < hotelFloor.getRooms().size(); j++)
+                {
+                    if (hotelFloor.getRooms().get(j).getRoomNr() == roomNr)
+                        hotelFloor.getRooms().remove(j);
+                }
+            }
+        }
+    }
+
+    public Floor getFloorByFloorNr(int floorNr)
+    {
+        //TODO(Basel): optimization
+        for (Floor floor : hotelFloors)
+        {
+            if (floor.getFloorNr() == floorNr)
+                return floor;
+        }
+
+        return null;
+    }
+
+    public Room getRoomByRoomNr(int floorNr, int roomNr)
+    {
+        //TODO(Basel): optimization
+        Floor floor = getFloorByFloorNr(floorNr);
+
+        for (Room room : floor.getRooms())
+        {
+            if (room.getRoomNr() == roomNr)
+                return room;
+        }
+
+        return null;
     }
 
     public String getHotelName()

@@ -177,7 +177,7 @@ public class ConsoleDialogLayer implements Layer
         if (bookings != null)
         {
             for (Booking booking : bookings)
-                if (booking != null)
+                if (booking != null )
                     System.out.println(bookings);
         }
 

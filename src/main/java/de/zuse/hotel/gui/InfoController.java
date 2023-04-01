@@ -55,7 +55,7 @@ public class InfoController
         alert.setTitle(title);
         Optional<ButtonType> result = alert.showAndWait();
 
-        return result.equals(yes);
+        return result.isPresent() && result.get().equals(yes);
     }
 
     @FXML

@@ -11,7 +11,6 @@ public class Address
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Address_id", nullable = false)
     private int id;
-
     @Column(name = "Country", nullable = false)
     private String country;
     @Column(name = "City", nullable = false)
@@ -20,7 +19,6 @@ public class Address
     private String street;
     @Column(name = "PostCode")
     private int plz;
-
     @Column(name = "House_Number")
     private int houseNr;
 

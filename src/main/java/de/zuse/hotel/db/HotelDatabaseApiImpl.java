@@ -32,6 +32,11 @@ public class HotelDatabaseApiImpl implements HotelDatabaseApi
         return true; // to do is that dose the Hibernate return folse and t
     }
 
+    /**
+     *  Make sure by deleting a Guest to delete/cancel all his Booking(s) first!!! other way it will fail
+     * @param guestId
+     * @return
+     */
     @Override
     public boolean removeGuest(int guestId)
     {

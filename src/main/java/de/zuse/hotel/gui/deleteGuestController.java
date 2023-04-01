@@ -44,7 +44,7 @@ public class deleteGuestController implements ControllerApi
             if (bookingSearchFilter.guest == null)
             {
                 InfoController.showMessage(InfoController.LogLevel.Error,"Delete Guest"
-                        ,"The Guest id you is not valid");
+                        ,"The Guest id you entered is not valid");
 
                 return;
             }
@@ -67,7 +67,6 @@ public class deleteGuestController implements ControllerApi
                         }
                     });
                 }
-
             }
         }
 

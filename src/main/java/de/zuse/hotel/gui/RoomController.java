@@ -117,7 +117,10 @@ public class RoomController implements ControllerApi
     void handelRemoveRoomButton(ActionEvent event)
     {
         if (currentSelectedRoom == null)
+        {
+            InfoController.showMessage(InfoController.LogLevel.Info, "Delete Room", "Select Room to be deleted");
             return;
+        }
 
         BookingSearchFilter bookingSearchFilter = new BookingSearchFilter();
         bookingSearchFilter.roomNumber = currentSelectedRoom.getRoomNr();
@@ -127,9 +130,10 @@ public class RoomController implements ControllerApi
         {
             // Show message to confirm deleting
             boolean state = InfoController.showConfirmMessage(Alert.AlertType.WARNING, "Removing Room Warning"
-                    , "There is/are " + bookings.size() + " with the room " + currentSelectedRoom.getRoomNr() +
+                    , "There is/are " + bookings.size() + " booking(s) with the room " + currentSelectedRoom.getRoomNr() +
                             " in Floor " + currentSelectedRoom.getFloorNr() +
                             " ,deleting the room will cancel all the bookings with it");
+
             if (state)
             {
                 HotelCore.get().removeRoomFromHotel(currentSelectedRoom.getFloorNr(), currentSelectedRoom.getRoomNr());
@@ -138,7 +142,7 @@ public class RoomController implements ControllerApi
                     @Override
                     public void accept(Booking booking)
                     {
-                        HotelCore.get().removeBooking(booking.getBookingID());//Cancel all the bookings
+                        HotelCore.get().removeBooking(booking.getBookingID());//cancel all the bookings
                     }
                 });
             }

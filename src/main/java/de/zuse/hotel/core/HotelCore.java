@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class HotelCore implements HotelCoreApi
 {
@@ -192,6 +193,16 @@ public class HotelCore implements HotelCoreApi
         return hotelConfiguration.getHotelFloors();
     }
 
+    public Floor getFloorByFloorNr(int floorNr)
+    {
+        return hotelConfiguration.getFloorByFloorNr(floorNr);
+    }
+
+    public Room getRoomByRoomNr(int floorNr, int roomNr)
+    {
+        return hotelConfiguration.getRoomByRoomNr(floorNr, roomNr);
+    }
+
     @Override
     public List<Room> getRooms(int floorNr)
     {
@@ -210,6 +221,30 @@ public class HotelCore implements HotelCoreApi
         ZuseCore.check(room != null, "Room " + roomNr + " is not in Hotel!");
 
         return room;
+    }
+
+    public boolean isFloorInHotel(int floorNr)
+    {
+        //TODO: Optimization
+        for (Floor floor : hotelConfiguration.getHotelFloors())
+            if (floor.getFloorNr() == floorNr)
+                return true;
+
+        return false;
+    }
+
+    public boolean isRoomInHotel(int floorNr, int roomNr)
+    {
+        //TODO: Optimization
+        ZuseCore.check(isFloorInHotel(floorNr), "Floor" + floorNr + " is not in Hotel!!");
+
+        for (Room room : getFloorByFloorNr(floorNr).getRooms())
+        {
+            if (room.getRoomNr() == roomNr)
+                return true;
+        }
+
+        return false;
     }
 
     @Override

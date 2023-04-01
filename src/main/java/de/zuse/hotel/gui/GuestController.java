@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -88,7 +89,8 @@ public class GuestController implements ControllerApi
     public void createFXMLoader(String string, int width, int height, String description) throws IOException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(string));
-        Scene scene = new Scene(fxmlLoader.load(), width, height);
+        Parent parent = fxmlLoader.load();
+        Scene scene = new Scene(parent);
         Stage stage = new Stage();
         stage.setTitle(description);
         stage.setScene(scene);

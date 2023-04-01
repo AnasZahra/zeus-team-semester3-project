@@ -42,6 +42,7 @@ public class SceneController
 
     public void onClickDashboardBtn(ActionEvent event) throws IOException
     {
+        //TODO(Basel): another way to call onStart
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
         Node node = fxmlLoader.load();
         ((ControllerApi) fxmlLoader.getController()).onStart();
@@ -106,7 +107,7 @@ public class SceneController
     void handleBookRoomButtonAction(ActionEvent event) throws Exception
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("BookingWindow.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 500, 720);
+        Scene scene = new Scene(fxmlLoader.load());
         ((ControllerApi)fxmlLoader.getController()).onStart();
         Stage stage = new Stage();
         stage.setTitle("Book a room");

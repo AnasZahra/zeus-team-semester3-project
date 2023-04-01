@@ -33,7 +33,7 @@
             <Font name="System Bold Italic" size="25.0" />
          </font>
       </Text>
-      <TableView fx:id="guestTable" layoutX="86.0" layoutY="130.0" prefHeight="460.0" prefWidth="893.0" style="-fx-background-color: #191717;" stylesheets="@Styling/Tableview.css" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="301.0">
+      <TableView fx:id="guestTable" layoutX="86.0" layoutY="130.0" prefHeight="460.0" prefWidth="893.0" styleClass="table-view" stylesheets="@Styling/Tableview.css" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="301.0">
          <columns>
             <TableColumn fx:id="guestIdCln" maxWidth="2500.0" minWidth="1.0" prefWidth="2.0" text="ID" />
             <TableColumn fx:id="firstNameCln" prefWidth="233.0" text="First Name" />

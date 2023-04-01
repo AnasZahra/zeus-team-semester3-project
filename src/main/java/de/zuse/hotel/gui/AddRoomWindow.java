@@ -6,6 +6,7 @@ import de.zuse.hotel.core.Room;
 import de.zuse.hotel.core.RoomSpecification;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -16,10 +17,10 @@ import javafx.stage.Stage;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class AddRoomWindow implements ControllerApi
 {
-
     public TextField roomprice;
 
     @FXML
@@ -35,32 +36,20 @@ public class AddRoomWindow implements ControllerApi
     @Override
     public void onStart()
     {
-
-        Arrays.stream(RoomSpecification.Types.values()).toList().forEach(new Consumer<RoomSpecification.Types>()
-        {
-            @Override
-            public void accept(RoomSpecification.Types types)
-            {
-                roomType.getItems().add(types);
-            }
-        });
+        List<RoomSpecification.Types> roomTypes = Arrays.stream(RoomSpecification.Types.values())
+                .collect(Collectors.toList());
+        roomType.getItems().addAll(roomTypes);
         roomType.setValue(RoomSpecification.Types.SINGLE);
+
+        List<Integer> floorNumbers = HotelCore.get().getFloors().stream()
+                .map(Floor::getFloorNr)
+                .collect(Collectors.toList());
+        floorChoiceBox.getItems().addAll(floorNumbers);
+        if (floorNumbers.size() > 0)
+            floorChoiceBox.setValue(floorChoiceBox.getItems().get(0));
 
         JavaFxUtil.makeFieldOnlyNumbers(roomnumber);
         JavaFxUtil.makeFieldOnlyNumbers(roomprice);
-
-        List<Floor> floorlist = HotelCore.get().getFloors();
-        floorlist.forEach(new Consumer<Floor>()
-        {
-            @Override
-            public void accept(Floor floor)
-            {
-                floorChoiceBox.getItems().add(floor.getFloorNr());
-            }
-        });
-
-        if (floorlist.size() > 0)
-            floorChoiceBox.setValue(floorlist.get(0).getFloorNr());
     }
 
     @Override
@@ -68,7 +57,7 @@ public class AddRoomWindow implements ControllerApi
     {
     }
 
-    public void addingRoom(ActionEvent actionEvent) throws Exception //TODO hir the Indext is needet
+    public void addingRoom(ActionEvent actionEvent) throws Exception
     {
         String roomNr = roomnumber.getText();
         String price = roomprice.getText();
@@ -79,10 +68,10 @@ public class AddRoomWindow implements ControllerApi
             return;
         }
 
-        Room room = new Room(HotelCore.get().getFloors().get(floorChoiceBox.getValue() - 1), Integer.parseInt(roomNr),
+        Room room = new Room(HotelCore.get().getFloorByFloorNr(floorChoiceBox.getValue()), Integer.parseInt(roomNr),
                 Double.parseDouble(price), roomType.getValue());
 
-        HotelCore.get().addNewRoomToHotel(room.getFloorNr() - 1, room);  //TODO hir the Indext is needet
+        HotelCore.get().addNewRoomToHotel(room.getFloorNr(), room);
         closeWindow();
     }
 

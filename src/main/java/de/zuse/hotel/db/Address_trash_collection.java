@@ -9,13 +9,13 @@ public class Address_trash_collection {
     @Column(name = "Address_id")
     private int id;
     @Column(name = "Country", nullable = false)
-    private String Country;
+    private String country;
     @Column(name = "City", nullable = false)
-    private String City;
+    private String city;
     @Column(name = "Street", nullable = false)
-    private String Street;
+    private String street;
     @Column(name = "PostCode")
-    private int PostCode;
+    private int plz;
     @Column(name = "House_Number")
-    private int House_Number;
+    private int houseNr;
 }
