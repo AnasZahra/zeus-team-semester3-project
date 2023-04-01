@@ -40,7 +40,7 @@ public class BookingContainerController {
 		this.personNr = personNr;
 	}
     
-    public AnchorPane creatBookingContainer(String l1, String l2, String l3) {
+    public AnchorPane getBookingContainer(String l1, String l2, String l3) {
     	 bookingContainer = new AnchorPane();
 //    	 bookingContainer.setPrefWidth(100);
      	 bookingContainer.setPrefHeight(100);

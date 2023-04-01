@@ -21,7 +21,7 @@ import java.util.function.Consumer;
 public class DashboardController implements ControllerApi, Initializable
 {
     private static final int UNSELECTED = -1;
-    public ListView<AnchorPane> listView;
+    public  ListView<AnchorPane> listView;
 
     private int selectedBookingId;
 
@@ -87,14 +87,24 @@ public class DashboardController implements ControllerApi, Initializable
             InfoController.showMessage(InfoController.LogLevel.Info, "Successful", file.getName() + " saved in " + file.getPath());
         }
     }
+    public void addBookingToDashboard(String l1,String l2,String l3) {
+    	
+		
+    	BookingContainerController booking = new BookingContainerController();
+		             
+			
+			listView.getItems().add(booking.getBookingContainer(l1, l2, l3));
+    	
+    }
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		BookingContainerController booking = new BookingContainerController();
-		//	booking.creatBookingContainer("mohamad", "1.2.2013", "34");
-		             
-			listView.getItems().add(booking.creatBookingContainer("mohamad", "1.2.2013", "34"));
+		
+		addBookingToDashboard("Mohamad","1.4.2014","7");
+		addBookingToDashboard("jan","13.4.2020","2");
+		addBookingToDashboard("anas","9.3.2023","1");
+		
 	}
 
 }

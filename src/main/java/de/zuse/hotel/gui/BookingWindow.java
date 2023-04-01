@@ -59,6 +59,7 @@ public class BookingWindow implements ControllerApi
         booking.addExtraService("Dinner");
         booking.addExtraService("Wifi");
         HotelCore.get().addBooking(booking);
+     //  new DashboardController().addBookingToDashboard(gustname, gustname, gustname);
         closeWindow();
     }
 

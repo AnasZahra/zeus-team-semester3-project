@@ -13,7 +13,7 @@
                 <Font name="System Bold Italic" size="25.0" />
             </font>
         </Text>
-      <ListView fx:id="listView" layoutX="-1.0" layoutY="115.0" prefHeight="603.0" prefWidth="1108.0" style="-fx-background-color: black;" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="173.0" />
+      <ListView fx:id="listView" layoutX="-1.0" layoutY="115.0" prefHeight="603.0" prefWidth="841.0" style="-fx-background-color: black;" />
     </children>
    <stylesheets>
       <URL value="@Styling/background.css" />
