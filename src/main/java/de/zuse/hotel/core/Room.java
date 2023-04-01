@@ -41,6 +41,7 @@ public class Room
         this.price = price;
     }
 
+    //TODO: maybe take only the floorNr, no need to take Floor ref
     public Room(Floor floor, int roomNr, double price, RoomSpecification.Types roomType)
     {
         this(floor,roomNr,price);

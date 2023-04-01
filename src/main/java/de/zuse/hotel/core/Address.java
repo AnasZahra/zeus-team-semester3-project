@@ -1,5 +1,7 @@
 package de.zuse.hotel.core;
+
 import de.zuse.hotel.util.ZuseCore;
+
 import javax.persistence.*;
 
 
@@ -11,7 +13,6 @@ public class Address
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Address_id", nullable = false)
     private int id;
-
     @Column(name = "Country", nullable = false)
     private String country;
     @Column(name = "City", nullable = false)
@@ -19,18 +20,17 @@ public class Address
     @Column(name = "Street", nullable = false)
     private String street;
     @Column(name = "PostCode")
-    private int plz;
-
+    private String plz;//TODO: postleitzahlen die mit 0 anfangen !!! -> String
     @Column(name = "House_Number")
     private int houseNr;
 
-    public Address(String country, String city, String street, int plz, int houseNr)
+    public Address(String country, String city, String street, String plz, int houseNr)
     {
         ZuseCore.check(country != null && !country.strip().isEmpty(), "country can not be null");
         ZuseCore.check(city != null && !city.strip().isEmpty(), "city can not be null");
         ZuseCore.check(street != null && !street.strip().isEmpty(), "street can not be null");
 
-        ZuseCore.check(String.valueOf(plz).length() == 5, "The plz must contains 5 Nummbers");
+        ZuseCore.check(plz.length() == 5, "The plz must contains 5 Nummbers");
         ZuseCore.check(houseNr >= 0, "The houseNr must be >= 0");
 
         this.country = country;
@@ -40,9 +40,12 @@ public class Address
         this.houseNr = houseNr;
     }
 
-    public Address(){}
+    public Address()
+    {
+    }
 
-    public int getId() {
+    public int getId()
+    {
         return id;
     }
 
@@ -61,7 +64,7 @@ public class Address
         return city;
     }
 
-    public int getPlz()
+    public String getPlz()
     {
         return plz;
     }
@@ -89,9 +92,9 @@ public class Address
         this.street = street;
     }
 
-    public void setPlz(int plz)
+    public void setPlz(String plz)
     {
-        ZuseCore.check(String.valueOf(plz).length() == 5, "The plz must contains 5 Nummbers");
+        ZuseCore.check(plz.length() == 5, "The plz must contains 5 Nummbers");
         this.plz = plz;
     }
 
@@ -104,12 +107,6 @@ public class Address
     @Override
     public String toString()
     {
-        return "Address{" +
-                "country='" + country + '\'' +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                ", plz=" + plz +
-                ", hausnur=" + houseNr +
-                '}';
+        return country + ", " + city + ", " + plz + ", " + houseNr;
     }
 }

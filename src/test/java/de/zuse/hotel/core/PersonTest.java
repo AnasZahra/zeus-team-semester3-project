@@ -10,7 +10,7 @@ class PersonTest {
 
     @BeforeEach
     public void init() {
-        address = new Address("Syria", "Damascus", "burkan", 66534, 30);
+        address = new Address("Syria", "Damascus", "burkan", "66534", 30);
     }
 
     @Test
@@ -126,7 +126,7 @@ class PersonTest {
 
     @Test
     void testAddress() {
-        final Address expectedAddress = new Address("germany", "Saarbruecken", "Zweibruecker", 66954, 23);
+        final Address expectedAddress = new Address("germany", "Saarbruecken", "Zweibruecker", "66534", 23);
         Person person = new Person();
         person.setAddress(expectedAddress);
         final Address actualAddress = person.getAddress();

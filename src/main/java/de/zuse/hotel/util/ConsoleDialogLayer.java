@@ -177,7 +177,7 @@ public class ConsoleDialogLayer implements Layer
         if (bookings != null)
         {
             for (Booking booking : bookings)
-                if (booking != null)
+                if (booking != null )
                     System.out.println(bookings);
         }
 
@@ -218,7 +218,7 @@ public class ConsoleDialogLayer implements Layer
         String street = readString();
 
         System.out.print("plz(Integer): ");
-        int plz = readInteger();
+        String plz = readString();
 
         System.out.print("houseNr(Integer): ");
         int houseNr = readInteger();
@@ -304,7 +304,7 @@ public class ConsoleDialogLayer implements Layer
     private void autoTestByFilter()
     {
         Person person = new Person("bs", "sd", LocalDate.of(1999, 5, 22), "2002@gmail"
-                , "123456789111", new Address("de", "vk", "st", 66333, 24));
+                , "123456789111", new Address("de", "vk", "st", "66333", 24));
 
         Booking booking = new Booking(2, 1, LocalDate.of(2023, 5, 1)
                 , LocalDate.of(2023, 6, 1), person);

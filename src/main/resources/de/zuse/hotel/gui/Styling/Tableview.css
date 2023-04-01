@@ -71,3 +71,6 @@
     -fx-background-radius:0;
 }
 
+.table-row-cell:selected {
+    -fx-background-color: rgba(242, 78, 30, 0.5);
+}

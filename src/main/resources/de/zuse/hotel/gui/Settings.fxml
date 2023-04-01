@@ -13,7 +13,7 @@
             <DropShadow />
          </effect>
          <image>
-            <Image url="@Styling/images1.jpg" />
+            <Image url="@images/images1.jpg" />
          </image>
       </ImageView>
       <ImageView fx:id="imageL" fitHeight="137.0" fitWidth="231.0" layoutX="522.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
@@ -21,7 +21,7 @@
             <DropShadow />
          </effect>
          <image>
-            <Image url="@Styling/images.jpg" />
+            <Image url="@images/images.jpg" />
          </image>
       </ImageView>
    </children>

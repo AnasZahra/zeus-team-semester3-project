@@ -12,6 +12,8 @@ import de.zuse.hotel.util.pdf.PdfFile;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HotelCore implements HotelCoreApi
@@ -154,6 +156,12 @@ public class HotelCore implements HotelCoreApi
     }
 
     @Override
+    public List<Booking> getAllBookingBetweenStartAndEnd(LocalDate start, LocalDate end)
+    {
+        return hotelDatabaseApi.getAllBookingBetweenStartAndEnd(start, end);
+    }
+
+    @Override
     public List<Person> getPersonsByFilter(PersonSearchFilter personSearchFilter)
     {
         return hotelDatabaseApi.getPersonsByFilter(personSearchFilter);
@@ -192,6 +200,16 @@ public class HotelCore implements HotelCoreApi
         return hotelConfiguration.getHotelFloors();
     }
 
+    public Floor getFloorByFloorNr(int floorNr)
+    {
+        return hotelConfiguration.getFloorByFloorNr(floorNr);
+    }
+
+    public Room getRoomByRoomNr(int floorNr, int roomNr)
+    {
+        return hotelConfiguration.getRoomByRoomNr(floorNr, roomNr);
+    }
+
     @Override
     public List<Room> getRooms(int floorNr)
     {
@@ -210,6 +228,35 @@ public class HotelCore implements HotelCoreApi
         ZuseCore.check(room != null, "Room " + roomNr + " is not in Hotel!");
 
         return room;
+    }
+
+    public boolean isFloorInHotel(int floorNr)
+    {
+        //TODO: Optimization
+        for (Floor floor : hotelConfiguration.getHotelFloors())
+            if (floor.getFloorNr() == floorNr)
+                return true;
+
+        return false;
+    }
+
+    public boolean isRoomInHotel(int floorNr, int roomNr)
+    {
+        //TODO: Optimization
+        ZuseCore.check(isFloorInHotel(floorNr), "Floor" + floorNr + " is not in Hotel!!");
+
+        for (Room room : getFloorByFloorNr(floorNr).getRooms())
+        {
+            if (room.getRoomNr() == roomNr)
+                return true;
+        }
+
+        return false;
+    }
+
+    public List<String> getAllRoomServices()
+    {
+        return new ArrayList<>(hotelConfiguration.getRoomServices().keySet());
     }
 
     @Override

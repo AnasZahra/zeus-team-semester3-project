@@ -29,9 +29,10 @@ public class deleteGuestController implements ControllerApi
     @FXML
     void deleteGuest(ActionEvent actionEvent) throws Exception
     {
-        if (guestId.getText().strip().isEmpty())
+        if (guestId.getText() == null || guestId.getText().strip().isEmpty())
         {
             InfoController.showMessage(InfoController.LogLevel.Error,"Delete Guest","No Guest-ID was entered!");
+            return;
         }
 
         int id = Integer.parseInt(guestId.getText());
@@ -44,7 +45,7 @@ public class deleteGuestController implements ControllerApi
             if (bookingSearchFilter.guest == null)
             {
                 InfoController.showMessage(InfoController.LogLevel.Error,"Delete Guest"
-                        ,"The Guest id you is not valid");
+                        ,"The Guest id you entered is not valid");
 
                 return;
             }
@@ -52,7 +53,7 @@ public class deleteGuestController implements ControllerApi
             List<Booking> bookings = HotelCore.get().getBookingByFilter(bookingSearchFilter);
             if (bookings.size() > 0)
             {
-                boolean state = InfoController.showConfirmMessage(Alert.AlertType.WARNING,"Cancel Booking"
+                boolean state = InfoController.showConfirmMessage(InfoController.LogLevel.Warn,"Cancel Booking"
                         , "The guest you try to delete has booking" +
                         ",delete the guest will cancel all his booking/s ?");
 
@@ -68,12 +69,16 @@ public class deleteGuestController implements ControllerApi
                     });
                 }
 
+                return;
             }
         }
 
-        boolean state = HotelCore.get().removeGuest(id);
-        if (state)
-            InfoController.showMessage(InfoController.LogLevel.Info,"Delete Guest","Guest deleted Successfully");
+        if (InfoController.showConfirmMessage(InfoController.LogLevel.Info,"Delete Guest","Are you sure?"))
+        {
+            boolean state = HotelCore.get().removeGuest(id);
+            if (state)
+                InfoController.showMessage(InfoController.LogLevel.Info,"Delete Guest","Guest deleted Successfully");
+        }
 
         HotelCore.get().getCurrentStage().close();
     }

@@ -1,24 +1,23 @@
 package de.zuse.hotel.gui;
 
-import de.zuse.hotel.core.HotelCore;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.util.Optional;
-
 public class InfoController
 {
+    public Button yesBtn;
+    public Button noBtn;
+    public Button okBtn;
     @FXML
     private Text displayText;
+
+    private boolean answer;
 
     public enum LogLevel
     {
@@ -39,6 +38,9 @@ public class InfoController
             //give information about what happened after adding a guest if it went well or wrong
             infoController = fxmlLoader.getController();
             infoController.setText(content);
+            infoController.okBtn.setVisible(true);
+            infoController.yesBtn.setVisible(false);
+            infoController.noBtn.setVisible(false);
             stage.show();
         } catch (Exception e)
         {
@@ -46,16 +48,32 @@ public class InfoController
         }
     }
 
-    public static boolean showConfirmMessage(Alert.AlertType type, String title, String content)
+    public static boolean showConfirmMessage(LogLevel type, String title, String content)
     {
-        ButtonType yes = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-        ButtonType no = new ButtonType("No", ButtonBar.ButtonData.NO);
-        Alert alert = new Alert(Alert.AlertType.WARNING, content, yes, no);
+        try
+        {
+            InfoController infoController = new InfoController();
+            FXMLLoader fxmlLoader = new FXMLLoader(infoController.getClass().getResource("info.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage = new Stage();
+            stage.setTitle(title);
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            //give information about what happened after adding a guest if it went well or wrong
+            infoController = fxmlLoader.getController();
+            infoController.setText(content);
+            infoController.okBtn.setVisible(false);
+            infoController.yesBtn.setVisible(true);
+            infoController.noBtn.setVisible(true);
+            stage.showAndWait();
 
-        alert.setTitle(title);
-        Optional<ButtonType> result = alert.showAndWait();
+            return infoController.answer;
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
-        return result.equals(yes);
+        return false;
     }
 
     @FXML
@@ -69,4 +87,20 @@ public class InfoController
     {
         ((Stage) displayText.getScene().getWindow()).close();
     }
+
+    @FXML
+    void onYesBtnClicked(ActionEvent event)
+    {
+        answer = true;
+        cancel(event);
+    }
+
+    @FXML
+    void onNoBtnClicked(ActionEvent event)
+    {
+        answer = false;
+        cancel(event);
+    }
+
+
 }
