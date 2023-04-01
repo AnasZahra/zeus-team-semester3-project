@@ -85,6 +85,7 @@ public class RoomController implements ControllerApi
 
         // set a default Floor 1
         refreschFloorData();
+        viewRoomData();
 
         floorChoiceBox.setOnAction(this::onFloorChoiceChanged);
         if (floorChoiceBox.getItems().size() > 0)

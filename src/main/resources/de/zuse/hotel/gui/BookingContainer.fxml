@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="bookingContainer" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="790.0" stylesheets="@Styling/background.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="bookingContainer" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="790.0" stylesheets="@Styling/background.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.BookingContainerController">
    <children>
       <Label fx:id="guestName" layoutX="59.0" layoutY="25.0" styleClass="textOnBookingContainer" text="guestName">
          <font>
@@ -24,7 +24,7 @@
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </Label>
-      <Label fx:id="personNr" layoutX="686.0" layoutY="24.0" styleClass="textOnBookingContainer" text="personNr">
+      <Label fx:id="bookingId" layoutX="686.0" layoutY="24.0" styleClass="textOnBookingContainer" text="personNr">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

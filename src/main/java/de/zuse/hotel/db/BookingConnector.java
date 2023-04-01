@@ -82,9 +82,9 @@ public class BookingConnector implements DatabaseOperations
             ZuseCore.coreAssert(false, "object must be Booking");
 
         EntityManager manager = JDBCConnecter.getEntityManagerFactory().createEntityManager();
-        Booking person = (Booking) object;
+        Booking booking = (Booking) object;
         manager.getTransaction().begin();
-        manager.merge(person);
+        manager.merge(booking);
         manager.getTransaction().commit();
         manager.close();
     }

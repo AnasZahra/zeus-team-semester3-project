@@ -42,7 +42,8 @@ public class BookingWindow implements ControllerApi
     @FXML
     void addBooking(ActionEvent event) throws Exception
     {
-        if (guestID.getText().strip().isEmpty() || paymentChoiceBox.getValue() == null)
+        if (guestID.getText().strip().isEmpty() || paymentChoiceBox.getValue() == null
+                || guestsNumber.getText() == null || guestsNumber.getText().strip().isEmpty())
         {
             InfoController.showMessage(InfoController.LogLevel.Warn, "Add Booking", "can not add Booking" +
                     ", please fill all information!");
@@ -124,9 +125,9 @@ public class BookingWindow implements ControllerApi
 
         //Booked roomNr(s) between start and end
         List<Integer> bookedRooms = bookingList.stream()
-                .filter(booking -> !booking.isCanceled())
-                .map(Booking::getRoomNumber)
-                .collect(Collectors.toList());
+                .filter(booking -> !booking.isCanceled()
+                        && floorChoiceBox.getValue().getFloorNr() == booking.getFloorNumber())
+                .map(Booking::getRoomNumber).toList();
 
         roomChoiceBox.getItems().addAll(newValue.getRooms()
                 .stream()

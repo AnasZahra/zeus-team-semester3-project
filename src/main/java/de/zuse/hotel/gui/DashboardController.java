@@ -6,13 +6,18 @@ import de.zuse.hotel.util.pdf.PdfFile;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.util.Callback;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -20,47 +25,57 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
-public class DashboardController implements ControllerApi, Initializable
+public class DashboardController implements ControllerApi
 {
     private static final int UNSELECTED = -1;
-    public  ListView<AnchorPane> listView;
+    public ListView<BookingContainerController> listView;
     @FXML
     private Button deleteBookingBtn;
-    
     private int selectedBookingId;
 
     @Override
     public void onStart()
     {
-        //disable for now, waiting for design
-        // viewBookingData();
-        // //Bind
-        // listView.setOnMouseClicked(this::onListViewItemClicked);
-        // selectedBookingId = UNSELECTED;
-        // listView.setEditable(true);
+        listView.setCellFactory(new Callback<ListView<BookingContainerController>, ListCell<BookingContainerController>>() {
+            @Override
+            public ListCell<BookingContainerController> call(ListView<BookingContainerController> listView) {
+                return new ListCell<BookingContainerController>() {
+                    @Override
+                    protected void updateItem(BookingContainerController item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item != null) {
+                            setGraphic(item.getContent());
+                        } else {
+                            setGraphic(null);
+                        }
+                    }
+                };
+            }
+        });
+
+        viewBookingData();
     }
 
     @Override
     public void onUpdate()
     {
-        //viewBookingData();
+        viewBookingData();
     }
 
     public void viewBookingData()
     {
-//        listView.getItems().clear();
-//        List<Booking> bookingList = HotelCore.get().getAllBooking();
-//       // bookingList.forEach(new Consumer<Booking>()
-//        {
-//            @Override
-//            public void accept(Booking booking)
-//            {
-//                if (!listView.getItems().contains(booking))
-//                    listView.getItems().add(booking);
-//            }
-//        });
-//
-//        listView.refresh();
+        listView.getItems().clear();
+        HotelCore.get().getAllBooking().forEach(new Consumer<Booking>()
+        {
+            @Override
+            public void accept(Booking booking)
+            {
+                addBookingToDashboard(booking.getGuestName(),
+                        String.valueOf(booking.getStartDate()),
+                        String.valueOf(booking.getEndDate()),
+                        booking.getBookingID());
+            }
+        });
     }
 
     public void onListViewItemClicked(MouseEvent event)
@@ -88,38 +103,40 @@ public class DashboardController implements ControllerApi, Initializable
         {
             PdfFile bookingFile = HotelCore.get().getBookingAsPdfFile(selectedBookingId);
             bookingFile.saveFile(file.getPath());
-            InfoController.showMessage(InfoController.LogLevel.Info, "Successful", file.getName() + " saved in " + file.getPath());
+            InfoController.showMessage(InfoController.LogLevel.Info, "Successful",
+                    file.getName() + " saved in " + file.getPath());
         }
     }
-    public void addBookingToDashboard(String l1,String l2,String l3,String l4) throws IOException {
-    	
-		
-    	BookingContainerController booking = new BookingContainerController();
-		             
-			
-			listView.getItems().add(booking.getBookingContainer(l1, l2, l3,l4));
-    	
-    }
-    
-    public void deleteBooking(ActionEvent event) {
-    	int selectedId = listView.getSelectionModel().getSelectedIndex();
-    	listView.getItems().remove(selectedId);
+
+    public void addBookingToDashboard(String guestName, String startDate, String endDate, int bookingId)
+    {
+        try
+        {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("BookingContainer.fxml"));
+            Parent bookingContainer = loader.load();
+
+            BookingContainerController bookingContainerController = loader.getController();
+            bookingContainerController.guestName.setText(guestName);
+            bookingContainerController.arrivalDate.setText(startDate);
+            bookingContainerController.departureDate.setText(endDate);
+            bookingContainerController.bookingId.setText(String.valueOf(bookingId));
+            listView.getItems().add(bookingContainerController);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		try {
-			addBookingToDashboard("Mohamad","1.4.2014","2.4.2014","7");
-			addBookingToDashboard("Mohamad","1.4.2014","2.4.2014","7");
-			addBookingToDashboard("Mohamad","1.4.2014","2.4.2014","7");
-			addBookingToDashboard("Mohamad","1.4.2014","2.4.2014","7");
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		
-		
-	}
+    public void deleteBooking(ActionEvent event)
+    {
+        if (listView.getSelectionModel().getSelectedItem() == null)
+            return;
+
+        if (InfoController.showConfirmMessage(InfoController.LogLevel.Warn, "Delete Booking", "Are you sure?"))
+        {
+            HotelCore.get().removeBooking(listView.getSelectionModel().getSelectedItem().getBookingId());
+        }
+
+    }
 
 }
