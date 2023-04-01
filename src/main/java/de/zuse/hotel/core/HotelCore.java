@@ -12,8 +12,9 @@ import de.zuse.hotel.util.pdf.PdfFile;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 public class HotelCore implements HotelCoreApi
 {
@@ -155,6 +156,12 @@ public class HotelCore implements HotelCoreApi
     }
 
     @Override
+    public List<Booking> getAllBookingBetweenStartAndEnd(LocalDate start, LocalDate end)
+    {
+        return hotelDatabaseApi.getAllBookingBetweenStartAndEnd(start, end);
+    }
+
+    @Override
     public List<Person> getPersonsByFilter(PersonSearchFilter personSearchFilter)
     {
         return hotelDatabaseApi.getPersonsByFilter(personSearchFilter);
@@ -245,6 +252,11 @@ public class HotelCore implements HotelCoreApi
         }
 
         return false;
+    }
+
+    public List<String> getAllRoomServices()
+    {
+        return new ArrayList<>(hotelConfiguration.getRoomServices().keySet());
     }
 
     @Override

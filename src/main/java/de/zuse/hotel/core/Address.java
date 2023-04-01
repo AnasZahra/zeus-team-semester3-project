@@ -18,17 +18,17 @@ public class Address
     @Column(name = "Street", nullable = false)
     private String street;
     @Column(name = "PostCode")
-    private int plz;//TODO: postleitzahlen die mit 0 anfangen !!! -> String
+    private String plz;//TODO: postleitzahlen die mit 0 anfangen !!! -> String
     @Column(name = "House_Number")
     private int houseNr;
 
-    public Address(String country, String city, String street, int plz, int houseNr)
+    public Address(String country, String city, String street, String plz, int houseNr)
     {
         ZuseCore.check(country != null && !country.strip().isEmpty(), "country can not be null");
         ZuseCore.check(city != null && !city.strip().isEmpty(), "city can not be null");
         ZuseCore.check(street != null && !street.strip().isEmpty(), "street can not be null");
 
-        ZuseCore.check(String.valueOf(plz).length() == 5, "The plz must contains 5 Nummbers");
+        ZuseCore.check(plz.length() == 5, "The plz must contains 5 Nummbers");
         ZuseCore.check(houseNr >= 0, "The houseNr must be >= 0");
 
         this.country = country;
@@ -59,7 +59,7 @@ public class Address
         return city;
     }
 
-    public int getPlz()
+    public String getPlz()
     {
         return plz;
     }
@@ -87,9 +87,9 @@ public class Address
         this.street = street;
     }
 
-    public void setPlz(int plz)
+    public void setPlz(String plz)
     {
-        ZuseCore.check(String.valueOf(plz).length() == 5, "The plz must contains 5 Nummbers");
+        ZuseCore.check(plz.length() == 5, "The plz must contains 5 Nummbers");
         this.plz = plz;
     }
 

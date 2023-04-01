@@ -2,6 +2,8 @@ package de.zuse.hotel.db;
 
 import de.zuse.hotel.core.Booking;
 import de.zuse.hotel.core.Person;
+
+import java.time.LocalDate;
 import java.util.List;
 
 public interface HotelDatabaseApi
@@ -20,7 +22,7 @@ public interface HotelDatabaseApi
     public Booking getBooking(int bookingID);
     public List<Booking> getAllBooking();
     public List<Booking> getBookingsByFilter(BookingSearchFilter bookingSearchFilter);
-
+    public List<Booking> getAllBookingBetweenStartAndEnd(LocalDate start, LocalDate end);
     public List<Person> getPersonsByFilter(PersonSearchFilter personSearchFilter);
 
     /**

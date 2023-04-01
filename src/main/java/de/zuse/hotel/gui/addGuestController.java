@@ -47,7 +47,7 @@ public class addGuestController implements ControllerApi
         }
 
         Address address = new Address(country.getText(), city.getText(), street.getText()
-                , Integer.parseInt(plz.getText()), Integer.parseInt(houseNr.getText()));
+                , plz.getText(), Integer.parseInt(houseNr.getText()));
 
         Person guest = new Person(firstName.getText(), lastName.getText(), birthDate.getValue(), email.getText(),
                 telNum.getText(), address);

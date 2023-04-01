@@ -8,6 +8,7 @@ import de.zuse.hotel.util.ZuseCore;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -86,7 +87,6 @@ public class BookingConnector implements DatabaseOperations
         manager.merge(person);
         manager.getTransaction().commit();
         manager.close();
-
     }
 
     @Override
@@ -144,6 +144,21 @@ public class BookingConnector implements DatabaseOperations
         TypedQuery<Booking> query = manager.createQuery(criteria);
 
         return query.getResultList();
+    }
+
+    public List<Booking> dbSearchBookingBetween(LocalDate start, LocalDate end)
+    {
+        EntityManager manager = JDBCConnecter.getEntityManagerFactory().createEntityManager();
+        List<Booking> bookings = manager.createNativeQuery(
+                        "SELECT * FROM Bookings b " +
+                                "WHERE b.Start_Date <= :searchEndDate " +
+                                "AND b.End_Date >= :searchStartDate",
+                        Booking.class)
+                .setParameter("searchStartDate", start)
+                .setParameter("searchEndDate", end)
+                .getResultList();
+
+        return bookings;
     }
 
 }

@@ -22,7 +22,7 @@ public class AddressConnecterTest {
 
     @Test
     void dbCreate() {
-        Address address = new Address("Syria", "Damascus", "aboromane", 66534, 30);
+        Address address = new Address("Syria", "Damascus", "aboromane", "66534", 30);
         connector.dbCreate(address);
         List<?> result = connector.dbsearchAll();
         assertEquals(1, result.size());
@@ -30,8 +30,8 @@ public class AddressConnecterTest {
 
     @Test
     void dbsearchAll() {
-        Address address1 = new Address("Syria", "Damascus", "aboromane", 66534, 30);
-        Address address2 = new Address("Syria", "Damascus", "aboromane", 66534, 30);
+        Address address1 = new Address("Syria", "Damascus", "aboromane", "66534", 30);
+        Address address2 = new Address("Syria", "Damascus", "aboromane", "66534", 30);
         connector.dbCreate(address1);
         connector.dbCreate(address2);
         List<?> result = connector.dbsearchAll();
@@ -39,7 +39,7 @@ public class AddressConnecterTest {
     }
     @Test
     void dbsearchById() {
-        Address address = new Address("Syria", "Damascus", "aboromane", 66534, 30);
+        Address address = new Address("Syria", "Damascus", "aboromane", "66534", 30);
         connector.dbCreate(address);
         Address result = connector.dbsearchById(address.getId());
         assertEquals(address, result);
@@ -48,8 +48,8 @@ public class AddressConnecterTest {
     @Test
     void dbRemoveAll() {
 
-        Address address1 = new Address("Syria", "Damascus", "aboromane", 66534, 30);
-        Address address2 = new Address("Syria", "Damascus", "aboromane", 66534, 30);
+        Address address1 = new Address("Syria", "Damascus", "aboromane", "66534", 30);
+        Address address2 = new Address("Syria", "Damascus", "aboromane", "66534", 30);
         connector.dbCreate(address1);
         connector.dbCreate(address2);
         connector.dbRemoveAll();
@@ -59,7 +59,7 @@ public class AddressConnecterTest {
 
     @Test
     void dbRemoveById() {
-        Address address = new Address("Syria", "Damascus", "aboromane", 66534, 30);
+        Address address = new Address("Syria", "Damascus", "aboromane", "66534", 30);
         connector.dbCreate(address);
         connector.dbRemoveById(address.getId());
         Address result = connector.dbsearchById(address.getId());
@@ -68,7 +68,7 @@ public class AddressConnecterTest {
 
     @Test
     void dbUpdate() {
-        Address address = new Address("Syria", "Damascus", "aboromane", 66534, 30);
+        Address address = new Address("Syria", "Damascus", "aboromane", "66534", 30);
         connector.dbCreate(address);
         address.setCity("Damascus");
         connector.dbUpdate(address);
@@ -79,7 +79,7 @@ public class AddressConnecterTest {
     @Test
     void dbSerscheforanythinhg() {
 
-        Address address1 = new Address("Syria", "Damascus", "aboromane", 66534, 30);
+        Address address1 = new Address("Syria", "Damascus", "aboromane", "66534", 30);
     }
 }
 

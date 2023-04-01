@@ -10,7 +10,7 @@ class AddressTest {
 
     @BeforeEach
     public void init() {
-        address = new Address("Syria", "Damascus", "aboromane", 66534, 30);
+        address = new Address("Syria", "Damascus", "aboromane", "66534", 30);
     }
     @Test
     void testCountry() {
@@ -74,15 +74,20 @@ class AddressTest {
 
     @Test
     void testPlz() {
-        final int expectedPlz = 66534;
+        final String expectedPlz = "66534";
         Address address = new Address();
         address.setPlz(expectedPlz);
-        final int actualPlz = address.getPlz();
+        final String actualPlz = address.getPlz();
         assertEquals(expectedPlz, actualPlz);
 
         Assertions.assertThrows(Exception.class, () ->
         {
-            address.setPlz(545);
+            address.setPlz("545");
+        });
+
+        Assertions.assertThrows(Exception.class, () ->
+        {
+            address.setPlz("01545");
         });
     }
 
@@ -96,7 +101,7 @@ class AddressTest {
 
         Assertions.assertThrows(Exception.class, () ->
         {
-            address.setPlz(-2);
+            address.setHouseNr(-2);
         });
     }
 }

@@ -15,7 +15,7 @@ public class Address_trash_collection {
     @Column(name = "Street", nullable = false)
     private String street;
     @Column(name = "PostCode")
-    private int plz;
+    private String plz;
     @Column(name = "House_Number")
     private int houseNr;
 }

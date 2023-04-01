@@ -124,12 +124,12 @@ public class RoomController implements ControllerApi
 
         BookingSearchFilter bookingSearchFilter = new BookingSearchFilter();
         bookingSearchFilter.roomNumber = currentSelectedRoom.getRoomNr();
-
+        bookingSearchFilter.canceled = false;
         List<Booking> bookings = HotelCore.get().getBookingByFilter(bookingSearchFilter);
         if (bookings.size() > 0)
         {
             // Show message to confirm deleting
-            boolean state = InfoController.showConfirmMessage(Alert.AlertType.WARNING, "Removing Room Warning"
+            boolean state = InfoController.showConfirmMessage(InfoController.LogLevel.Warn, "Removing Room Warning"
                     , "There is/are " + bookings.size() + " booking(s) with the room " + currentSelectedRoom.getRoomNr() +
                             " in Floor " + currentSelectedRoom.getFloorNr() +
                             " ,deleting the room will cancel all the bookings with it");
@@ -147,7 +147,11 @@ public class RoomController implements ControllerApi
                 });
             }
 
-        } else
+            return;
+        }
+
+
+        if (InfoController.showConfirmMessage(InfoController.LogLevel.Warn, "Delete Room", "Are you sure?"))
         {
             HotelCore.get().removeRoomFromHotel(currentSelectedRoom.getFloorNr(), currentSelectedRoom.getRoomNr());
         }
