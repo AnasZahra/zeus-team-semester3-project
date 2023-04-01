@@ -196,6 +196,7 @@ public class Booking
         return payment;
     }
 
+
     public double coastPerNight(LocalDate startDate, LocalDate endDate, float price, String serviceName)
     {
         double total = 0.0;
