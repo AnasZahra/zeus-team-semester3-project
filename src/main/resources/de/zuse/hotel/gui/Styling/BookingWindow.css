@@ -60,3 +60,13 @@
     -fx-font-family: Gilroy;
 
 }
+
+.check-box .box {
+    -fx-background-color: #F24E1E;
+}
+
+
+
+.check-box:selected .box {
+    -fx-background-color: #F24E1E;
+}

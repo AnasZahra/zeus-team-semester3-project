@@ -6,11 +6,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="161.0" prefWidth="370.0" styleClass="bg" stylesheets="@Styling/BookingWindow.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.deleteGuestController">
+<AnchorPane prefHeight="169.0" prefWidth="370.0" styleClass="bg" stylesheets="@Styling/BookingWindow.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.deleteGuestController">
    <children>
-      <TextField fx:id="guestId" layoutX="11.0" layoutY="81.0" prefHeight="37.0" prefWidth="200.0" promptText="Guest-ID" />
-      <Button layoutX="218.0" layoutY="81.0" mnemonicParsing="false" onAction="#deleteGuest" prefHeight="37.0" prefWidth="72.0" styleClass="book" stylesheets="@Styling/BookingWindow.css" text="Delete" textAlignment="CENTER" textFill="WHITE" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="11.0" />
-      <Text fill="WHITE" layoutX="28.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Guest-ID to delete" textAlignment="CENTER" wrappingWidth="313.0625">
+      <TextField fx:id="guestId" layoutX="170.0" layoutY="90.0" prefHeight="37.0" prefWidth="136.0" promptText="Guest-ID" style="-fx-background-color: #2f2b2b; -fx-background-radius: 6;" styleClass="nameFill" />
+      <Button layoutX="58.0" layoutY="90.0" mnemonicParsing="false" onAction="#deleteGuest" prefHeight="37.0" prefWidth="97.0" styleClass="book" stylesheets="@Styling/BookingWindow.css" text="Delete" textAlignment="CENTER" textFill="WHITE" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="58.0" AnchorPane.rightAnchor="215.0" />
+      <Text fill="WHITE" layoutX="28.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Enter Guest-ID to delete" textAlignment="CENTER" wrappingWidth="313.0625">
          <font>
             <Font size="22.0" />
          </font>

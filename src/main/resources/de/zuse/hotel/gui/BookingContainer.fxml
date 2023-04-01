@@ -6,10 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane fx:id="bookingContainer" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="184.0" prefWidth="466.0" style="-fx-background-color: orange; -fx-background-radius: 30px;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="bookingContainer" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="790.0" stylesheets="@Styling/background.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="guestName" layoutX="15.0" layoutY="88.0" text="guestName">
+      <Label fx:id="guestName" layoutX="59.0" layoutY="25.0" styleClass="textOnBookingContainer" text="guestName">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -17,7 +16,7 @@
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </Label>
-      <Label fx:id="arrivalDate" layoutX="120.0" layoutY="88.0" text="arrivalDate">
+      <Label fx:id="arrivalDate" layoutX="249.0" layoutY="26.0" styleClass="textOnBookingContainer" text="arrivalDate">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -25,7 +24,7 @@
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </Label>
-      <Label fx:id="personNr" layoutX="378.0" layoutY="88.0" text="personNr">
+      <Label fx:id="personNr" layoutX="686.0" layoutY="24.0" styleClass="textOnBookingContainer" text="personNr">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -33,18 +32,18 @@
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </Label>
-      <Label layoutX="21.0" layoutY="14.0" text="Name" textFill="WHITE" />
-      <Label layoutX="126.0" layoutY="14.0" text="Arrival Date" textFill="WHITE" />
-      <Label layoutX="237.0" layoutY="14.0" text="Departure Date" textFill="WHITE" />
-      <Label layoutX="384.0" layoutY="14.0" text="PersonNr" textFill="WHITE" />
-      <Label fx:id="departureDate" layoutX="233.0" layoutY="90.0" text="departureDate">
+      <Label layoutX="17.0" layoutY="24.0" text="Name:" textFill="WHITE" />
+      <Label layoutX="174.0" layoutY="25.0" text="Arrival Date:" textFill="WHITE" />
+      <Label layoutX="369.0" layoutY="23.0" text="Departure Date:" textFill="WHITE" />
+      <Label layoutX="616.0" layoutY="24.0" text="Booking ID:" textFill="WHITE" />
+      <Label fx:id="departureDate" layoutX="469.0" layoutY="24.0" styleClass="textOnBookingContainer" text="departureDate">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
    </children>
    <effect>
-      <DropShadow height="35.57" radius="17.285" spread="0.68" width="35.57" />
+      <DropShadow height="0.0" radius="0.0" width="0.0" />
    </effect>
    <cursor>
       <Cursor fx:constant="OPEN_HAND" />

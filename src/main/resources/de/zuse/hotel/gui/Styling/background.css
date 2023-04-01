@@ -49,6 +49,11 @@
     -fx-font-family: Gilroy;
 }
 
+.textOnBookingContainer{
+    -fx-text-fill: #F24E1E;
+    -fx-font-family: Gilroy;
+}
+
 .roundBottun{
     -fx-background-radius: 150;
     -fx-pref-width: 50;
