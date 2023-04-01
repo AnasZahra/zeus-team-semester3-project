@@ -18,7 +18,7 @@ public class Address
     @Column(name = "Street", nullable = false)
     private String street;
     @Column(name = "PostCode")
-    private int plz;
+    private int plz;//TODO: postleitzahlen die mit 0 anfangen !!! -> String
     @Column(name = "House_Number")
     private int houseNr;
 
