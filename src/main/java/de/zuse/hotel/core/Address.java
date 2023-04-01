@@ -104,9 +104,10 @@ public class Address
         this.houseNr = houseNr;
     }
 
+
     @Override
     public String toString()
     {
-        return country + ", " + city + ", " + plz + ", " + houseNr;
+        return country + ", " +  plz+ ", " + city + ", " +  street + ", " + houseNr;
     }
 }
