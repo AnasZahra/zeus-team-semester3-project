@@ -1,0 +1,7 @@
+ .root {
+  -fx-background-image: url("pexels-photo-399192.jpeg");
+  -fx-background-repeat: no-repeat;
+  -fx-background-position: center;
+  -fx-background-size: cover;
+  -fx-background-color: #f1f1f1;
+}
