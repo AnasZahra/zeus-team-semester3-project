@@ -1,6 +1,7 @@
 package de.zuse.hotel.gui;
 
 import de.zuse.hotel.core.HotelCore;
+import de.zuse.hotel.util.ZuseCore;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +21,7 @@ import java.util.ResourceBundle;
 
 import org.hibernate.annotations.Parent;
 
-public class SceneController
+public class SceneController implements ControllerApi
 {
     private static final String BUTTON_SELECTED_STYLE_NAME = "on_button_selected";
 
@@ -38,7 +39,9 @@ public class SceneController
     private BorderPane borderPane;
 
 
-    public SceneController(){}
+    public SceneController()
+    {
+    }
 
     public void onClickDashboardBtn(ActionEvent event) throws IOException
     {
@@ -60,7 +63,6 @@ public class SceneController
 
         borderPane.setCenter(node);
         onSwitchPanel(roomsBtnId);
-
     }
 
     public void onClickGuestBtn(ActionEvent event) throws IOException
@@ -108,12 +110,35 @@ public class SceneController
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("BookingWindow.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        ((ControllerApi)fxmlLoader.getController()).onStart();
+        ((ControllerApi) fxmlLoader.getController()).onStart();
         Stage stage = new Stage();
         stage.setTitle("Book a room");
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL); //default, for closing th pop up window
         stage.show();
         stage.resizableProperty().setValue(false);
+    }
+
+    @Override
+    public void onStart()
+    {
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
+            Node node = fxmlLoader.load();
+            ((ControllerApi) fxmlLoader.getController()).onStart();
+            HotelCore.get().setCurrentScene(fxmlLoader.getController());
+            borderPane.setCenter(node);
+            onSwitchPanel(dashboardBtnId);
+        } catch (Exception e)
+        {
+            if (ZuseCore.DEBUG_MODE)
+                e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onUpdate()
+    {
     }
 }

@@ -91,7 +91,6 @@ public class PresonConnecter implements DatabaseOperations
 
         EntityManager manager = JDBCConnecter.getEntityManagerFactory().createEntityManager();
         Person person = (Person) object;
-        System.out.println((Person) dbsearchById(person.getId()));
         manager.getTransaction().begin();
         manager.merge(person);
         manager.getTransaction().commit();

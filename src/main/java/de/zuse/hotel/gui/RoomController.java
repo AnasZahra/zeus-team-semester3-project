@@ -16,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -36,21 +37,31 @@ public class RoomController implements ControllerApi
 
     public void viewRoomData()
     {
-        int currentFloor = floorChoiceBox.getValue() - 1;
-        List<Room> rooms = HotelCore.get().getRooms(currentFloor);
+        if (floorChoiceBox.getValue() == null || floorChoiceBox.getItems().size() < 0)
+            return;
+
+        List<Room> rooms = HotelCore.get().getFloorByFloorNr(floorChoiceBox.getValue()).getRooms();
 
         if (rooms != null)
-        {
-            ObservableList<Room> observableRooms = FXCollections.observableArrayList(rooms);
-            roomTable.setItems(observableRooms);
-        }
+            roomTable.setItems(FXCollections.observableArrayList(rooms));
+    }
 
+    public void refreschFloorData()
+    {
+        if (HotelCore.get().getFloors().size() != floorChoiceBox.getItems().size())
+        {
+            floorChoiceBox.getItems().clear();
+            floorChoiceBox.getItems().addAll(HotelCore.get().getFloors().stream().map(Floor::getFloorNr).toList());
+            if (floorChoiceBox.getItems().size() > 0)
+                floorChoiceBox.setValue(floorChoiceBox.getItems().get(0));
+        }
     }
 
     @Override
     public void onUpdate()
     {
         viewRoomData();
+        refreschFloorData();
     }
 
     public void onStart()
@@ -66,30 +77,18 @@ public class RoomController implements ControllerApi
             public void changed(ObservableValue observableValue, Object oldValue, Object newValue)
             {
                 if (roomTable.getSelectionModel().getSelectedItem() != null)
-                {
-                    TableView.TableViewSelectionModel<Room> selectionModel = roomTable.getSelectionModel();
-                    currentSelectedRoom = selectionModel.getSelectedItem();
-                } else
-                {
+                    currentSelectedRoom = roomTable.getSelectionModel().getSelectedItem();
+                else
                     currentSelectedRoom = null;
-                }
             }
         });
 
         // set a default Floor 1
-        List<Floor> floorlist = HotelCore.get().getFloors();
-        floorlist.forEach(new Consumer<Floor>()
-        {
-            @Override
-            public void accept(Floor floor)
-            {
-                floorChoiceBox.getItems().add(floor.getFloorNr());
-            }
-        });
+        refreschFloorData();
 
         floorChoiceBox.setOnAction(this::onFloorChoiceChanged);
-        if (floorlist.size() > 0)
-            floorChoiceBox.setValue(floorlist.get(0).getFloorNr());
+        if (floorChoiceBox.getItems().size() > 0)
+            floorChoiceBox.setValue(floorChoiceBox.getItems().get(0));
     }
 
 
@@ -157,5 +156,18 @@ public class RoomController implements ControllerApi
         }
     }
 
+    public void addFloor(ActionEvent actionEvent) throws IOException
+    {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("floorCapacity.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 309, 153);
+        ((ControllerApi) fxmlLoader.getController()).onStart();
+        Stage stage = new Stage();
+        System.out.println(stage);
+        stage.setTitle("Add a floor capacity");
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL); //default, for closing th pop up window
+        stage.show();
+        HotelCore.get().setCurrentStage(stage);
+    }
 
 }

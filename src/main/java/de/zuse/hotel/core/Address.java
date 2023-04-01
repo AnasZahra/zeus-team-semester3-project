@@ -1,5 +1,7 @@
 package de.zuse.hotel.core;
+
 import de.zuse.hotel.util.ZuseCore;
+
 import javax.persistence.*;
 
 
@@ -38,9 +40,12 @@ public class Address
         this.houseNr = houseNr;
     }
 
-    public Address(){}
+    public Address()
+    {
+    }
 
-    public int getId() {
+    public int getId()
+    {
         return id;
     }
 
@@ -102,12 +107,6 @@ public class Address
     @Override
     public String toString()
     {
-        return "Address{" +
-                "country='" + country + '\'' +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                ", plz=" + plz +
-                ", hausnur=" + houseNr +
-                '}';
+        return country + ", " + city + ", " + plz + ", " + houseNr;
     }
 }

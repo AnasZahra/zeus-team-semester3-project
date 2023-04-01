@@ -8,6 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.TextField?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.GuestController">
    <children>
       <Button layoutX="86.0" layoutY="622.0" mnemonicParsing="false" onAction="#addGuestBtn" prefHeight="48.0" prefWidth="233.0" styleClass="FunctionButton" text="add guest">
@@ -47,6 +48,12 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
+      <TextField fx:id="seachBarID" layoutX="584.0" layoutY="71.0" prefHeight="25.0" prefWidth="287.0" promptText="Search" />
+      <Text fill="WHITE" layoutX="494.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Search" wrappingWidth="134.99610137939453">
+         <font>
+            <Font name="System Bold Italic" size="25.0" />
+         </font>
+      </Text>
    </children>
 
 

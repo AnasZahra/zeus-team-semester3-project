@@ -24,40 +24,36 @@ import javafx.stage.Stage;
 
 public class SettingsController implements ControllerApi, Initializable
 {
-	@FXML
-	AnchorPane anchor;
-	@FXML
-	ImageView imageD;
-	@FXML
-	ImageView imageL;
-	
-	public void changeToDarkmood() {
-	
-	
-	
-		imageD.setOnMouseClicked(e -> {
-			anchor.getParent().setStyle("-fx-background-color: black; -fx-border-color: #27ae60; -fx-border-width: 2px; -fx-padding: 10px;");
-			// anchor.setStyle("-fx-background-color: black; -fx-border-color: #27ae60; -fx-border-width: 2px; -fx-padding: 10px;");
-			 System.out.println("change to darkmood");
-		});
-  	
-		
-	}
+    @FXML
+    AnchorPane anchor;
+    @FXML
+    ImageView imageD;
+    @FXML
+    ImageView imageL;
 
-	public void changeToLightmood() {
-imageL.setOnMouseClicked(e -> {
-	anchor.getParent().setStyle("-fx-background-color: white; -fx-border-color: #27ae60; -fx-border-width: 2px; -fx-padding: 10px;");
-	// anchor.setStyle("-fx-background-color: white; -fx-border-color: #27ae60; -fx-border-width: 2px; -fx-padding: 10px;");
-	 System.out.println("change to lightmood");
-		});
-		
-		
-	}
-    
+    public void changeToDarkmood()
+    {
+        imageD.setOnMouseClicked(e ->
+        {
+            anchor.getParent().setStyle("-fx-background-color: black; -fx-border-color: #27ae60; -fx-border-width: 2px; -fx-padding: 10px;");
+            // anchor.setStyle("-fx-background-color: black; -fx-border-color: #27ae60; -fx-border-width: 2px; -fx-padding: 10px;");
+            System.out.println("change to darkmood");
+        });
+    }
+
+    public void changeToLightmood()
+    {
+        imageL.setOnMouseClicked(e ->
+        {
+            anchor.getParent().setStyle("-fx-background-color: white; -fx-border-color: #27ae60; -fx-border-width: 2px; -fx-padding: 10px;");
+            // anchor.setStyle("-fx-background-color: white; -fx-border-color: #27ae60; -fx-border-width: 2px; -fx-padding: 10px;");
+            System.out.println("change to lightmood");
+        });
+    }
+
     @Override
     public void onStart()
     {
-        
     }
 
     @Override
@@ -65,10 +61,10 @@ imageL.setOnMouseClicked(e -> {
     {
     }
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		changeToDarkmood();
-		changeToLightmood();
-		
-	}
+    @Override
+    public void initialize(URL location, ResourceBundle resources)
+    {
+        changeToDarkmood();
+        changeToLightmood();
+    }
 }

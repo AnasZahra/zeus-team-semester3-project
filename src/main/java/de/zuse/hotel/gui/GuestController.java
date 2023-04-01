@@ -3,7 +3,10 @@ package de.zuse.hotel.gui;
 import de.zuse.hotel.core.Address;
 import de.zuse.hotel.core.HotelCore;
 import de.zuse.hotel.core.Person;
+import de.zuse.hotel.core.Room;
 import de.zuse.hotel.db.JDBCConnecter;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -20,6 +24,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GuestController implements ControllerApi
 {
@@ -43,6 +48,11 @@ public class GuestController implements ControllerApi
     @FXML
     private TableColumn<Person, Address> addressCln;
 
+    private Person selectedUser = null;
+
+    @FXML
+    private TextField seachBarID;
+
     @Override
     public void onStart()
     {
@@ -55,6 +65,22 @@ public class GuestController implements ControllerApi
         addressCln.setCellValueFactory(new PropertyValueFactory<>("address"));
         //refresh the database and load the data from it on the table
         onRefresh();
+
+        guestTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener()
+        {
+            @Override
+            public void changed(ObservableValue observableValue, Object oldValue, Object newValue)
+            {
+                if (guestTable.getSelectionModel().getSelectedItem() != null)
+                    selectedUser = guestTable.getSelectionModel().getSelectedItem();
+                else
+                    selectedUser = null;
+            }
+        });
+
+        seachBarID.textProperty().addListener((observable, oldValue, newValue) -> { //listener on the table, that calls the seachGuests method when it is triggered by changing the textfield of it and seach for the changed text on the textfield(new value)
+            GuestController.this.searcGuests(newValue);
+        });
     }
 
     @Override
@@ -83,7 +109,14 @@ public class GuestController implements ControllerApi
 
     public void updateGuestBtn(ActionEvent event) throws Exception
     {
-        createFXMLoader("updateGuest.fxml", 331, 720, "Update a Guest");
+        Person selectedPerson = guestTable.getSelectionModel().getSelectedItem();
+        if (selectedPerson != null)
+        {
+            createFXMLoader("editGuest.fxml", 575, 755, "Update a Guest");
+        } else
+        {
+            InfoController.showMessage(InfoController.LogLevel.Error, "Update Guest", "No Guest was selected on the table! Please select a Guest.");
+        }
     }
 
     public void createFXMLoader(String string, int width, int height, String description) throws IOException
@@ -98,7 +131,23 @@ public class GuestController implements ControllerApi
         stage.show();
         stage.resizableProperty().setValue(false);
         HotelCore.get().setCurrentStage(stage);
-        ((ControllerApi)fxmlLoader.getController()).onStart();
+
+        //Only for editGuest
+        if (fxmlLoader.getController() instanceof editGuestController)
+        {
+            ((editGuestController) fxmlLoader.getController()).setSelectedUser(selectedUser);
+        }
+        ((ControllerApi) fxmlLoader.getController()).onStart();
+
+    }
+
+    public void searcGuests(String string) {
+        List<Person> filteredGuests = HotelCore.get().getAllGuest().stream()
+                .filter(guest -> guest.getFirstName().toLowerCase().contains(string.toLowerCase()))
+                .collect(Collectors.toList()); //stream filter search
+
+        ObservableList<Person> GuestList = FXCollections.observableArrayList(filteredGuests); //refresh the table
+        guestTable.setItems(GuestList);
     }
 
 }
