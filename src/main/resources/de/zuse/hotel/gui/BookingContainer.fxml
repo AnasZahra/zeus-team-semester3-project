@@ -1,8 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
+
+<AnchorPane fx:id="bookingContainer" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="139.0" prefWidth="466.0" style="-fx-background-color: orange; -fx-background-radius: 30px;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="guestName" layoutX="7.0" layoutY="53.0" text="guestName">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+      </Label>
+      <Label fx:id="date" layoutX="197.0" layoutY="52.0" text="date">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+      </Label>
+      <Label fx:id="personNr" layoutX="346.0" layoutY="53.0" text="personNr">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+      </Label>
+   </children>
+   <effect>
+      <DropShadow height="35.57" radius="17.285" spread="0.68" width="35.57" />
+   </effect>
+   <cursor>
+      <Cursor fx:constant="OPEN_HAND" />
+   </cursor>
 </AnchorPane>
-

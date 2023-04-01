@@ -87,7 +87,7 @@ public class DashboardController implements ControllerApi, Initializable
             InfoController.showMessage(InfoController.LogLevel.Info, "Successful", file.getName() + " saved in " + file.getPath());
         }
     }
-    public void addBookingToDashboard(String l1,String l2,String l3) {
+    public void addBookingToDashboard(String l1,String l2,String l3) throws IOException {
     	
 		
     	BookingContainerController booking = new BookingContainerController();
@@ -99,11 +99,21 @@ public class DashboardController implements ControllerApi, Initializable
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		try {
+			addBookingToDashboard("Mohamad","1.4.2014","7");
+			addBookingToDashboard("jan","13.4.2020","2");
+			addBookingToDashboard("anas","9.3.2023","1");
+			addBookingToDashboard("anas","9.3.2023","1");
+			addBookingToDashboard("anas","9.3.2023","1");
+			addBookingToDashboard("anas","9.3.2023","1");
+			addBookingToDashboard("anas","9.3.2023","1");
+			addBookingToDashboard("anas","9.3.2023","1");
+			addBookingToDashboard("anas","9.3.2023","1");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		
 		
-		addBookingToDashboard("Mohamad","1.4.2014","7");
-		addBookingToDashboard("jan","13.4.2020","2");
-		addBookingToDashboard("anas","9.3.2023","1");
 		
 	}
 
