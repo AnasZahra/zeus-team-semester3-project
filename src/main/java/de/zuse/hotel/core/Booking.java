@@ -28,7 +28,7 @@ public class Booking
     private LocalDate endDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Person_id", nullable = false)
+    @JoinColumn(name = "Person_id", nullable = true) //nullable because we want to delete person and cancel booking
     private Person guest;//to avoid EAGER loading maybe save person id and load it manually in db
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -49,8 +49,10 @@ public class Booking
     {
         ZuseCore.check(roomNumber >= 0, "Number of Room should be greater than zero!!");
         ZuseCore.check(floorNumber >= 0, "Number of Room should be greater than zero!!");
-        ZuseCore.check(startDate != null, "StartDate is null!!");
-        ZuseCore.check(endDate != null, "EndDate is null!!");
+        ZuseCore.check(HotelCore.get().isFloorInHotel(floorNumber), "Floor " + floorNumber + " is not in Hotel!!");
+        ZuseCore.check(HotelCore.get().isRoomInHotel(floorNumber, roomNumber), "Room "+ roomNumber +" is not in Hotel!!");
+        ZuseCore.check(startDate != null, "please enter StartDate!");
+        ZuseCore.check(endDate != null, "please enter End Date!");
         ZuseCore.check(guest != null, "Guest is null!!");
 
         ZuseCore.isValidDate(startDate, "not Valid startDate!!");
@@ -76,15 +78,19 @@ public class Booking
     @Override
     public String toString()
     {
-        return "roomNumber=" + roomNumber +
+        String toString = "roomNumber=" + roomNumber +
                 ", floorNumber=" + floorNumber +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", guest=" + guest.getFirstName() + " " + guest.getLastName() +
                 ", payment=" + payment +
                 ", guestsNum=" + guestsNum +
                 ", Services= " + extraServices.toString() +
                 ", canceled=" + canceled;
+
+        if (guest != null)
+            toString += ", guest= " + guest.getFirstName() + " " + guest.getLastName();
+
+        return toString;
     }
 
     public void pay(LocalDate paymentDate, Payment.Type type, float price)
@@ -176,9 +182,15 @@ public class Booking
         this.floorNumber = floorNumber;
     }
 
-    public void canceledBooking()
+    public void cancelBooking()
     {
         canceled = true;
+        guest = null;
+    }
+
+    public boolean isCanceled()
+    {
+        return guest == null || canceled == true;//if there is no valid Guest, then it is canceled
     }
 
     public int getGuestsNum()

@@ -6,6 +6,7 @@ import de.zuse.hotel.util.ZuseCore;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,6 +33,11 @@ public class HotelDatabaseApiImpl implements HotelDatabaseApi
         return true; // to do is that dose the Hibernate return folse and t
     }
 
+    /**
+     *  Make sure by deleting a Guest to delete/cancel all his Booking(s) first!!! other way it will fail
+     * @param guestId
+     * @return
+     */
     @Override
     public boolean removeGuest(int guestId)
     {
@@ -110,6 +116,14 @@ public class HotelDatabaseApiImpl implements HotelDatabaseApi
 
         BookingConnector bookingConnector = new BookingConnector();
         return bookingConnector.dbSerschforanythinhg(bookingSearchFilter);
+    }
+
+    @Override
+    public List<Booking> getAllBookingBetweenStartAndEnd(LocalDate start, LocalDate end)
+    {
+        BookingConnector bookingConnector = new BookingConnector();
+
+        return bookingConnector.dbSearchBookingBetween(start,end);
     }
 
     @Override

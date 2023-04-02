@@ -34,12 +34,27 @@ public class JavaFxUtil
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
             {
-                if (!newValue.matches("[A-Za-z]+"))
+                if (!newValue.matches("[A-Za-z\\s]+"))
                 {
-                    textField.setText(newValue.replaceAll("[^A-Za-z]", ""));
+                    textField.setText(newValue.replaceAll("[^A-Za-z\\s]", ""));
                 }
             }
         });
     }
+
+    public static void makeFieldOnlyNumericWithDecimal(TextField textField)
+    {
+        if (textField == null)
+            return;
+
+        textField.textProperty().addListener((observable, oldValue, newValue) ->
+        {
+            if (!newValue.matches("\\d*\\.?\\d*"))
+            {
+                textField.setText(oldValue);
+            }
+        });
+    }
+
 
 }

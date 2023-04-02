@@ -14,15 +14,15 @@ public class PresonConnecter implements DatabaseOperations
     @Override
     public void dbCreate(Object object)
     {
-        if (object instanceof Person)
-        {
-            EntityManager manager = JDBCConnecter.getEntityManagerFactory().createEntityManager();
-            Person person = (Person) object;
-            manager.getTransaction().begin();
-            manager.persist(person);
-            manager.getTransaction().commit();
-            manager.close();
-        }
+        if (!(object instanceof Person))
+            ZuseCore.coreAssert(false, "object must be Person");
+
+        EntityManager manager = JDBCConnecter.getEntityManagerFactory().createEntityManager();
+        Person person = (Person) object;
+        manager.getTransaction().begin();
+        manager.persist(person);
+        manager.getTransaction().commit();
+        manager.close();
     }
 
     @Override
@@ -61,21 +61,24 @@ public class PresonConnecter implements DatabaseOperations
         manager.close();
     }
 
+    /**
+     * Make sure by deleting a Guest to delete/cancel all his Booking(s) first!!! other way it will fail
+     * @param id
+     */
     @Override
     public void dbRemoveById(int id)
     {
         EntityManager manager = JDBCConnecter.getEntityManagerFactory().createEntityManager();
         manager.getTransaction().begin();
 
-        /*
-        manager.createNativeQuery("INSERT INTO Person_trash_collection SELECT * FROM Person WHERE Id = :id")
+        manager.createNativeQuery("INSERT INTO Person_trash_collection SELECT * FROM Person WHERE Person_id = :id")
                 .setParameter("id", id)
                 .executeUpdate();
-        */
 
         manager.createNativeQuery("DELETE FROM Person WHERE Person_id = :id")
                 .setParameter("id", id)
                 .executeUpdate();
+
         manager.getTransaction().commit();
         manager.close();
     }
@@ -83,16 +86,15 @@ public class PresonConnecter implements DatabaseOperations
     @Override
     public void dbUpdate(Object object)
     {
-        if (object instanceof Person)
-        {
-            EntityManager manager = JDBCConnecter.getEntityManagerFactory().createEntityManager();
-            Person person = (Person) object;
-            System.out.println((Person) dbsearchById(person.getId()));
-            manager.getTransaction().begin();
-            manager.merge(person);
-            manager.getTransaction().commit();
-            manager.close();
-        }
+        if (!(object instanceof Person))
+            ZuseCore.coreAssert(false, "object must be Person");
+
+        EntityManager manager = JDBCConnecter.getEntityManagerFactory().createEntityManager();
+        Person person = (Person) object;
+        manager.getTransaction().begin();
+        manager.merge(person);
+        manager.getTransaction().commit();
+        manager.close();
     }
 
     @Override

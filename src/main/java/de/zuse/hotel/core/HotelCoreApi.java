@@ -5,6 +5,7 @@ import de.zuse.hotel.db.PersonSearchFilter;
 import de.zuse.hotel.gui.ControllerApi;
 import de.zuse.hotel.util.pdf.PdfFile;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface HotelCoreApi
@@ -27,6 +28,7 @@ public interface HotelCoreApi
     List<Person> getAllGuest();
     List<Booking> getAllBooking();
     List<Booking> getBookingByFilter(BookingSearchFilter bookingSearchFilter);
+    List<Booking> getAllBookingBetweenStartAndEnd(LocalDate start, LocalDate end);
 
     List<Person> getPersonsByFilter(PersonSearchFilter personSearchFilter);
 

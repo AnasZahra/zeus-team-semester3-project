@@ -5,8 +5,10 @@ import de.zuse.hotel.core.HotelCore;
 import de.zuse.hotel.util.pdf.PdfFile;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -21,8 +23,10 @@ import java.util.function.Consumer;
 public class DashboardController implements ControllerApi, Initializable
 {
     private static final int UNSELECTED = -1;
-    public ListView<AnchorPane> listView;
-
+    public  ListView<AnchorPane> listView;
+    @FXML
+    private Button deleteBookingBtn;
+    
     private int selectedBookingId;
 
     @Override
@@ -87,14 +91,35 @@ public class DashboardController implements ControllerApi, Initializable
             InfoController.showMessage(InfoController.LogLevel.Info, "Successful", file.getName() + " saved in " + file.getPath());
         }
     }
+    public void addBookingToDashboard(String l1,String l2,String l3,String l4) throws IOException {
+    	
+		
+    	BookingContainerController booking = new BookingContainerController();
+		             
+			
+			listView.getItems().add(booking.getBookingContainer(l1, l2, l3,l4));
+    	
+    }
+    
+    public void deleteBooking(ActionEvent event) {
+    	int selectedId = listView.getSelectionModel().getSelectedIndex();
+    	listView.getItems().remove(selectedId);
+    }
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		try {
+			addBookingToDashboard("Mohamad","1.4.2014","2.4.2014","7");
+			addBookingToDashboard("Mohamad","1.4.2014","2.4.2014","7");
+			addBookingToDashboard("Mohamad","1.4.2014","2.4.2014","7");
+			addBookingToDashboard("Mohamad","1.4.2014","2.4.2014","7");
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		
-		BookingContainerController booking = new BookingContainerController();
-		//	booking.creatBookingContainer("mohamad", "1.2.2013", "34");
-		             
-			listView.getItems().add(booking.creatBookingContainer("mohamad", "1.2.2013", "34"));
+		
+		
 	}
 
 }

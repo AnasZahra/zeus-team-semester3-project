@@ -1,6 +1,7 @@
 package de.zuse.hotel.db;
 import de.zuse.hotel.core.Address;
 
+import java.time.LocalDate;
 import java.util.Date;
 import javax.persistence.*;
 
@@ -13,16 +14,16 @@ public class Person_trash_collection {
     @Column(name = "Person_id")
     private int id;
     @Column(name = "Firstname", nullable = false)
-    private String Firstname;
+    private String firstName;
     @Column(name = "Lastname", nullable = false)
-    private String Lastname;
+    private String lastName;
     @Column(name = "Birthday", nullable = false)
-    private Date Birthday;
+    private LocalDate birthday;
     @Column(name = "Email")
-    private String Email;
+    private String email;
     @Column(name = "Phone_Number", length = 12)
-    private int Phone_Number;
+    private String telNumber;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "Address_id", nullable = false)
-    private Address address_id;
+    private Address address;
 }
