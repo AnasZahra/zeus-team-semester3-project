@@ -20,7 +20,7 @@
          </font>
       </Button>
 
-      <TableView fx:id="roomTable" layoutX="88.0" layoutY="165.0" prefHeight="432.0" prefWidth="869.0" style="-fx-background-color: #191717;" stylesheets="@Styling/Tableview.css" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="323.0">
+      <TableView fx:id="roomTable" layoutX="88.0" layoutY="132.0" prefHeight="465.0" prefWidth="897.0" style="-fx-background-color: #191717;" stylesheets="@Styling/Tableview.css" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="295.0">
 
          <columns>
             <TableColumn fx:id="roomNrCln" prefWidth="75.0" text="RoomNr" />
@@ -32,14 +32,14 @@
          </columnResizePolicy>
       </TableView>
 
-      <ChoiceBox fx:id="floorChoiceBox" layoutX="807.0" layoutY="102.0" prefHeight="33.0" prefWidth="150.0" stylesheets="@Styling/BookingWindow.css" />
-      <Button layoutX="344.0" layoutY="622.0" mnemonicParsing="false" onAction="#handelRemoveRoomButton" prefHeight="48.0" prefWidth="233.0" styleClass="FunctionButton" text="delete">
+      <ChoiceBox fx:id="floorChoiceBox" layoutX="835.0" layoutY="73.0" prefHeight="33.0" prefWidth="150.0" stylesheets="@Styling/BookingWindow.css" />
+      <Button layoutX="334.0" layoutY="622.0" mnemonicParsing="false" onAction="#handelRemoveRoomButton" prefHeight="48.0" prefWidth="233.0" styleClass="FunctionButton" text="delete">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
       </Button>
 
-      <Button fx:id="addFloorBtnID" layoutX="593.0" layoutY="622.0" mnemonicParsing="false" onAction="#addFloor" prefHeight="48.0" prefWidth="233.0" styleClass="FunctionButton" text="add floor">
+      <Button fx:id="addFloorBtnID" layoutX="583.0" layoutY="622.0" mnemonicParsing="false" onAction="#addFloor" prefHeight="48.0" prefWidth="233.0" styleClass="FunctionButton" text="add floor">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>

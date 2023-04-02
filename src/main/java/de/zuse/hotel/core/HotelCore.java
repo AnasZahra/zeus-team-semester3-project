@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HotelCore implements HotelCoreApi
 {
@@ -146,7 +147,10 @@ public class HotelCore implements HotelCoreApi
     @Override
     public List<Booking> getAllBooking()
     {
-        return hotelDatabaseApi.getAllBooking();
+        return hotelDatabaseApi.getAllBooking()
+                .stream()
+                .filter( booking -> !booking.isCanceled())
+                .collect(Collectors.toList());
     }
 
     @Override

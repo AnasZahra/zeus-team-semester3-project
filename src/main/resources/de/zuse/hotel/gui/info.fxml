@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="194.0" maxWidth="464.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="194.0" prefWidth="464.0" styleClass="bg" stylesheets="@Styling/BookingWindow.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.InfoController">
+<AnchorPane maxHeight="194.0" maxWidth="464.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="194.0" prefWidth="392.0" styleClass="bg" stylesheets="@Styling/BookingWindow.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.InfoController">
    <children>
-      <Button fx:id="okBtn" layoutX="146.0" layoutY="148.0" mnemonicParsing="false" onAction="#cancel" prefHeight="27.0" prefWidth="86.0" styleClass="book" stylesheets="@Styling/BookingWindow.css" text="OK" textFill="WHITE" AnchorPane.leftAnchor="146.0" AnchorPane.rightAnchor="146.0">
+      <Button fx:id="okBtn" layoutX="98.0" layoutY="120.0" mnemonicParsing="false" onAction="#cancel" prefHeight="28.0" prefWidth="198.0" styleClass="book" stylesheets="@Styling/BookingWindow.css" text="OK" textFill="WHITE" AnchorPane.leftAnchor="98.0" AnchorPane.rightAnchor="96.0">
          <font>
             <Font size="5.0" />
          </font>
       </Button>
-      <Text fx:id="displayText" fill="WHITE" layoutX="9.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="361.0">
+      <Text fx:id="displayText" fill="WHITE" layoutX="50.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" textAlignment="CENTER" wrappingWidth="293.0">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Button fx:id="yesBtn" layoutX="60.0" layoutY="148.0" mnemonicParsing="false" onAction="#onYesBtnClicked" prefHeight="27.0" prefWidth="86.0" styleClass="book" stylesheets="@Styling/BookingWindow.css" text="Yes" textFill="WHITE" visible="false">
+      <Button fx:id="yesBtn" layoutX="98.0" layoutY="97.0" mnemonicParsing="false" onAction="#onYesBtnClicked" prefHeight="27.0" prefWidth="86.0" styleClass="book" stylesheets="@Styling/BookingWindow.css" text="Yes" textFill="WHITE" visible="false">
          <font>
             <Font size="5.0" />
          </font>
       </Button>
-      <Button fx:id="noBtn" layoutX="318.0" layoutY="148.0" mnemonicParsing="false" onAction="#onNoBtnClicked" prefHeight="27.0" prefWidth="86.0" styleClass="book" stylesheets="@Styling/BookingWindow.css" text="No" textFill="WHITE" visible="false">
+      <Button fx:id="noBtn" layoutX="210.0" layoutY="97.0" mnemonicParsing="false" onAction="#onNoBtnClicked" prefHeight="27.0" prefWidth="86.0" styleClass="book" stylesheets="@Styling/BookingWindow.css" text="No" textFill="WHITE" visible="false">
          <font>
             <Font size="5.0" />
          </font>
