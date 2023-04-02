@@ -160,11 +160,11 @@ public class RoomController implements ControllerApi
     public void addFloor(ActionEvent actionEvent) throws IOException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("floorCapacity.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 309, 153);
+        Scene scene = new Scene(fxmlLoader.load(), 287, 164);
         ((ControllerApi) fxmlLoader.getController()).onStart();
         Stage stage = new Stage();
         System.out.println(stage);
-        stage.setTitle("Add a floor capacity");
+        stage.setTitle("Add a floor");
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL); //default, for closing th pop up window
         stage.show();
