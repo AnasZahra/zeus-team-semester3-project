@@ -66,6 +66,7 @@ public class addGuestController implements ControllerApi
     {
         JavaFxUtil.makeFieldOnlyNumbers(houseNr);
         JavaFxUtil.makeFieldOnlyNumbers(plz);
+        JavaFxUtil.makeFieldOnlyNumbers(telNum);
 
         JavaFxUtil.makeFieldOnlyChars(firstName);
         JavaFxUtil.makeFieldOnlyChars(lastName);

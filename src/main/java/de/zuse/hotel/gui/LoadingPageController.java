@@ -2,12 +2,12 @@ package de.zuse.hotel.gui;
 
 import java.net.URL;
 
+import de.zuse.hotel.util.ZuseCore;
 import javafx.util.Duration;
 
 import java.util.ResourceBundle;
 
 import javafx.animation.FadeTransition;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,41 +15,56 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class LoadingPageController implements Initializable
 {
     @FXML
     AnchorPane anchor;
+    Thread loadingThread;
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        FadeTransition fadeTransition = new FadeTransition(Duration.millis(5000), anchor);
-        fadeTransition.setFromValue(1.0);
-        fadeTransition.setToValue(0);
+        loadingThread = new Thread(() ->
+        {
+            Gui.startLoading();
+            //after finish loading now move to the main window
+            loadMainScene();
+        });
 
-        fadeTransition.setOnFinished(e ->
+        loadingThread.start();
+    }
+
+    public void loadMainScene()
+    {
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), anchor);
+        fadeTransition.setFromValue(1.0);
+        fadeTransition.setToValue(1.0);
+
+        fadeTransition.setOnFinished(value ->
         {
             try
             {
-                Stage loginScreen = new Stage();
+                loadingThread.join();
+
+                Stage stage = new Stage();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
                 Parent parent = fxmlLoader.load();
-                Stage current = (Stage) anchor.getScene().getWindow();
                 Scene scene = new Scene(parent, 1280, 720);
-                loginScreen.setScene(scene);
-                current.close();
-                loginScreen.show();
+                stage.setScene(scene);
+                ((Stage) anchor.getScene().getWindow()).close();
+                stage.show();
                 ((ControllerApi) fxmlLoader.getController()).onStart();
-            } catch (Exception e1)
+            } catch (Exception e)
             {
-                e1.printStackTrace();
+                if (ZuseCore.DEBUG_MODE)
+                    e.printStackTrace();
             }
 
         });
-        fadeTransition.play();
 
+        fadeTransition.play();
     }
+
 
 }

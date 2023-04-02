@@ -91,6 +91,16 @@ public class editGuestController implements ControllerApi
     public void onStart()
     {
         getSelected(selectedUser); //view the current guest  data
+
+        JavaFxUtil.makeFieldOnlyNumbers(houseNrID);
+        JavaFxUtil.makeFieldOnlyNumbers(plzID);
+        JavaFxUtil.makeFieldOnlyNumbers(telefonID);
+
+        JavaFxUtil.makeFieldOnlyChars(firstNameID);
+        JavaFxUtil.makeFieldOnlyChars(lastNameID);
+        JavaFxUtil.makeFieldOnlyChars(cityID);
+        JavaFxUtil.makeFieldOnlyChars(countreyID);
+        JavaFxUtil.makeFieldOnlyChars(streetID);
     }
 
     @Override

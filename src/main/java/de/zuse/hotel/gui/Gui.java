@@ -6,7 +6,6 @@ import de.zuse.hotel.util.ZuseCore;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 public class Gui extends Application implements Layer
@@ -15,8 +14,7 @@ public class Gui extends Application implements Layer
     public void onStart()
     {
         System.out.println("On Starting The Hotel App...");
-        HotelCore.init();
-        ZuseCore.setCallbackError(this::handleErrorMessages); // example for now
+        ZuseCore.setCallbackError(this::handleErrorMessages);
     }
 
     @Override
@@ -37,6 +35,7 @@ public class Gui extends Application implements Layer
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LoadingPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
+
         //CSS
         String cssStyle = this.getClass().getResource("Styling/background.css").toExternalForm();
         scene.getStylesheets().add(cssStyle);
@@ -48,5 +47,10 @@ public class Gui extends Application implements Layer
     public void handleErrorMessages(String msg)
     {
         InfoController.showMessage(InfoController.LogLevel.Error, "Error", msg);
+    }
+
+    public static void startLoading()
+    {
+        HotelCore.init();
     }
 }
