@@ -5,87 +5,84 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="755.0" prefWidth="575.0" styleClass="bg" stylesheets="@Styling/BookingWindow.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.editGuestController">
+<AnchorPane prefHeight="720.0" prefWidth="433.0" styleClass="bg" stylesheets="@Styling/BookingWindow.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.editGuestController">
    <children>
-      <Text fill="WHITE" layoutX="237.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Guest">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Text>
-      <Line endX="488.0" layoutX="112.0" layoutY="74.0" startX="-112.0" stroke="WHITE" />
-      <TextField fx:id="lastNameID" layoutX="109.0" layoutY="139.0" prefHeight="35.0" prefWidth="162.0" promptText="name" styleClass="nameFill" />
-      <Label layoutX="109.0" layoutY="112.0" text="Last name" textFill="WHITE">
+      <TextField fx:id="lastNameID" layoutX="237.0" layoutY="130.0" prefHeight="35.0" prefWidth="162.0" promptText="Last name" styleClass="nameFill" />
+      <Label layoutX="237.0" layoutY="103.0" text="Last name" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Button fx:id="saveBtn" layoutX="58.0" layoutY="667.0" mnemonicParsing="false" onAction="#saveChanges" prefHeight="52.0" prefWidth="221.0" styleClass="book" stylesheets="@Styling/BookingWindow.css" text="Save changes" textFill="WHITE" AnchorPane.leftAnchor="58.0" AnchorPane.rightAnchor="322.0">
+      <Button fx:id="saveBtn" layoutX="32.0" layoutY="658.0" mnemonicParsing="false" onAction="#saveChanges" prefHeight="35.0" prefWidth="205.0" styleClass="book" stylesheets="@Styling/BookingWindow.css" text="Save changes" textFill="WHITE" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="196.0">
          <font>
             <Font size="17.0" />
          </font>
       </Button>
-      <Label layoutX="314.0" layoutY="112.0" text="First name" textFill="WHITE">
+      <Label layoutX="36.0" layoutY="103.0" text="First name" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="firstNameID" layoutX="314.0" layoutY="139.0" prefHeight="35.0" prefWidth="153.0" promptText="name" styleClass="nameFill" />
-      <DatePicker fx:id="bDateID" layoutX="91.0" layoutY="403.0" prefHeight="45.0" prefWidth="169.0" styleClass="date" stylesheets="@Styling/datePickerStyle.css" />
-      <Label layoutX="88.0" layoutY="373.0" text="B-date" textFill="WHITE">
+      <TextField fx:id="firstNameID" layoutX="40.0" layoutY="130.0" prefHeight="35.0" prefWidth="153.0" promptText="First name" styleClass="nameFill" />
+      <DatePicker fx:id="bDateID" layoutX="32.0" layoutY="398.0" prefHeight="45.0" prefWidth="169.0" styleClass="date" stylesheets="@Styling/datePickerStyle.css" />
+      <Label layoutX="33.0" layoutY="368.0" text="B-date" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="108.0" layoutY="203.0" text="Email" textFill="WHITE">
+      <Label layoutX="35.0" layoutY="197.0" text="Email" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="emailID" layoutX="108.0" layoutY="229.0" prefHeight="35.0" prefWidth="363.0" promptText="name@example.com" styleClass="nameFill" />
-      <Label layoutX="108.0" layoutY="290.0" text="Tel-number" textFill="WHITE">
+      <TextField fx:id="emailID" layoutX="37.0" layoutY="224.0" prefHeight="35.0" prefWidth="367.0" promptText="name@example.com" styleClass="nameFill" />
+      <Label layoutX="35.0" layoutY="284.0" text="Tel-number" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="telefonID" layoutX="108.0" layoutY="316.0" prefHeight="35.0" prefWidth="363.0" promptText="number" styleClass="nameFill" />
-      <TextField fx:id="countreyID" layoutX="91.0" layoutY="510.0" prefHeight="35.0" prefWidth="169.0" promptText="name" styleClass="nameFill" />
-      <Label layoutX="89.0" layoutY="491.0" text="Country" textFill="WHITE">
+      <TextField fx:id="telefonID" layoutX="37.0" layoutY="312.0" prefHeight="35.0" prefWidth="367.0" promptText="number" styleClass="nameFill" />
+      <TextField fx:id="countreyID" layoutX="32.0" layoutY="505.0" prefHeight="35.0" prefWidth="169.0" promptText="Country" styleClass="nameFill" />
+      <Label layoutX="31.0" layoutY="488.0" text="Country" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="341.0" layoutY="482.0" text="City" textFill="WHITE">
+      <Label layoutX="240.0" layoutY="478.0" text="City" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="cityID" layoutX="342.0" layoutY="501.0" prefHeight="35.0" prefWidth="153.0" promptText="name" styleClass="nameFill" />
-      <TextField fx:id="streetID" layoutX="91.0" layoutY="595.0" prefHeight="35.0" prefWidth="169.0" promptText="name" styleClass="nameFill" />
-      <Label layoutX="89.0" layoutY="576.0" text="Street" textFill="WHITE">
+      <TextField fx:id="cityID" layoutX="241.0" layoutY="497.0" prefHeight="35.0" prefWidth="162.0" promptText="City" styleClass="nameFill" />
+      <TextField fx:id="streetID" layoutX="32.0" layoutY="590.0" prefHeight="35.0" prefWidth="169.0" promptText="Street" styleClass="nameFill" />
+      <Label layoutX="32.0" layoutY="571.0" text="Street" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="342.0" layoutY="567.0" prefHeight="19.0" prefWidth="66.0" text="HouseNr" textFill="WHITE">
+      <Label layoutX="241.0" layoutY="571.0" prefHeight="19.0" prefWidth="66.0" text="HouseNr" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="plzID" layoutX="342.0" layoutY="409.0" prefHeight="35.0" prefWidth="153.0" promptText="number" styleClass="nameFill" />
-      <Label layoutX="343.0" layoutY="389.0" prefHeight="19.0" prefWidth="66.0" text="PLZ" textFill="WHITE">
+      <TextField fx:id="plzID" layoutX="236.0" layoutY="407.0" prefHeight="35.0" prefWidth="169.0" promptText="number" styleClass="nameFill" />
+      <Label layoutX="237.0" layoutY="387.0" prefHeight="19.0" prefWidth="66.0" text="PLZ" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="houseNrID" layoutX="342.0" layoutY="586.0" prefHeight="35.0" prefWidth="153.0" promptText="number" styleClass="nameFill" />
-      <Button fx:id="cancelBtn" layoutX="314.0" layoutY="667.0" mnemonicParsing="false" onAction="#cancelChanges" prefHeight="52.0" prefWidth="221.0" styleClass="book" stylesheets="@Styling/BookingWindow.css" text="Cancel" textFill="WHITE">
+      <TextField fx:id="houseNrID" layoutX="241.0" layoutY="590.0" prefHeight="35.0" prefWidth="162.0" promptText="House number" styleClass="nameFill" />
+      <Button fx:id="cancelBtn" layoutX="240.0" layoutY="656.0" mnemonicParsing="false" onAction="#cancelChanges" prefHeight="35.0" prefWidth="86.0" styleClass="cancel" stylesheets="@Styling/BookingWindow.css" text="Cancel" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </Button>
+      <Label layoutX="37.0" layoutY="36.0" text="Edit Guest" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
