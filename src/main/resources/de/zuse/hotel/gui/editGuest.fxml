@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+
 <AnchorPane fx:id="root" prefHeight="720.0" prefWidth="433.0" styleClass="bg" stylesheets="@styling/darkMode/BookingWindow.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.editGuestController">
    <children>
       <TextField fx:id="lastNameID" layoutX="237.0" layoutY="130.0" prefHeight="35.0" prefWidth="162.0" promptText="Last name" styleClass="nameFill" />
@@ -15,6 +16,7 @@
             <Font size="16.0" />
          </font>
       </Label>
+
       <Button fx:id="saveBtn" layoutX="32.0" layoutY="658.0" mnemonicParsing="false" onAction="#saveChanges" prefHeight="35.0" prefWidth="205.0" styleClass="book" stylesheets="@styling/darkMode/BookingWindow.css" text="Save changes" textFill="WHITE" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="196.0">
          <font>
             <Font size="17.0" />
@@ -26,6 +28,7 @@
          </font>
       </Label>
       <TextField fx:id="firstNameID" layoutX="40.0" layoutY="130.0" prefHeight="35.0" prefWidth="153.0" promptText="First name" styleClass="nameFill" />
+
       <DatePicker fx:id="bDateID" layoutX="32.0" layoutY="398.0" prefHeight="45.0" prefWidth="169.0" styleClass="date" stylesheets="@styling/darkMode/datePickerStyle.css" />
       <Label layoutX="33.0" layoutY="368.0" text="B-date" textFill="WHITE">
          <font>
@@ -74,6 +77,7 @@
          </font>
       </Label>
       <TextField fx:id="houseNrID" layoutX="241.0" layoutY="590.0" prefHeight="35.0" prefWidth="162.0" promptText="House number" styleClass="nameFill" />
+
       <Button fx:id="cancelBtn" layoutX="240.0" layoutY="656.0" mnemonicParsing="false" onAction="#cancelChanges" prefHeight="35.0" prefWidth="86.0" styleClass="cancel" stylesheets="@styling/darkMode/BookingWindow.css" text="Cancel" textFill="WHITE">
          <font>
             <Font size="17.0" />
