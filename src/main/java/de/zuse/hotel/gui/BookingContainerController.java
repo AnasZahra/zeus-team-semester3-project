@@ -1,6 +1,7 @@
 package de.zuse.hotel.gui;
 
 import java.io.IOException;
+import java.util.Set;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +24,7 @@ public class BookingContainerController
 
     public BookingContainerController()
     {
+
     }
 
     public int getBookingId()
@@ -32,6 +34,11 @@ public class BookingContainerController
 
     public Node getContent() {
         return bookingContainer;
+    }
+
+    public void setStyle()
+    {
+        bookingContainer.getStylesheets().add(SettingsController.getCorrectStylePath("background.css"));
     }
 }
 

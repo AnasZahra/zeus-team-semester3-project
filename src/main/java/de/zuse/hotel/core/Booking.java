@@ -208,7 +208,7 @@ public class Booking
         return payment;
     }
 
-    public double coastPerNight(LocalDate startDate, LocalDate endDate, float price, String serviceName)
+    public double coastPerNight(double roomPrice)
     {
         double total = 0.0;
         long daysBetween = DAYS.between(startDate, endDate);
@@ -219,7 +219,7 @@ public class Booking
             totalServicevalue += HotelCore.get().getRoomServicePrice(string);
         }
 
-        total = price * daysBetween + totalServicevalue;
+        total = roomPrice * daysBetween + totalServicevalue;
         return total;
     }
 

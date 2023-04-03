@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.util.Arrays;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 public class AddRoomWindow implements ControllerApi
 {
     public TextField roomprice;
+    public AnchorPane Window;
 
     @FXML
     TextField roomnumber;
@@ -36,6 +38,9 @@ public class AddRoomWindow implements ControllerApi
     @Override
     public void onStart()
     {
+        Window.getStylesheets().clear();
+        Window.getStylesheets().add(SettingsController.getCorrectStylePath("BookingWindow.css"));
+
         List<RoomSpecification.Types> roomTypes = Arrays.stream(RoomSpecification.Types.values())
                 .collect(Collectors.toList());
         roomType.getItems().addAll(roomTypes);

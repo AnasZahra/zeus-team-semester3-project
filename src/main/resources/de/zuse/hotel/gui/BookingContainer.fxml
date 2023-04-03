@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="bookingContainer" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="790.0" stylesheets="@Styling/background.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.BookingContainerController">
+<AnchorPane fx:id="bookingContainer" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="790.0" stylesheets="@styling/darkMode/background.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.BookingContainerController">
    <children>
       <Label fx:id="guestName" layoutX="59.0" layoutY="25.0" styleClass="textOnBookingContainer" text="guestName">
          <font>

@@ -7,7 +7,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Window" prefHeight="720.0" prefWidth="433.0" styleClass="bg" stylesheets="@Styling/BookingWindow.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.addGuestController">
+
+<AnchorPane fx:id="window" prefHeight="720.0" prefWidth="433.0" styleClass="bg" stylesheets="@styling/darkMode/BookingWindow.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.addGuestController">
    <children>
       <Label layoutX="37.0" layoutY="36.0" text="Add Guest" textFill="WHITE">
          <font>
@@ -20,7 +21,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Button fx:id="addGuestButton" layoutX="35.0" layoutY="651.0" mnemonicParsing="false" onAction="#addGuest" prefHeight="35.0" prefWidth="363.0" styleClass="book" stylesheets="@Styling/BookingWindow.css" text="add Guest" textFill="WHITE">
+      <Button fx:id="addGuestButton" layoutX="35.0" layoutY="651.0" mnemonicParsing="false" onAction="#addGuest" prefHeight="35.0" prefWidth="363.0" styleClass="book" text="add Guest" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
@@ -31,7 +32,7 @@
          </font>
       </Label>
       <TextField fx:id="lastName" layoutX="241.0" layoutY="125.0" prefHeight="35.0" prefWidth="153.0" promptText="Last Name" styleClass="nameFill" />
-      <DatePicker fx:id="birthDate" layoutX="37.0" layoutY="388.0" prefHeight="45.0" prefWidth="169.0" styleClass="date" stylesheets="@Styling/datePickerStyle.css" />
+      <DatePicker fx:id="birthDate" layoutX="37.0" layoutY="388.0" prefHeight="45.0" prefWidth="169.0" styleClass="date" stylesheets="@styling/darkMode/datePickerStyle.css" />
       <Label layoutX="34.0" layoutY="358.0" text="B-date" textFill="WHITE">
          <font>
             <Font size="16.0" />

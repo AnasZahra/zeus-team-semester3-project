@@ -17,7 +17,7 @@ module de.zuse.hotel
 	requires javafx.base;
 
 
-    opens de.zuse.hotel.gui to javafx.fxml, javafx.graphics;
+    opens de.zuse.hotel.gui to javafx.fxml, javafx.graphics, com.fasterxml.jackson.dataformat.yaml, com.fasterxml.jackson.databind;
     opens de.zuse.hotel.core to com.fasterxml.jackson.dataformat.yaml, com.fasterxml.jackson.databind,
             org.hibernate.orm.core, javafx.base;
 

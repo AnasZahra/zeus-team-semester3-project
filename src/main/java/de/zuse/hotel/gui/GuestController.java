@@ -18,16 +18,23 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class GuestController implements ControllerApi
 {
+    public AnchorPane root;
+    public Text guestTitleId;
+    public Text searchTextid;
     @FXML
     private TableView<Person> guestTable;
 
@@ -56,6 +63,7 @@ public class GuestController implements ControllerApi
     @Override
     public void onStart()
     {
+        setupStyling();
         guestIdCln.setCellValueFactory(new PropertyValueFactory<>("id"));
         firstNameCln.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameCln.setCellValueFactory(new PropertyValueFactory<>("lastName"));
@@ -78,7 +86,8 @@ public class GuestController implements ControllerApi
             }
         });
 
-        seachBarID.textProperty().addListener((observable, oldValue, newValue) -> { //listener on the table, that calls the seachGuests method when it is triggered by changing the textfield of it and seach for the changed text on the textfield(new value)
+        seachBarID.textProperty().addListener((observable, oldValue, newValue) ->
+        { //listener on the table, that calls the seachGuests method when it is triggered by changing the textfield of it and seach for the changed text on the textfield(new value)
             GuestController.this.searcGuests(newValue);
         });
     }
@@ -141,13 +150,26 @@ public class GuestController implements ControllerApi
 
     }
 
-    public void searcGuests(String string) {
+    public void searcGuests(String string)
+    {
         List<Person> filteredGuests = HotelCore.get().getAllGuest().stream()
                 .filter(guest -> guest.getFirstName().toLowerCase().contains(string.toLowerCase()))
                 .collect(Collectors.toList()); //stream filter search
 
         ObservableList<Person> GuestList = FXCollections.observableArrayList(filteredGuests); //refresh the table
         guestTable.setItems(GuestList);
+    }
+
+    public void setupStyling()
+    {
+        root.getStylesheets().clear();
+        if (SettingsController.currentMode == SettingsController.SystemMode.LIGHT)
+            guestTable.setStyle("");
+
+        root.getStylesheets().add(SettingsController.getCorrectStylePath("background.css"));
+        root.getStylesheets().add(SettingsController.getCorrectStylePath("NavMenu.css"));
+        guestTable.getStylesheets().add(SettingsController.getCorrectStylePath("Tableview.css"));
+        seachBarID.getStylesheets().add(SettingsController.getCorrectStylePath("BookingWindow.css"));
     }
 
 }
