@@ -3,20 +3,11 @@ package de.zuse.hotel.gui;
 import de.zuse.hotel.core.Address;
 import de.zuse.hotel.core.HotelCore;
 import de.zuse.hotel.core.Person;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-
-import java.io.IOException;
+import javafx.scene.layout.AnchorPane;
 
 
 public class addGuestController implements ControllerApi
@@ -26,6 +17,7 @@ public class addGuestController implements ControllerApi
     public TextField street;
     public TextField plz;
     public TextField houseNr;
+    public AnchorPane window;
     @FXML
     private TextField lastName;
     @FXML
@@ -64,6 +56,9 @@ public class addGuestController implements ControllerApi
     @Override
     public void onStart()
     {
+        window.getStylesheets().add(SettingsController.getCorrectStylePath("BookingWindow.css"));
+        birthDate.getStylesheets().add(SettingsController.getCorrectStylePath("datePickerStyle.css"));
+
         JavaFxUtil.makeFieldOnlyNumbers(houseNr);
         JavaFxUtil.makeFieldOnlyNumbers(plz);
         JavaFxUtil.makeFieldOnlyNumbers(telNum);

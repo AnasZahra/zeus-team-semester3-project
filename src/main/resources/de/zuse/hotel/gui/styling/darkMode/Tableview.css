@@ -1,6 +1,6 @@
 @font-face {
     -fx-font-family: myFont;
-    src:url(Gilroy.ttf);
+    src:url(../../font/Gilroy.ttf);
 }
 
 .table-view {
@@ -10,14 +10,12 @@
 .text{
     -fx-font-size: 1.1em;
     -fx-font-family: Gilroy;
-
 }
 
 
 .table-view .column-header-background{
     -fx-background-color: #F24E1E;
     -fx-background-radius: 0px 2px 0px 0px;
-
 }
 
 .table-view .column-header {
@@ -26,7 +24,6 @@
 
 .table-view .table-cell{
     -fx-border-color: #2d2d2d;
-
 }
 .table-row-cell:hover {
     -fx-background-color: #252222;
@@ -41,7 +38,6 @@
     -fx-background-color: #252222;
     -fx-background-insets: 0, 0 0 0;
     -fx-text-background-color: #ffffff;
-
 }
 
 .table-view .virtual-flow .scroll-bar:vertical,

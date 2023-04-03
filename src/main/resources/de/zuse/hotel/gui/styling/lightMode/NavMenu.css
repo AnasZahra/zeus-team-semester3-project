@@ -1,30 +1,32 @@
 @font-face {
     -fx-font-family: myFont;
-    src:url(Gilroy.ttf);
+    src:url(../../font/Gilroy.ttf);
 }
 
 .label{
     -fx-font-family: Gilroy;
+    -fx-text-fill: #000000;
+    -fx-fill: #000000;
 }
 
 .main_menu {
-    -fx-background-color: #191717;
+    -fx-background-color: #F3F4FF;
     -fx-alignment: center;
 }
 
 .left_container {
-    -fx-background-color: #191717;
+    -fx-background-color: #F3F4FF;
     -fx-background-radius: 10;
     -fx-effect: dropshadow(two-pass-box, #191717, 5, 0, 0, 4);
 }
 
 .title_container {
-    -fx-background-color: #191717;
+    -fx-background-color: #111111;
     -fx-background-radius: 20, 20, 0, 0;
 }
 
 .title_container Text {
-    -fx-fill: #FFFFFF;
+    -fx-fill: #000000;
     -fx-background-radius: 20, 20, 0, 0;
     -fx-font-family: Gilroy;
 }
@@ -37,8 +39,8 @@
 .menu_container Button {
     -fx-pref-width: 234;
     -fx-pref-height: 40;
-    -fx-background-color: #191717;
-    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #F3F4FF;
+    -fx-text-fill: #000000;
     -fx-font-size: 1.4em;
     -fx-font-weight: Bold;
     -fx-alignment: center_left;
@@ -49,7 +51,7 @@
 .menu_container Button:hover {
     -fx-cursor: hand;
     -fx-spacing: 20;
-    -fx-text-fill: #f24e1e;
+    -fx-text-fill: #0077FF;
 }
 
 .on_button_selected {
@@ -57,7 +59,7 @@
     -fx-spacing: 20;
     -fx-pref-width: 300;
     -fx-pref-height: 40;
-    -fx-background-color: #f24e1e;
+    -fx-background-color: #0077FF;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 1.4em;
     -fx-font-weight: Bold;
@@ -75,6 +77,7 @@
 }
 
 .point {
-    -fx-text-fill: #f24e1e;
+    -fx-text-fill: #0077FF;
     -fx-font-family: Gilroy;
 }
+

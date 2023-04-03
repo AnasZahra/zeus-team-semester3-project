@@ -1,29 +1,22 @@
 package de.zuse.hotel.gui;
 
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.prefs.Preferences;
 
-import de.zuse.hotel.util.ZuseCore;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class SettingsController implements ControllerApi, Initializable
+public class SettingsController implements Initializable
 {
+    public enum SystemMode
+    {
+        LIGHT, DARK;
+    }
+
     @FXML
     AnchorPane anchor;
     @FXML
@@ -31,13 +24,18 @@ public class SettingsController implements ControllerApi, Initializable
     @FXML
     ImageView imageL;
 
+    public static SystemMode currentMode = SystemMode.DARK;
+    //relative path to project.dir
+
+    private static class Wrapper{}
+
     public void changeToDarkmood()
     {
         imageD.setOnMouseClicked(e ->
         {
-            anchor.getParent().setStyle("-fx-background-color: black; -fx-border-color: #27ae60; -fx-border-width: 2px; -fx-padding: 10px;");
-            // anchor.setStyle("-fx-background-color: black; -fx-border-color: #27ae60; -fx-border-width: 2px; -fx-padding: 10px;");
-            System.out.println("change to darkmood");
+            currentMode = SystemMode.DARK;
+            Gui.getInstance().restartApp();
+            ((Stage) anchor.getScene().getWindow()).close();
         });
     }
 
@@ -45,20 +43,10 @@ public class SettingsController implements ControllerApi, Initializable
     {
         imageL.setOnMouseClicked(e ->
         {
-            anchor.getParent().setStyle("-fx-background-color: white; -fx-border-color: #27ae60; -fx-border-width: 2px; -fx-padding: 10px;");
-            // anchor.setStyle("-fx-background-color: white; -fx-border-color: #27ae60; -fx-border-width: 2px; -fx-padding: 10px;");
-            System.out.println("change to lightmood");
+            currentMode = SystemMode.LIGHT;
+            Gui.getInstance().restartApp();
+            ((Stage) anchor.getScene().getWindow()).close();
         });
-    }
-
-    @Override
-    public void onStart()
-    {
-    }
-
-    @Override
-    public void onUpdate()
-    {
     }
 
     @Override
@@ -67,4 +55,30 @@ public class SettingsController implements ControllerApi, Initializable
         changeToDarkmood();
         changeToLightmood();
     }
+
+    public static String getCorrectStylePath(String fileName)
+    {
+        Wrapper wrapper = new Wrapper();
+
+        switch (currentMode)
+        {
+            case DARK:
+                return wrapper.getClass().getResource("styling/darkMode/" + fileName).toExternalForm();
+            case LIGHT:
+                return wrapper.getClass().getResource("styling/lightMode/" + fileName).toExternalForm();
+        }
+
+        return wrapper.getClass().getResource("styling/darkMode/" + fileName).toExternalForm();
+    }
+
+    public static SystemMode getMode()
+    {
+        return currentMode;
+    }
+
+    public static void setMode(SystemMode mode)
+    {
+        currentMode = mode;
+    }
+
 }

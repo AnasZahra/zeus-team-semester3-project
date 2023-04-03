@@ -7,11 +7,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 
 public class editGuestController implements ControllerApi
 {
-
+    public AnchorPane root;
     @FXML
     private DatePicker bDateID;
 
@@ -46,11 +47,6 @@ public class editGuestController implements ControllerApi
 
     public editGuestController()
     {
-    }
-
-    public editGuestController(Person selectedUser)
-    {
-        this.selectedUser = selectedUser;
     }
 
     public void saveChanges(ActionEvent actionEvent)
@@ -90,6 +86,9 @@ public class editGuestController implements ControllerApi
     @Override
     public void onStart()
     {
+        root.getStylesheets().add(SettingsController.getCorrectStylePath("BookingWindow.css"));
+        bDateID.getStylesheets().add(SettingsController.getCorrectStylePath("datePickerStyle.css"));
+
         getSelected(selectedUser); //view the current guest  data
 
         JavaFxUtil.makeFieldOnlyNumbers(houseNrID);

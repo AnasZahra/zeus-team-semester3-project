@@ -2,14 +2,27 @@ package de.zuse.hotel.gui;
 
 import de.zuse.hotel.Layer;
 import de.zuse.hotel.core.HotelCore;
+import de.zuse.hotel.util.HotelSerializer;
 import de.zuse.hotel.util.ZuseCore;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
 public class Gui extends Application implements Layer
 {
+    private static Gui instance = null;
+
+    public static Gui getInstance()
+    {
+        if (instance == null)
+            instance = new Gui();
+
+        return instance;
+    }
+
     @Override
     public void onStart()
     {
@@ -26,7 +39,7 @@ public class Gui extends Application implements Layer
     @Override
     public void onClose()
     {
-        System.out.println("On Closing The Hotel App...");
+        System.out.println("Closing the App");
         HotelCore.shutdown();
     }
 
@@ -35,13 +48,15 @@ public class Gui extends Application implements Layer
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LoadingPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
-
-        //CSS
-        String cssStyle = this.getClass().getResource("Styling/background.css").toExternalForm();
-        scene.getStylesheets().add(cssStyle);
+        scene.getStylesheets().add(SettingsController.getCorrectStylePath("background.css"));
         stage.setTitle("Hotel v1.0");
         stage.setScene(scene);
         stage.show();
+    }
+
+    public static void startLoading()
+    {
+        HotelCore.init();
     }
 
     public void handleErrorMessages(String msg)
@@ -49,8 +64,19 @@ public class Gui extends Application implements Layer
         InfoController.showMessage(InfoController.LogLevel.Error, "Error", msg);
     }
 
-    public static void startLoading()
+    public void restartApp()
     {
-        HotelCore.init();
+        Platform.runLater(() ->
+        {
+            try
+            {
+                this.start(new Stage());
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        });
     }
+
+
 }

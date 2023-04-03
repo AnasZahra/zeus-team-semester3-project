@@ -13,16 +13,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
 
 public class RoomController implements ControllerApi
 {
     public TableView<Room> roomTable;
+    public AnchorPane rooms;
+    public Text windowTitel;
     @FXML
     ChoiceBox<Integer> floorChoiceBox;
 
@@ -66,6 +71,8 @@ public class RoomController implements ControllerApi
 
     public void onStart()
     {
+        setupStyling();
+
         roomNrCln.setCellValueFactory(new PropertyValueFactory<>("roomNr"));
         priceCln.setCellValueFactory(new PropertyValueFactory<>("price"));
         roomTypeCln.setCellValueFactory(new PropertyValueFactory<>("roomType"));
@@ -163,12 +170,23 @@ public class RoomController implements ControllerApi
         Scene scene = new Scene(fxmlLoader.load(), 287, 164);
         ((ControllerApi) fxmlLoader.getController()).onStart();
         Stage stage = new Stage();
-        System.out.println(stage);
         stage.setTitle("Add a floor");
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL); //default, for closing th pop up window
         stage.show();
         HotelCore.get().setCurrentStage(stage);
+    }
+
+    public void setupStyling()
+    {
+        rooms.getStylesheets().clear();
+        if (SettingsController.currentMode == SettingsController.SystemMode.LIGHT)
+            roomTable.setStyle("");
+
+        roomTable.getStylesheets().add(SettingsController.getCorrectStylePath("Tableview.css"));
+        floorChoiceBox.getStylesheets().add(SettingsController.getCorrectStylePath("BookingWindow.css"));
+        rooms.getStylesheets().addAll(SettingsController.getCorrectStylePath("NavMenu.css")
+                ,SettingsController.getCorrectStylePath("background.css"));
     }
 
 }

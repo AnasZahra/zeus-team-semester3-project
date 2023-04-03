@@ -15,6 +15,8 @@ import javafx.scene.control.Cell;
 import java.io.FileOutputStream;
 import java.util.Iterator;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 public class InvoicePdf implements PdfFile
 {
     private Booking booking;
@@ -57,11 +59,13 @@ public class InvoicePdf implements PdfFile
 
                 document.add(title);
                 document.add(new Paragraph("Check-in: " + booking.getStartDate()));
-                document.add(new Paragraph("Check-out: " + booking.getStartDate()));
+                document.add(new Paragraph("Check-out: " + booking.getEndDate()));
 
                 //TODO (Basel): maybe add many Guests
                 document.add(new Paragraph("Geust: " + booking.getGuestName()));
                 document.add(new Paragraph("Room: " + booking.getRoomNumber()));
+                document.add(new Paragraph("Floor: " + booking.getFloorNumber()));
+                document.add(new Paragraph("Guests-Number: " + booking.getGuestsNum()));
                 Chunk linebreak = new Chunk(new DottedLineSeparator());
                 document.add(linebreak);
             }
@@ -72,9 +76,9 @@ public class InvoicePdf implements PdfFile
                         BaseColor.BLACK, "Booked By");
 
                 document.add(title);
-                document.add(new Paragraph(booking.getGuestName()));
-                document.add(new Paragraph(booking.getGuest().getEmail()));
-                document.add(new Paragraph(booking.getGuest().getTelNumber()));
+                document.add(new Paragraph("Name: "+booking.getGuestName()));
+                document.add(new Paragraph("Email: "+booking.getGuest().getEmail()));
+                document.add(new Paragraph("Tel.Nr: "+booking.getGuest().getTelNumber()));
                 Chunk linebreak = new Chunk(new DottedLineSeparator());
                 document.add(linebreak);
             }
@@ -86,22 +90,16 @@ public class InvoicePdf implements PdfFile
 
                 document.add(description);
 
-                Room room = HotelCore.get().getRoom(booking.getFloorNumber(), booking.getRoomNumber());
+                Room room = HotelCore.get().getRoomByRoomNr(booking.getFloorNumber(), booking.getRoomNumber());
                 double roomPrice = room.getPrice();
-                document.add(new Paragraph("Room (" + room.getRoomType() + ")" + roomPrice + EURO_SYMOBL));
+                document.add(new Paragraph("Room (" + room.getRoomType() + "): " + roomPrice + EURO_SYMOBL +" (For one day)"));
 
-                StringBuffer services = new StringBuffer();
-                double totalPrice = 0.0f;
-                Iterator<String> it = booking.getBookedServices().iterator();
-                while (it.hasNext())
-                {
-                    String next = it.next();
-                    services.append("(1 x " + next + ")");
-                    totalPrice += HotelCore.get().getRoomServicePrice(next);
-                }
 
-                document.add(new Paragraph(services + ": " + totalPrice + EURO_SYMOBL));
-                document.add(new Paragraph("Total: " + (totalPrice + roomPrice) + EURO_SYMOBL));
+                double totalPrice = booking.coastPerNight(roomPrice);
+                long daysBetween = DAYS.between(booking.getStartDate(), booking.getEndDate());
+
+                document.add(new Paragraph("Total: " + daysBetween + " Day(s) * "
+                        + roomPrice + " = " + (totalPrice) + EURO_SYMOBL));
             }
 
             document.close();

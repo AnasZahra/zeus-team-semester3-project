@@ -49,8 +49,10 @@ public class LoadingPageController implements Initializable
 
                 Stage stage = new Stage();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
+
                 Parent parent = fxmlLoader.load();
                 Scene scene = new Scene(parent, 1280, 720);
+                scene.getStylesheets().add(SettingsController.getCorrectStylePath("background.css"));
                 stage.setScene(scene);
                 ((Stage) anchor.getScene().getWindow()).close();
                 stage.show();

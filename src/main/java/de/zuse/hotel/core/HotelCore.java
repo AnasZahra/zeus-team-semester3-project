@@ -36,7 +36,8 @@ public class HotelCore implements HotelCoreApi
 
     public static void init()
     {
-        ZuseCore.coreAssert(instance == null, "call init only once!!");
+        if (instance != null)
+            return;
 
         instance = new HotelCore();
     }
@@ -48,6 +49,7 @@ public class HotelCore implements HotelCoreApi
         try
         {
             hotelSerializer.serializeHotel(instance.hotelConfiguration);
+            hotelSerializer.serializeSettings();
             instance.hotelDatabaseApi.shutdown();
         } catch (Exception e)
         {
@@ -67,6 +69,7 @@ public class HotelCore implements HotelCoreApi
         try
         {
             hotelConfiguration = hotelSerializer.deserializeHotel();
+            hotelSerializer.deserializeSettings();
         } catch (Exception e)
         {
             ZuseCore.coreAssert(false, e.getMessage());
@@ -95,6 +98,7 @@ public class HotelCore implements HotelCoreApi
         boolean state = hotelDatabaseApi.addGuest(guest);
         if (currentScene != null)
             currentScene.onUpdate();
+
         return state;
     }
 
@@ -114,6 +118,7 @@ public class HotelCore implements HotelCoreApi
         boolean state = hotelDatabaseApi.addBooking(booking);
         if (currentScene != null)
             currentScene.onUpdate();
+
         return state;
     }
 
@@ -123,6 +128,7 @@ public class HotelCore implements HotelCoreApi
         boolean state = hotelDatabaseApi.removeBooking(bookingID);
         if (currentScene != null)
             currentScene.onUpdate();
+
         return state;
     }
 
@@ -326,6 +332,7 @@ public class HotelCore implements HotelCoreApi
         try
         {
             hotelSerializer.serializeHotel(hotelConfiguration);
+            hotelSerializer.serializeSettings();
         } catch (IOException e)
         {
             throw new RuntimeException(e);
