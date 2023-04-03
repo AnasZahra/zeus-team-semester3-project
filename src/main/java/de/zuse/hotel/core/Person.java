@@ -90,6 +90,8 @@ public class Person {
 
     public void setBirthday(LocalDate birthday)
     {
+        ZuseCore.check(is18OrOlder(birthday), "The Person must be 18 years old!!");
+
         this.birthday = birthday;
     }
 

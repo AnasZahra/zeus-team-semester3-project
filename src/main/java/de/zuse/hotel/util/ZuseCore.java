@@ -15,26 +15,38 @@ public class ZuseCore
         callback = func;
     }
 
+    /**
+     * If the condition fails, We throw the exception to stop app from executing the next statement.
+     * We want the application to stop at this point, similar to an empty return statement
+     */
     public static void check(boolean condition, String msg)
     {
         if (!condition)
         {
-            callback.accept(msg);
+            if (callback != null)
+                callback.accept(msg);
 
-            if (DEBUG_MODE)
-                throw new BreakPointException(msg);
+            throw new BreakPointException(msg);
         }
     }
 
     /**
-     * Only for Debugging, it works only in debug mode
+     * This is only for debugging, and it works only in debug mode.
+     * If the condition fails, we want the application to crash.
      */
     public static void coreAssert(boolean condition, String msg)
     {
         if (DEBUG_MODE)
         {
-            if (!condition)
-                throw new BreakPointException(msg);
+            try
+            {
+                if (!condition)
+                    throw new BreakPointException(msg);
+            } catch (BreakPointException e)
+            {
+                e.printStackTrace();
+                System.exit(1);
+            }
         }
     }
 
@@ -44,7 +56,6 @@ public class ZuseCore
         {
             check(false, msg);
         }
-
     }
 
 
