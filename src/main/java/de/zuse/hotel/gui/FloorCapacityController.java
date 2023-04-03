@@ -6,17 +6,24 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
-public class FloorCapacityController implements ControllerApi{
+public class FloorCapacityController implements ControllerApi
+{
 
+    public AnchorPane floorCapacityRoot;
     @FXML
     private TextField capacityTextField;
 
-    public void addCapacity(ActionEvent actionEvent) {
+    public void addCapacity(ActionEvent actionEvent)
+    {
 
-        if(capacityTextField.getText().isEmpty()){
-            InfoController.showMessage(InfoController.LogLevel.Error,"Floor capacity","Please enter floor capacity!");
-        }else{
+        if (capacityTextField.getText().isEmpty())
+        {
+            InfoController.showMessage(InfoController.LogLevel.Error, "Floor capacity", "Please enter floor capacity!");
+        } else
+        {
             Floor newFloor = new Floor(HotelCore.get().getFloors().size() + 1, Integer.parseInt(capacityTextField.getText()));
 
             HotelCore.get().addNewFloorToHotel(newFloor);
@@ -27,12 +34,14 @@ public class FloorCapacityController implements ControllerApi{
 
 
     @Override
-    public void onStart() {
-
+    public void onStart()
+    {
+        floorCapacityRoot.getStylesheets().add(SettingsController.getCorrectStylePath("BookingWindow.css"));
     }
 
     @Override
-    public void onUpdate() {
+    public void onUpdate()
+    {
 
     }
 }

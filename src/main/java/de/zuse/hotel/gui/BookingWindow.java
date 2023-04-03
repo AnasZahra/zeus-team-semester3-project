@@ -5,6 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
@@ -20,6 +21,7 @@ public class BookingWindow implements ControllerApi
     public TextField guestsNumber;
     public TextField priceField;
     public ChoiceBox<Floor> floorChoiceBox;
+    public AnchorPane root;
     @FXML
     private ChoiceBox<Room> roomChoiceBox;
     public CheckBox paidCheckBox;
@@ -43,7 +45,8 @@ public class BookingWindow implements ControllerApi
     void addBooking(ActionEvent event) throws Exception
     {
         if (guestID.getText().strip().isEmpty() || paymentChoiceBox.getValue() == null
-                || guestsNumber.getText() == null || guestsNumber.getText().strip().isEmpty())
+                || guestsNumber.getText() == null || guestsNumber.getText().strip().isEmpty()
+                || roomChoiceBox.getValue() == null)
         {
             InfoController.showMessage(InfoController.LogLevel.Warn, "Add Booking", "can not add Booking" +
                     ", please fill all information!");
@@ -80,6 +83,10 @@ public class BookingWindow implements ControllerApi
     @Override
     public void onStart()
     {
+        root.getStylesheets().add(SettingsController.getCorrectStylePath("BookingWindow.css"));
+        arrivalDate.getStylesheets().add(SettingsController.getCorrectStylePath("datePickerStyle.css"));
+        depatureDate.getStylesheets().add(SettingsController.getCorrectStylePath("datePickerStyle.css"));
+
         // Set payment ChoiceBox values and default value
         List<Payment.Type> typeList = Arrays.stream(Payment.Type.values()).collect(Collectors.toList());
         paymentChoiceBox.getItems().addAll(typeList);
@@ -117,7 +124,7 @@ public class BookingWindow implements ControllerApi
         roomChoiceBox.getItems().clear();
 
         // we do not show rooms or floor until the client set the start and end date of booking
-        if (arrivalDate.getValue() == null || depatureDate.getValue() == null || floorChoiceBox.getValue() == null)
+        if (arrivalDate.getValue() == null || depatureDate.getValue() == null || floorChoiceBox.getValue() == null) //Problem when user enter chars!!
             return;
 
         List<Booking> bookingList = HotelCore.get().getAllBookingBetweenStartAndEnd(arrivalDate.getValue()

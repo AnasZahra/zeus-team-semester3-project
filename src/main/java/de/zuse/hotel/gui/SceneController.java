@@ -5,25 +5,22 @@ import de.zuse.hotel.util.ZuseCore;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import org.hibernate.annotations.Parent;
 
 public class SceneController implements ControllerApi
 {
     private static final String BUTTON_SELECTED_STYLE_NAME = "on_button_selected";
+    public AnchorPane background;
+    public VBox menuBar;
 
     @FXML
     private Button guestBtnId;
@@ -79,7 +76,6 @@ public class SceneController implements ControllerApi
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Settings.fxml"));
         Node node = fxmlLoader.load();
-        HotelCore.get().setCurrentScene(fxmlLoader.getController());
         borderPane.setCenter(node);
         onSwitchPanel(settingsBtnId);
     }
@@ -122,6 +118,9 @@ public class SceneController implements ControllerApi
     @Override
     public void onStart()
     {
+        background.getStylesheets().add(SettingsController.getCorrectStylePath("background.css"));
+        menuBar.getStylesheets().add(SettingsController.getCorrectStylePath("NavMenu.css"));
+
         try
         {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));

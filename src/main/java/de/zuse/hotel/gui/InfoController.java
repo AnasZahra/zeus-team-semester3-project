@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -14,6 +16,7 @@ public class InfoController
     public Button yesBtn;
     public Button noBtn;
     public Button okBtn;
+    public AnchorPane root;
     @FXML
     private Text displayText;
 
@@ -37,6 +40,7 @@ public class InfoController
             stage.initModality(Modality.APPLICATION_MODAL);
             //give information about what happened after adding a guest if it went well or wrong
             infoController = fxmlLoader.getController();
+            infoController.setStyle();
             infoController.setText(content);
             infoController.okBtn.setVisible(true);
             infoController.yesBtn.setVisible(false);
@@ -61,6 +65,7 @@ public class InfoController
             stage.initModality(Modality.APPLICATION_MODAL);
             //give information about what happened after adding a guest if it went well or wrong
             infoController = fxmlLoader.getController();
+            infoController.setStyle();
             infoController.setText(content);
             infoController.okBtn.setVisible(false);
             infoController.yesBtn.setVisible(true);
@@ -100,6 +105,11 @@ public class InfoController
     {
         answer = false;
         cancel(event);
+    }
+
+    void setStyle()
+    {
+        root.getStylesheets().add(SettingsController.getCorrectStylePath("BookingWindow.css"));
     }
 
 

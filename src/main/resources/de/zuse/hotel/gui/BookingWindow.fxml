@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="Window" prefHeight="721.0" prefWidth="500.0" styleClass="bg" stylesheets="@Styling/BookingWindow.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.BookingWindow">
+<AnchorPane fx:id="root" prefHeight="721.0" prefWidth="500.0" styleClass="bg" stylesheets="@styling/darkMode/BookingWindow.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.BookingWindow">
     <children>
         <Label layoutX="61.0" layoutY="68.0" text="New Booking" textFill="WHITE">
             <font>
@@ -17,8 +12,8 @@
             </font>
         </Label>
         <TextField fx:id="guestID" layoutX="61.0" layoutY="151.0" prefHeight="35.0" prefWidth="381.0" promptText="Guest Id" styleClass="nameFill" />
-        <DatePicker fx:id="arrivalDate" layoutX="55.0" layoutY="253.0" prefHeight="45.0" prefWidth="174.0" styleClass="date" stylesheets="@Styling/datePickerStyle.css" />
-        <DatePicker fx:id="depatureDate" layoutX="268.0" layoutY="253.0" prefHeight="45.0" prefWidth="174.0" stylesheets="@Styling/datePickerStyle.css" />
+        <DatePicker fx:id="arrivalDate" layoutX="55.0" layoutY="253.0" prefHeight="45.0" prefWidth="174.0" styleClass="date" stylesheets="@styling/darkMode/datePickerStyle.css" />
+        <DatePicker fx:id="depatureDate" layoutX="268.0" layoutY="253.0" prefHeight="45.0" prefWidth="174.0" stylesheets="@styling/darkMode/datePickerStyle.css" />
         <Label layoutX="55.0" layoutY="219.0" text="Arrival" textFill="WHITE">
             <font>
                 <Font size="16.0" />
@@ -51,7 +46,7 @@
                 <Font size="16.0" />
             </font>
         </Label>
-        <Button fx:id="book" layoutX="136.0" layoutY="598.0" mnemonicParsing="false" onAction="#addBooking" prefHeight="35.0" prefWidth="229.0" styleClass="book" stylesheets="@Styling/BookingWindow.css" text="add booking" textFill="WHITE">
+        <Button fx:id="book" layoutX="136.0" layoutY="598.0" mnemonicParsing="false" onAction="#addBooking" prefHeight="35.0" prefWidth="229.0" styleClass="book" stylesheets="@styling/darkMode/BookingWindow.css" text="add booking" textFill="WHITE">
             <font>
                 <Font size="17.0" />
             </font>
@@ -63,7 +58,7 @@
         </Button>
         <TextField fx:id="priceField" layoutX="55.0" layoutY="509.0" prefHeight="35.0" prefWidth="194.0" promptText="price" styleClass="nameFill" />
         <ChoiceBox fx:id="paymentChoiceBox" layoutX="55.0" layoutY="444.0" prefHeight="30.0" prefWidth="174.0" styleClass="bg" />
-        <TextField fx:id="guestsNumber" layoutX="268.0" layoutY="444.0" prefHeight="30.0" prefWidth="174.0" promptText="number" styleClass="guestsNumber" />
-      <CheckBox fx:id="paidCheckBox" layoutX="287.0" layoutY="526.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="137.0" style="-fx-font-size: 1.4em;" styleClass="label" stylesheets="@Styling/background.css" text="Paid" textFill="WHITE" />
+        <TextField fx:id="guestsNumber" layoutX="268.0" layoutY="444.0" prefHeight="30.0" prefWidth="174.0" promptText="number" styleClass="nameFill" />
+      <CheckBox fx:id="paidCheckBox" layoutX="287.0" layoutY="526.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="137.0" style="-fx-font-size: 1.4em;" styleClass="label" stylesheets="@styling/darkMode/background.css" text="Paid" textFill="WHITE" />
     </children>
 </AnchorPane>

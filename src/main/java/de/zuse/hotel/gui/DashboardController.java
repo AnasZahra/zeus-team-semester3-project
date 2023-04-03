@@ -13,6 +13,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
@@ -23,29 +25,37 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.function.Consumer;
 
 public class DashboardController implements ControllerApi
 {
-    private static final int UNSELECTED = -1;
     public ListView<BookingContainerController> listView;
-    @FXML
-    private Button deleteBookingBtn;
-    private int selectedBookingId;
+    public AnchorPane dashboardRoot;
+    public ImageView deleteBtnImageId;
+
 
     @Override
     public void onStart()
     {
-        listView.setCellFactory(new Callback<ListView<BookingContainerController>, ListCell<BookingContainerController>>() {
+        setupStyling();
+
+        listView.setCellFactory(new Callback<ListView<BookingContainerController>, ListCell<BookingContainerController>>()
+        {
             @Override
-            public ListCell<BookingContainerController> call(ListView<BookingContainerController> listView) {
-                return new ListCell<BookingContainerController>() {
+            public ListCell<BookingContainerController> call(ListView<BookingContainerController> listView)
+            {
+                return new ListCell<BookingContainerController>()
+                {
                     @Override
-                    protected void updateItem(BookingContainerController item, boolean empty) {
+                    protected void updateItem(BookingContainerController item, boolean empty)
+                    {
                         super.updateItem(item, empty);
-                        if (item != null) {
+                        if (item != null)
+                        {
                             setGraphic(item.getContent());
-                        } else {
+                        } else
+                        {
                             setGraphic(null);
                         }
                     }
@@ -78,18 +88,11 @@ public class DashboardController implements ControllerApi
         });
     }
 
-    public void onListViewItemClicked(MouseEvent event)
-    {
-//        Booking booking = listView.getSelectionModel().getSelectedItem();
-//        if (booking != null)
-//            selectedBookingId = booking.getBookingID();
-    }
-
     public void onSaveClicked(ActionEvent event)
     {
-        if (selectedBookingId == UNSELECTED)
+        if (listView.getSelectionModel().getSelectedItem() == null)
         {
-            InfoController.showMessage(InfoController.LogLevel.Warn, "", "Select Booking to save!");
+            InfoController.showMessage(InfoController.LogLevel.Warn, "delete", "Select Booking to save");
             return;
         }
 
@@ -101,7 +104,7 @@ public class DashboardController implements ControllerApi
 
         if (file != null)
         {
-            PdfFile bookingFile = HotelCore.get().getBookingAsPdfFile(selectedBookingId);
+            PdfFile bookingFile = HotelCore.get().getBookingAsPdfFile(listView.getSelectionModel().getSelectedItem().getBookingId());
             bookingFile.saveFile(file.getPath());
             InfoController.showMessage(InfoController.LogLevel.Info, "Successful",
                     file.getName() + " saved in " + file.getPath());
@@ -116,6 +119,7 @@ public class DashboardController implements ControllerApi
             Parent bookingContainer = loader.load();
 
             BookingContainerController bookingContainerController = loader.getController();
+            bookingContainerController.setStyle();
             bookingContainerController.guestName.setText(guestName);
             bookingContainerController.arrivalDate.setText(startDate);
             bookingContainerController.departureDate.setText(endDate);
@@ -130,13 +134,37 @@ public class DashboardController implements ControllerApi
     public void deleteBooking(ActionEvent event)
     {
         if (listView.getSelectionModel().getSelectedItem() == null)
+        {
+            InfoController.showMessage(InfoController.LogLevel.Warn, "delete", "Select Booking to delete");
             return;
+        }
+
 
         if (InfoController.showConfirmMessage(InfoController.LogLevel.Warn, "Delete Booking", "Are you sure?"))
         {
             HotelCore.get().removeBooking(listView.getSelectionModel().getSelectedItem().getBookingId());
         }
 
+    }
+
+    public void setupStyling()
+    {
+        if (SettingsController.currentMode == SettingsController.SystemMode.LIGHT)
+        {
+            listView.setStyle("");
+            Image image = new Image(getClass().getResource("images/deletebtn_lightMode.png").toExternalForm());
+            deleteBtnImageId.setImage(image);
+        } else
+        {
+            Image image = new Image(getClass().getResource("images/deletebtn_darkMode.png").toExternalForm());
+            deleteBtnImageId.setImage(image);
+        }
+
+        dashboardRoot.getStylesheets().clear();
+        dashboardRoot.getStylesheets().addAll(SettingsController.getCorrectStylePath("background.css")
+                , SettingsController.getCorrectStylePath("NavMenu.css"));
+
+        listView.getStylesheets().add(SettingsController.getCorrectStylePath("Tableview.css"));
     }
 
 }
