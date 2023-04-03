@@ -64,13 +64,13 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="245.0" layoutY="561.0" prefHeight="19.0" prefWidth="66.0" text="houseNr" textFill="WHITE">
+      <Label layoutX="245.0" layoutY="561.0" prefHeight="19.0" prefWidth="66.0" text="HouseNr" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
       <TextField fx:id="plz" layoutX="245.0" layoutY="403.0" prefHeight="35.0" prefWidth="153.0" promptText="number" styleClass="nameFill" />
-      <Label layoutX="246.0" layoutY="383.0" prefHeight="19.0" prefWidth="66.0" text="plz" textFill="WHITE">
+      <Label layoutX="246.0" layoutY="383.0" prefHeight="19.0" prefWidth="66.0" text="PLZ" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
