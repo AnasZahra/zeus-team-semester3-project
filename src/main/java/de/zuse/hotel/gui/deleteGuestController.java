@@ -69,8 +69,12 @@ public class deleteGuestController implements ControllerApi
                             HotelCore.get().removeBooking(booking.getBookingID());
                         }
                     });
+
+                    if (HotelCore.get().removeGuest(id))
+                        InfoController.showMessage(InfoController.LogLevel.Info,"Delete Guest","Guest deleted Successfully");
                 }
 
+                HotelCore.get().getCurrentStage().close();
                 return;
             }
         }

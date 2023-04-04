@@ -74,20 +74,14 @@ class AddressTest {
 
     @Test
     void testPlz() {
-        final String expectedPlz = "66534";
+        final String expectedPlz = "01545";
         Address address = new Address();
         address.setPlz(expectedPlz);
-        final String actualPlz = address.getPlz();
-        assertEquals(expectedPlz, actualPlz);
+        assertEquals(expectedPlz, address.getPlz());
 
         Assertions.assertThrows(Exception.class, () ->
         {
             address.setPlz("545");
-        });
-
-        Assertions.assertThrows(Exception.class, () ->
-        {
-            address.setPlz("01545");
         });
     }
 

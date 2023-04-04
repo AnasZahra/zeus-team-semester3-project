@@ -3,6 +3,7 @@ package de.zuse.hotel.core;
 import de.zuse.hotel.util.ZuseCore;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 
 @Entity
@@ -20,7 +21,7 @@ public class Address
     @Column(name = "Street", nullable = false)
     private String street;
     @Column(name = "PostCode")
-    private String plz;//TODO: postleitzahlen die mit 0 anfangen !!! -> String
+    private String plz;
     @Column(name = "House_Number")
     private int houseNr;
 
@@ -92,10 +93,10 @@ public class Address
         this.street = street;
     }
 
-    public void setPlz(String plz)
+    public void setPlz(String newPlz)
     {
-        ZuseCore.check(plz.length() == 5, "The plz must contains 5 Nummbers");
-        this.plz = plz;
+        ZuseCore.check(newPlz.length() == 5, "The plz must contains 5 Nummbers");
+        this.plz = newPlz;
     }
 
     public void setHouseNr(int houseNr)
@@ -109,5 +110,20 @@ public class Address
     public String toString()
     {
         return country + ", " +  plz+ ", " + city + ", " +  street + ", " + houseNr;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return id == address.id && houseNr == address.houseNr && Objects.equals(country, address.country) && Objects.equals(city, address.city) && Objects.equals(street, address.street) && Objects.equals(plz, address.plz);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(id, country, city, street, plz, houseNr);
     }
 }

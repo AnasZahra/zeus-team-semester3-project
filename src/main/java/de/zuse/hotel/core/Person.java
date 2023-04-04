@@ -4,6 +4,7 @@ import de.zuse.hotel.util.ZuseCore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 
 @Entity
@@ -34,7 +35,9 @@ public class Person {
     public Person(String firstName, String lastName, LocalDate birthday, String email, String telNumber, Address address)
     {
         ZuseCore.check(firstName != null && !firstName.strip().isEmpty(), "The FirstName can not be null!");
+        ZuseCore.check(firstName.matches("[A-Za-z\\s]+"), "First Name should be only with chars!");
         ZuseCore.check(lastName != null && !lastName.strip().isEmpty(), "The LastName can not be null!");
+        ZuseCore.check(lastName.matches("[A-Za-z\\s]+"), "Last Name should be only with chars!");
         ZuseCore.check(email != null && !email.strip().isEmpty(), "The Email can not be null");
         ZuseCore.check(telNumber.length() == TELEPHONE_NUMBER_COUNT, "The Telefonnr must contains" + TELEPHONE_NUMBER_COUNT + " nummbers");
         ZuseCore.check(address != null, "address can not be null!!");
@@ -58,6 +61,8 @@ public class Person {
     public void setFirstName(String firstName)
     {
         ZuseCore.check(firstName != null && !firstName.strip().isEmpty(), "The FirstName can not be null!");
+        ZuseCore.check(firstName.matches("[A-Za-z\\s]+"), "First Name should be only with chars!");
+
         this.firstName = firstName;
     }
 
@@ -69,6 +74,8 @@ public class Person {
     public void setLastName(String lastName)
     {
         ZuseCore.check(lastName != null && !lastName.strip().isEmpty(), "The LastName can not be null!");
+        ZuseCore.check(lastName.matches("[A-Za-z\\s]+"), "Last Name should be only with chars!");
+
         this.lastName = lastName;
     }
 
@@ -149,4 +156,18 @@ public class Person {
         return !birthDate.isAfter(eighteenYearsAgo);
     }
 
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return id == person.id && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(birthday, person.birthday) && Objects.equals(email, person.email) && Objects.equals(telNumber, person.telNumber) && Objects.equals(address, person.address);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(id, firstName, lastName, birthday, email, telNumber, address);
+    }
 }
