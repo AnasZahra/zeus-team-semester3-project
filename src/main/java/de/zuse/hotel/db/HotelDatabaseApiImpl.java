@@ -4,11 +4,8 @@ import de.zuse.hotel.core.Booking;
 import de.zuse.hotel.core.Person;
 import de.zuse.hotel.util.ZuseCore;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
 public class HotelDatabaseApiImpl implements HotelDatabaseApi
 {
@@ -28,8 +25,8 @@ public class HotelDatabaseApiImpl implements HotelDatabaseApi
     @Override
     public boolean addGuest(Person guest)
     {
-        PresonConnecter presonConnecter = new PresonConnecter();
-        presonConnecter.dbCreate(guest);
+        PersonConnecter personConnecter = new PersonConnecter();
+        personConnecter.dbCreate(guest);
         return true; // to do is that dose the Hibernate return folse and t
     }
 
@@ -41,16 +38,16 @@ public class HotelDatabaseApiImpl implements HotelDatabaseApi
     @Override
     public boolean removeGuest(int guestId)
     {
-        PresonConnecter presonConnecter = new PresonConnecter();
-        presonConnecter.dbRemoveById(guestId);
+        PersonConnecter personConnecter = new PersonConnecter();
+        personConnecter.dbRemoveById(guestId);
         return true;
     }
 
     @Override
     public boolean updateGuest(Person updatedGuest)
     {
-        PresonConnecter presonConnecter = new PresonConnecter();
-        presonConnecter.dbUpdate(updatedGuest);
+        PersonConnecter personConnecter = new PersonConnecter();
+        personConnecter.dbUpdate(updatedGuest);
         // hir is the ID needed
         return true;
     }
@@ -58,16 +55,16 @@ public class HotelDatabaseApiImpl implements HotelDatabaseApi
     @Override
     public Person getGuest(int guestID)
     {
-        PresonConnecter presonConnecter = new PresonConnecter();
-        return presonConnecter.dbsearchById(guestID);
+        PersonConnecter personConnecter = new PersonConnecter();
+        return personConnecter.dbsearchById(guestID);
     }
 
     @Override
     public List<Person> getAllGuest()
     {
-        PresonConnecter presonConnecter = new PresonConnecter();
-        presonConnecter.dbsearchAll();
-        return (List<Person>) presonConnecter.dbsearchAll();
+        PersonConnecter personConnecter = new PersonConnecter();
+        personConnecter.dbsearchAll();
+        return (List<Person>) personConnecter.dbsearchAll();
     }
 
     @Override
@@ -130,7 +127,7 @@ public class HotelDatabaseApiImpl implements HotelDatabaseApi
     public List<Person> getPersonsByFilter(PersonSearchFilter personSearchFilter)
     {
 
-        PresonConnecter personConnector = new PresonConnecter();
+        PersonConnecter personConnector = new PersonConnecter();
         return personConnector.dbSerschforanythinhg(personSearchFilter);
     }
 

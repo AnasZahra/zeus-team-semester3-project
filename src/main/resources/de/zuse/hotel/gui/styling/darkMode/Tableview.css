@@ -46,7 +46,7 @@
 .table-view .virtual-flow .scroll-bar:horizontal,
 .table-view .virtual-flow .scroll-bar:horizontal .track,
 .table-view .virtual-flow .scroll-bar:horizontal .track-background {
-    -fx-background-color: #F24E1E
+    -fx-background-color: #ffffff
 }
 
 .table-view .virtual-flow .scroll-bar .increment-button,
@@ -107,3 +107,7 @@
     -fx-background-color:  #4b4343;
 }
 
+.textOnBookingContainer{
+    -fx-text-fill: #F24E1E;
+    -fx-font-family: Gilroy;
+}

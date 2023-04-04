@@ -2,18 +2,19 @@ package de.zuse.hotel.gui;
 
 import de.zuse.hotel.Layer;
 import de.zuse.hotel.core.HotelCore;
-import de.zuse.hotel.util.HotelSerializer;
 import de.zuse.hotel.util.ZuseCore;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 
 public class Gui extends Application implements Layer
 {
     private static Gui instance = null;
+    private Image image;
 
     public static Gui getInstance()
     {
@@ -27,7 +28,7 @@ public class Gui extends Application implements Layer
     public void onStart()
     {
         System.out.println("On Starting The Hotel App...");
-        ZuseCore.setCallbackError(this::handleErrorMessages);
+        ZuseCore.bindCallbackErrorAction(this::handleErrorMessages);
     }
 
     @Override
@@ -46,17 +47,15 @@ public class Gui extends Application implements Layer
     @Override
     public void start(Stage stage) throws Exception
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LoadingPage.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
-        scene.getStylesheets().add(SettingsController.getCorrectStylePath("background.css"));
-        stage.setTitle("Hotel v1.0");
-        stage.setScene(scene);
-        stage.show();
+        JavaFxUtil.loadNewWindow(getClass().getResource("LoadingPage.fxml"),"Hotel v1.0",stage);
     }
 
-    public static void startLoading()
+    public void startLoading()
     {
         HotelCore.init();
+        HotelCore.get().bindOnUpdateAction(JavaFxUtil::onUpdate);
+        // gif Image in takes so long, so we load it at the beginning
+        image = new Image(getClass().getResource("images/settingsBackground.gif").toExternalForm());
     }
 
     public void handleErrorMessages(String msg)
@@ -78,5 +77,9 @@ public class Gui extends Application implements Layer
         });
     }
 
+    public Image getSettingsImage()
+    {
+        return image;
+    }
 
 }

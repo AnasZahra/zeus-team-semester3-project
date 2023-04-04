@@ -3,6 +3,7 @@ package de.zuse.hotel.gui;
 import java.net.URL;
 
 import de.zuse.hotel.util.ZuseCore;
+import javafx.scene.image.Image;
 import javafx.util.Duration;
 
 import java.util.ResourceBundle;
@@ -22,13 +23,14 @@ public class LoadingPageController implements Initializable
     AnchorPane anchor;
     Thread loadingThread;
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
 
         loadingThread = new Thread(() ->
         {
-            Gui.startLoading();
+            Gui.getInstance().startLoading();
             //after finish loading now move to the main window
             loadMainScene();
         });
@@ -47,23 +49,13 @@ public class LoadingPageController implements Initializable
             try
             {
                 loadingThread.join();
-
-                Stage stage = new Stage();
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
-
-                Parent parent = fxmlLoader.load();
-                Scene scene = new Scene(parent, 1280, 720);
-                scene.getStylesheets().add(SettingsController.getCorrectStylePath("background.css"));
-                stage.setScene(scene);
-                ((Stage) anchor.getScene().getWindow()).close();
-                stage.show();
-                ((ControllerApi) fxmlLoader.getController()).onStart();
+                JavaFxUtil.closeCurrentStage();
+                JavaFxUtil.loadNewWindow(getClass().getResource("MainWindow.fxml"),null,null);
             } catch (Exception e)
             {
                 if (ZuseCore.DEBUG_MODE)
                     e.printStackTrace();
             }
-
         });
 
         fadeTransition.play();

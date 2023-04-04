@@ -31,7 +31,7 @@ public class BookingConnector implements DatabaseOperations
     }
 
     @Override
-    public List<?> dbsearchAll()
+    public List<Booking> dbsearchAll()
     {
         EntityManager manager = JDBCConnecter.getEntityManagerFactory().createEntityManager();
         manager.getTransaction().begin();

@@ -1,17 +1,13 @@
 package de.zuse.hotel.db;
 
 import de.zuse.hotel.core.Address;
-import de.zuse.hotel.core.Booking;
 import de.zuse.hotel.util.ZuseCore;
 import org.hibernate.cfg.NotYetImplementedException;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
 import java.util.List;
 
-public class AdressConnecter implements DatabaseOperations
+public class AddressConnecter implements DatabaseOperations
 {
 
     @Override
@@ -29,11 +25,11 @@ public class AdressConnecter implements DatabaseOperations
     }
 
     @Override
-    public List<?> dbsearchAll()
+    public List<Address> dbsearchAll()
     {
         EntityManager manager = JDBCConnecter.getEntityManagerFactory().createEntityManager();
         manager.getTransaction().begin();
-        List<Address> oneAddresses = manager.createNativeQuery("SELECT id FROM address", Address.class).getResultList();
+        List<Address> oneAddresses = manager.createNativeQuery("SELECT * FROM Address", Address.class).getResultList();
         manager.getTransaction().commit();
         manager.close();
         return oneAddresses;
@@ -48,7 +44,7 @@ public class AdressConnecter implements DatabaseOperations
         manager.getTransaction().commit();
         manager.close();
         return (T) address;
-        // TODO: this need to be changed latter pls by Basel
+        // TODO: this need to be changed latter pls by Basel, should be safer
     }
 
     @Override
@@ -56,8 +52,8 @@ public class AdressConnecter implements DatabaseOperations
     {
         EntityManager manager = JDBCConnecter.getEntityManagerFactory().createEntityManager();
         manager.getTransaction().begin();
-        manager.createNativeQuery("INSERT INTO address_trash_collection SELECT * FROM address").executeUpdate();
-        manager.createNativeQuery("DELETE FROM address").executeUpdate();
+        manager.createNativeQuery("INSERT INTO Address_trash_collection SELECT * FROM Address").executeUpdate();
+        manager.createNativeQuery("DELETE FROM Address").executeUpdate();
         manager.getTransaction().commit();
         manager.close();
     }
@@ -68,11 +64,11 @@ public class AdressConnecter implements DatabaseOperations
         EntityManager manager = JDBCConnecter.getEntityManagerFactory().createEntityManager();
         manager.getTransaction().begin();
 
-        manager.createNativeQuery("INSERT INTO address_trash_collection SELECT * FROM address WHERE Id = :id")
+        manager.createNativeQuery("INSERT INTO Address_trash_collection SELECT * FROM Address WHERE Address_id = :id")
                 .setParameter("id", id)
                 .executeUpdate();
 
-        manager.createNativeQuery("DELETE FROM address WHERE Id = :id")
+        manager.createNativeQuery("DELETE FROM Address WHERE Address_id = :id")
                 .setParameter("id", id)
                 .executeUpdate();
 

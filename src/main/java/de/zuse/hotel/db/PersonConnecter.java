@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PresonConnecter implements DatabaseOperations
+public class PersonConnecter implements DatabaseOperations
 {
     @Override
     public void dbCreate(Object object)
@@ -26,7 +26,7 @@ public class PresonConnecter implements DatabaseOperations
     }
 
     @Override
-    public List<?> dbsearchAll()
+    public List<Person> dbsearchAll()
     {
         EntityManager manager = JDBCConnecter.getEntityManagerFactory().createEntityManager();
         manager.getTransaction().begin();

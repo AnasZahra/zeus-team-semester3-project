@@ -250,4 +250,6 @@ public class Booking
     {
         return Objects.hash(bookingID, roomNumber, floorNumber, startDate, endDate, guest, payment, canceled, guestsNum, extraServices);
     }
+
 }
+

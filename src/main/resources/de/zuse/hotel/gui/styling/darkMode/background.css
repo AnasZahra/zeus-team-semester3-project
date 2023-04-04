@@ -49,10 +49,7 @@
     -fx-font-family: Gilroy;
 }
 
-.textOnBookingContainer{
-    -fx-text-fill: #F24E1E;
-    -fx-font-family: Gilroy;
-}
+
 
 .roundBottun{
     -fx-background-radius: 150;
@@ -80,3 +77,4 @@
     -fx-font-family: Gilroy;
     -fx-effect: dropshadow(two-pass-box, #131111,9,0,0,4);
 }
+

@@ -3,8 +3,6 @@ package de.zuse.hotel.gui;
 import de.zuse.hotel.core.Address;
 import de.zuse.hotel.core.HotelCore;
 import de.zuse.hotel.core.Person;
-import de.zuse.hotel.core.Room;
-import de.zuse.hotel.db.JDBCConnecter;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -19,7 +17,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -27,7 +24,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class GuestController implements ControllerApi
@@ -88,7 +84,7 @@ public class GuestController implements ControllerApi
 
         seachBarID.textProperty().addListener((observable, oldValue, newValue) ->
         { //listener on the table, that calls the seachGuests method when it is triggered by changing the textfield of it and seach for the changed text on the textfield(new value)
-            GuestController.this.searcGuests(newValue);
+            searchGuests(newValue);
         });
     }
 
@@ -107,53 +103,40 @@ public class GuestController implements ControllerApi
 
     public void addGuestBtn(ActionEvent event) throws Exception
     {
-        createFXMLoader("addGuest.fxml", 450, 720, "Add a Guest");
+        createFXMLoader("addGuest.fxml", "Add a Guest");
     }
 
     public void deleteGuestBtn(ActionEvent event) throws Exception
     {
-        //TODO: maybe select guest instead of typing id
-        createFXMLoader("deleteGuest.fxml", 370, 161, "Delete a Guest");
+        createFXMLoader("deleteGuest.fxml", "Delete a Guest");
     }
 
     public void updateGuestBtn(ActionEvent event) throws Exception
     {
-        Person selectedPerson = guestTable.getSelectionModel().getSelectedItem();
-        if (selectedPerson != null)
-        {
-            createFXMLoader("editGuest.fxml", 575, 755, "Update a Guest");
-        } else
-        {
+        if (selectedUser != null)
+            createFXMLoader("editGuest.fxml", "Update a Guest");
+        else
             InfoController.showMessage(InfoController.LogLevel.Error, "Update Guest", "No Guest was selected on the table! Please select a Guest.");
-        }
     }
 
-    public void createFXMLoader(String string, int width, int height, String description) throws IOException
+    public void createFXMLoader(String string, String description) throws Exception
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(string));
-        Parent parent = fxmlLoader.load();
-        Scene scene = new Scene(parent);
-        Stage stage = new Stage();
-        stage.setTitle(description);
-        stage.setScene(scene);
-        stage.initModality(Modality.APPLICATION_MODAL); //default, for closing th pop up window
-        stage.show();
-        stage.resizableProperty().setValue(false);
-        HotelCore.get().setCurrentStage(stage);
-
-        //Only for editGuest
-        if (fxmlLoader.getController() instanceof editGuestController)
+        Object obj = JavaFxUtil.loadPopUpWindow(getClass().getResource(string), description);
+        if (obj instanceof EditGuestController)
         {
-            ((editGuestController) fxmlLoader.getController()).setSelectedUser(selectedUser);
+            ((EditGuestController) obj).setSelectedUser(selectedUser);
+            ((EditGuestController) obj).onStart();// this is just an exception for edit
         }
-        ((ControllerApi) fxmlLoader.getController()).onStart();
-
     }
 
-    public void searcGuests(String string)
+    public void searchGuests(String string)
     {
         List<Person> filteredGuests = HotelCore.get().getAllGuest().stream()
-                .filter(guest -> guest.getFirstName().toLowerCase().contains(string.toLowerCase()))
+                .filter(guest -> guest.getFirstName().toLowerCase().contains(string.toLowerCase())
+                        || guest.getLastName().toLowerCase().contains(string.toLowerCase())
+                        || guest.getEmail().toLowerCase().contains(string.toLowerCase())
+                        || guest.getTelNumber().toLowerCase().contains(string.toLowerCase())
+                        || String.valueOf(guest.getId()).contains(string)) // search for ID as a string
                 .collect(Collectors.toList()); //stream filter search
 
         ObservableList<Person> GuestList = FXCollections.observableArrayList(filteredGuests); //refresh the table

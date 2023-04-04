@@ -42,6 +42,8 @@ public class JDBCConnecter
 
         if (factory != null)
             factory.close();
+
+        factory = null;
     }
 
     public static EntityManagerFactory getEntityManagerFactory()
@@ -52,6 +54,7 @@ public class JDBCConnecter
             {
                 factory = Persistence.createEntityManagerFactory(PERSISTENCE_NAME);
             }
+
             return factory;
         } catch (Exception e)
         {

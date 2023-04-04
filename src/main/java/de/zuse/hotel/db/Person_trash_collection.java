@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Person_trash_collection")
 public class Person_trash_collection {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Person_id")
@@ -23,7 +22,7 @@ public class Person_trash_collection {
     private String email;
     @Column(name = "Phone_Number", length = 12)
     private String telNumber;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "Address_id", nullable = false)
     private Address address;
 }

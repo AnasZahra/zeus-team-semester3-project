@@ -5,6 +5,17 @@
 
 .label{
     -fx-font-family: Gilroy;
+    -fx-text-fill: #f24e1e;
+}
+
+.dashboard_label{
+    -fx-font-family: Gilroy;
+    -fx-text-fill: #ffffff;
+}
+
+.labelPoint{
+    -fx-font-family: Gilroy;
+    -fx-fill: #f24e1e;
 }
 
 .main_menu {
@@ -71,10 +82,5 @@
     -fx-fill: #000000;
     -fx-font-size: 1.4em;
     -fx-alignment: center_left;
-    -fx-font-family: Gilroy;
-}
-
-.point {
-    -fx-text-fill: #f24e1e;
     -fx-font-family: Gilroy;
 }

@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.*;
 import javax.persistence.Id;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Payments")
@@ -54,5 +55,20 @@ public class Payment {
                 ", status=" + status +
                 ", type=" + type +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Payment payment = (Payment) o;
+        return paymentID == payment.paymentID && Float.compare(payment.price, price) == 0 && Objects.equals(date, payment.date) && status == payment.status && type == payment.type;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(paymentID, date, status, type, price);
     }
 }
