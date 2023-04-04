@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Person_trash_collection")
 public class Person_trash_collection {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Person_id")

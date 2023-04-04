@@ -8,7 +8,7 @@ public class ZuseCore
     public static final boolean DEBUG_MODE = true;
     private static Consumer<String> callback;
 
-    public static void setCallbackError(Consumer<String> func)
+    public static void bindCallbackErrorAction(Consumer<String> func)
     {
         coreAssert(func != null, "You have to set a valid callback error function!!");
 

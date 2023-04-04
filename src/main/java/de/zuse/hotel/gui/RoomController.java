@@ -42,7 +42,7 @@ public class RoomController implements ControllerApi
 
     public void viewRoomData()
     {
-        if (floorChoiceBox.getValue() == null || floorChoiceBox.getItems().size() < 0)
+        if (floorChoiceBox.getValue() == null || floorChoiceBox.getItems().size() == 0)
             return;
 
         List<Room> rooms = HotelCore.get().getFloorByFloorNr(floorChoiceBox.getValue()).getRooms();
@@ -108,16 +108,7 @@ public class RoomController implements ControllerApi
     @FXML
     void handleAddRoomButtonAction(ActionEvent event) throws Exception
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addRoom.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 331, 409);
-        ((ControllerApi) fxmlLoader.getController()).onStart();
-
-        Stage stage = new Stage();
-        stage.setTitle("Add a room");
-        stage.setScene(scene);
-        stage.initModality(Modality.APPLICATION_MODAL); //default, for closing th pop up window
-        stage.show();
-        stage.resizableProperty().setValue(false);
+        JavaFxUtil.loadPopUpWindow(getClass().getResource("addRoom.fxml"),"Add a room");
     }
 
     @FXML
@@ -166,15 +157,7 @@ public class RoomController implements ControllerApi
 
     public void addFloor(ActionEvent actionEvent) throws IOException
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("floorCapacity.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 287, 164);
-        ((ControllerApi) fxmlLoader.getController()).onStart();
-        Stage stage = new Stage();
-        stage.setTitle("Add a floor");
-        stage.setScene(scene);
-        stage.initModality(Modality.APPLICATION_MODAL); //default, for closing th pop up window
-        stage.show();
-        HotelCore.get().setCurrentStage(stage);
+        JavaFxUtil.loadPopUpWindow(getClass().getResource("floorCapacity.fxml"),"Add a floor");
     }
 
     public void setupStyling()

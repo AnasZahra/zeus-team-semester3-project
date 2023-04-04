@@ -36,6 +36,9 @@ public class Booking
     @JoinColumn(name = "Payment_Id", nullable = false)
     private Payment payment;
 
+    @Column(name = "Guest_Name", nullable = false)
+    private String guestName; // when guest get deleted, we still have his name
+
     @Column(name = "canceled")
     @Type(type = "org.hibernate.type.BooleanType")
     private boolean canceled = false;
@@ -63,6 +66,7 @@ public class Booking
         this.startDate = startDate;
         this.endDate = endDate;
         this.guest = guest;
+        this.guestName = guest.getFirstName()+ " " + guest.getLastName();
         this.floorNumber = floorNumber;
         payment = new Payment();
     }
@@ -125,7 +129,7 @@ public class Booking
 
     public String getGuestName()
     {
-        return guest.getFirstName() + " " + guest.getLastName();
+        return guestName;
     }
 
     public void setGuest(Person guest)
@@ -214,6 +218,8 @@ public class Booking
     {
         return payment;
     }
+
+
 
     public double coastPerNight(double roomPrice)
     {

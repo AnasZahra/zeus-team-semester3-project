@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 
-public class addGuestController implements ControllerApi
+public class AddGuestController implements ControllerApi
 {
     public TextField country;
     public TextField city;
@@ -50,7 +50,7 @@ public class addGuestController implements ControllerApi
             InfoController.showMessage(InfoController.LogLevel.Info,
                     "Information", "Guest Added Successfully!");
 
-        HotelCore.get().getCurrentStage().close();
+        JavaFxUtil.closeCurrentStage();
     }
 
     @Override

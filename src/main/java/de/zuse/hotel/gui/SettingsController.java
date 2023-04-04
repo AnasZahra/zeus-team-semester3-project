@@ -3,11 +3,9 @@ package de.zuse.hotel.gui;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -44,7 +42,7 @@ public class SettingsController implements Initializable
 
             currentMode = SystemMode.DARK;
             Gui.getInstance().restartApp();
-            ((Stage) anchor.getScene().getWindow()).close();
+            JavaFxUtil.closeCurrentStage();
         });
     }
 
@@ -57,7 +55,7 @@ public class SettingsController implements Initializable
 
             currentMode = SystemMode.LIGHT;
             Gui.getInstance().restartApp();
-            ((Stage) anchor.getScene().getWindow()).close();
+            JavaFxUtil.closeCurrentStage();
         });
     }
 
@@ -66,7 +64,7 @@ public class SettingsController implements Initializable
     {
         changeToDarkmood();
         changeToLightmood();
-        backgroundImage_btn.setImage(Gui.getInstance().getImage());
+        backgroundImage_btn.setImage(Gui.getInstance().getSettingsImage());
     }
 
     public static String getCorrectStylePath(String fileName)
