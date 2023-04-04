@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -20,9 +21,9 @@ public class SettingsController implements Initializable
     @FXML
     AnchorPane anchor;
     @FXML
-    ImageView imageD;
+    Button imageD;
     @FXML
-    ImageView imageL;
+    Button imageL;
 
     public static SystemMode currentMode = SystemMode.DARK;
     //relative path to project.dir

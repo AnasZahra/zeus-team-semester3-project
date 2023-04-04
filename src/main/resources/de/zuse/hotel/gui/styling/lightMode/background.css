@@ -22,7 +22,8 @@
     -fx-text-fill: #ffffff;
     -fx-font-size: 1.2em ;
     -fx-alignment: center;
-    -fx-effect: dropshadow(two-pass-box, rgba(19, 17, 17, 0.38),9,0,0,4);
+    -fx-effect: dropshadow(two-pass-box, #ffffff,9,0,0,4);
+
 }
 
 .FunctionButton:hover {
@@ -40,11 +41,7 @@
     -fx-font-family: Gilroy;
 }
 
-.textOnBookingContainer{
-    -fx-text-fill: #0077FF;
-    -fx-fill: #0077FF;
-    -fx-font-family: Gilroy;
-}
+
 
 .roundBottun{
     -fx-background-radius: 150;
@@ -60,7 +57,7 @@
 }
 
 #grandHotel{
-    -fx-text-fill: #F24E1E;
+    -fx-text-fill: #0077FF;
     -fx-font-family: Gilroy;
 }
 
@@ -70,4 +67,5 @@
     -fx-font-size: 1.5em;
     -fx-cursor: hand;
     -fx-font-family: Gilroy;
+    -fx-effect: dropshadow(two-pass-box, #F3F4FF,9,0,0,4);
 }
