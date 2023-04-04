@@ -7,12 +7,15 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class SettingsController implements Initializable
 {
+    public ImageView backgroundImage_btn;
+
     public enum SystemMode
     {
         LIGHT, DARK;
@@ -28,7 +31,9 @@ public class SettingsController implements Initializable
     public static SystemMode currentMode = SystemMode.DARK;
     //relative path to project.dir
 
-    private static class Wrapper{}
+    private static class Wrapper
+    {
+    }
 
     public void changeToDarkmood()
     {
@@ -61,6 +66,7 @@ public class SettingsController implements Initializable
     {
         changeToDarkmood();
         changeToLightmood();
+        backgroundImage_btn.setImage(Gui.getInstance().getImage());
     }
 
     public static String getCorrectStylePath(String fileName)
@@ -87,5 +93,4 @@ public class SettingsController implements Initializable
     {
         currentMode = mode;
     }
-
 }

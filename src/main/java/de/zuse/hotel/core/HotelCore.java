@@ -153,10 +153,7 @@ public class HotelCore implements HotelCoreApi
     @Override
     public List<Booking> getAllBooking()
     {
-        return hotelDatabaseApi.getAllBooking()
-                .stream()
-                .filter( booking -> !booking.isCanceled())
-                .collect(Collectors.toList());
+        return hotelDatabaseApi.getAllBooking();
     }
 
     @Override
