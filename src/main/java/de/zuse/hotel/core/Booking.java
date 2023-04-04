@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -50,7 +51,7 @@ public class Booking
         ZuseCore.check(roomNumber >= 0, "Number of Room should be greater than zero!!");
         ZuseCore.check(floorNumber >= 0, "Number of Room should be greater than zero!!");
         ZuseCore.check(HotelCore.get().isFloorInHotel(floorNumber), "Floor " + floorNumber + " is not in Hotel!!");
-        ZuseCore.check(HotelCore.get().isRoomInHotel(floorNumber, roomNumber), "Room "+ roomNumber +" is not in Hotel!!");
+        ZuseCore.check(HotelCore.get().isRoomInHotel(floorNumber, roomNumber), "Room " + roomNumber + " is not in Hotel!!");
         ZuseCore.check(startDate != null, "please enter StartDate!");
         ZuseCore.check(endDate != null, "please enter End Date!");
         ZuseCore.check(guest != null, "Guest is null!!");
@@ -68,6 +69,7 @@ public class Booking
 
     public Booking()
     {
+        payment = new Payment();
     }
 
     public int createInvoice()
@@ -124,6 +126,11 @@ public class Booking
     public String getGuestName()
     {
         return guest.getFirstName() + " " + guest.getLastName();
+    }
+
+    public void setGuest(Person guest)
+    {
+        this.guest = guest;
     }
 
     public boolean isPaid()
@@ -223,5 +230,18 @@ public class Booking
         return total;
     }
 
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Booking booking = (Booking) o;
+        return bookingID == ((Booking) o).bookingID;
+    }
 
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(bookingID, roomNumber, floorNumber, startDate, endDate, guest, payment, canceled, guestsNum, extraServices);
+    }
 }

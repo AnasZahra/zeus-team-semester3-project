@@ -34,6 +34,9 @@ public class SettingsController implements Initializable
     {
         imageD.setOnMouseClicked(e ->
         {
+            if (currentMode == SystemMode.DARK)
+                return;
+
             currentMode = SystemMode.DARK;
             Gui.getInstance().restartApp();
             ((Stage) anchor.getScene().getWindow()).close();
@@ -44,6 +47,9 @@ public class SettingsController implements Initializable
     {
         imageL.setOnMouseClicked(e ->
         {
+            if (currentMode == SystemMode.LIGHT)
+                return;
+
             currentMode = SystemMode.LIGHT;
             Gui.getInstance().restartApp();
             ((Stage) anchor.getScene().getWindow()).close();
