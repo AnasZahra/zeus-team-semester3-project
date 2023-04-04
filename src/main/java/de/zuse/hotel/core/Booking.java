@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -35,6 +36,9 @@ public class Booking
     @JoinColumn(name = "Payment_Id", nullable = false)
     private Payment payment;
 
+    @Column(name = "Guest_Name", nullable = false)
+    private String guestName; // when guest get deleted, we still have his name
+
     @Column(name = "canceled")
     @Type(type = "org.hibernate.type.BooleanType")
     private boolean canceled = false;
@@ -50,7 +54,7 @@ public class Booking
         ZuseCore.check(roomNumber >= 0, "Number of Room should be greater than zero!!");
         ZuseCore.check(floorNumber >= 0, "Number of Room should be greater than zero!!");
         ZuseCore.check(HotelCore.get().isFloorInHotel(floorNumber), "Floor " + floorNumber + " is not in Hotel!!");
-        ZuseCore.check(HotelCore.get().isRoomInHotel(floorNumber, roomNumber), "Room "+ roomNumber +" is not in Hotel!!");
+        ZuseCore.check(HotelCore.get().isRoomInHotel(floorNumber, roomNumber), "Room " + roomNumber + " is not in Hotel!!");
         ZuseCore.check(startDate != null, "please enter StartDate!");
         ZuseCore.check(endDate != null, "please enter End Date!");
         ZuseCore.check(guest != null, "Guest is null!!");
@@ -62,12 +66,14 @@ public class Booking
         this.startDate = startDate;
         this.endDate = endDate;
         this.guest = guest;
+        this.guestName = guest.getFirstName()+ " " + guest.getLastName();
         this.floorNumber = floorNumber;
         payment = new Payment();
     }
 
     public Booking()
     {
+        payment = new Payment();
     }
 
     public int createInvoice()
@@ -123,7 +129,12 @@ public class Booking
 
     public String getGuestName()
     {
-        return guest.getFirstName() + " " + guest.getLastName();
+        return guestName;
+    }
+
+    public void setGuest(Person guest)
+    {
+        this.guest = guest;
     }
 
     public boolean isPaid()
@@ -209,8 +220,8 @@ public class Booking
     }
 
 
-    public double coastPerNight(double roomPrice)
 
+    public double coastPerNight(double roomPrice)
     {
         double total = 0.0;
         long daysBetween = DAYS.between(startDate, endDate);
@@ -225,5 +236,18 @@ public class Booking
         return total;
     }
 
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Booking booking = (Booking) o;
+        return bookingID == ((Booking) o).bookingID;
+    }
 
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(bookingID, roomNumber, floorNumber, startDate, endDate, guest, payment, canceled, guestsNum, extraServices);
+    }
 }
