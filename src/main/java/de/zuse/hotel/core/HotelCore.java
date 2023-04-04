@@ -4,28 +4,22 @@ import de.zuse.hotel.db.BookingSearchFilter;
 import de.zuse.hotel.db.HotelDatabaseApi;
 import de.zuse.hotel.db.HotelDatabaseApiImpl;
 import de.zuse.hotel.db.PersonSearchFilter;
-import de.zuse.hotel.gui.ControllerApi;
 import de.zuse.hotel.util.HotelSerializer;
 import de.zuse.hotel.util.ZuseCore;
 import de.zuse.hotel.util.pdf.InvoicePdf;
 import de.zuse.hotel.util.pdf.PdfFile;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class HotelCore implements HotelCoreApi
 {
     private static HotelCore instance = null;
     private HotelDatabaseApi hotelDatabaseApi;
     private HotelConfiguration hotelConfiguration;
-
-    //TODO: for set CurrentScene and Stage maybe another solution at the end, with one function call for example or event system
-    private ControllerApi currentScene; // used to update current scene when db updated
-    private Stage currentStage;
+    private Runnable updateCallback;
 
     public static HotelCore get()
     {
@@ -72,7 +66,6 @@ public class HotelCore implements HotelCoreApi
             hotelSerializer.deserializeSettings();
         } catch (Exception e)
         {
-            ZuseCore.coreAssert(false, e.getMessage());
             if (ZuseCore.DEBUG_MODE)
                 e.printStackTrace();
         }
@@ -96,8 +89,8 @@ public class HotelCore implements HotelCoreApi
     public boolean addGuest(Person guest)
     {
         boolean state = hotelDatabaseApi.addGuest(guest);
-        if (currentScene != null)
-            currentScene.onUpdate();
+        if (updateCallback != null)
+            updateCallback.run();
 
         return state;
     }
@@ -106,36 +99,10 @@ public class HotelCore implements HotelCoreApi
     public boolean removeGuest(int guestID)
     {
         boolean state = hotelDatabaseApi.removeGuest(guestID);
-        if (currentScene != null)
-            currentScene.onUpdate();
+        if (updateCallback != null)
+            updateCallback.run();
 
         return state;
-    }
-
-    @Override
-    public boolean addBooking(Booking booking)
-    {
-        boolean state = hotelDatabaseApi.addBooking(booking);
-        if (currentScene != null)
-            currentScene.onUpdate();
-
-        return state;
-    }
-
-    @Override
-    public boolean removeBooking(int bookingID)
-    {
-        boolean state = hotelDatabaseApi.removeBooking(bookingID);
-        if (currentScene != null)
-            currentScene.onUpdate();
-
-        return state;
-    }
-
-    @Override
-    public Booking getBooking(int bookingID)
-    {
-        return hotelDatabaseApi.getBooking(bookingID);
     }
 
     @Override
@@ -148,6 +115,54 @@ public class HotelCore implements HotelCoreApi
     public List<Person> getAllGuest()
     {
         return hotelDatabaseApi.getAllGuest();
+    }
+
+    @Override
+    public List<Person> getPersonsByFilter(PersonSearchFilter personSearchFilter)
+    {
+        return hotelDatabaseApi.getPersonsByFilter(personSearchFilter);
+    }
+
+    @Override
+    public boolean updateGuest(Person guest)
+    {
+        boolean state = hotelDatabaseApi.updateGuest(guest);
+        if (updateCallback != null)
+            updateCallback.run();
+
+        return state;
+    }
+
+    @Override
+    public boolean addBooking(Booking booking)
+    {
+        boolean state = hotelDatabaseApi.addBooking(booking);
+        if (updateCallback != null)
+            updateCallback.run();
+
+        return state;
+    }
+
+    @Override
+    public boolean removeBooking(int bookingID)
+    {
+        boolean state = hotelDatabaseApi.removeBooking(bookingID);
+        if (updateCallback != null)
+            updateCallback.run();
+
+        return state;
+    }
+
+    @Override
+    public boolean removeBooking(Booking booking)
+    {
+        return removeBooking(booking.getBookingID());
+    }
+
+    @Override
+    public Booking getBooking(int bookingID)
+    {
+        return hotelDatabaseApi.getBooking(bookingID);
     }
 
     @Override
@@ -169,52 +184,31 @@ public class HotelCore implements HotelCoreApi
     }
 
     @Override
-    public List<Person> getPersonsByFilter(PersonSearchFilter personSearchFilter)
+    public boolean updateBooking(Booking booking)
     {
-        return hotelDatabaseApi.getPersonsByFilter(personSearchFilter);
+        boolean state = hotelDatabaseApi.updateBooking(booking);
+        if (updateCallback != null)
+            updateCallback.run();
+
+        return state;
     }
 
     @Override
     public PdfFile getBookingAsPdfFile(int bookingID)
     {
         Booking booking = hotelDatabaseApi.getBooking(bookingID);
+        if (booking == null || booking.isCanceled())
+        {
+            ZuseCore.check(false, "You can not save canceled Booking as Pdf");
+        }
+
         return new InvoicePdf(booking);
-    }
-
-    @Override
-    public boolean updateGuest(Person guest)
-    {
-        boolean state = hotelDatabaseApi.updateGuest(guest);
-        if (currentScene != null)
-            currentScene.onUpdate();
-
-        return state;
-    }
-
-    @Override
-    public boolean updateBooking(Booking booking)
-    {
-        boolean state = hotelDatabaseApi.updateBooking(booking);
-        if (currentScene != null)
-            currentScene.onUpdate();
-
-        return state;
     }
 
     @Override
     public List<Floor> getFloors()
     {
         return hotelConfiguration.getHotelFloors();
-    }
-
-    public Floor getFloorByFloorNr(int floorNr)
-    {
-        return hotelConfiguration.getFloorByFloorNr(floorNr);
-    }
-
-    public Room getRoomByRoomNr(int floorNr, int roomNr)
-    {
-        return hotelConfiguration.getRoomByRoomNr(floorNr, roomNr);
     }
 
     @Override
@@ -237,6 +231,7 @@ public class HotelCore implements HotelCoreApi
         return room;
     }
 
+    @Override
     public boolean isFloorInHotel(int floorNr)
     {
         //TODO: Optimization
@@ -247,6 +242,7 @@ public class HotelCore implements HotelCoreApi
         return false;
     }
 
+    @Override
     public boolean isRoomInHotel(int floorNr, int roomNr)
     {
         //TODO: Optimization
@@ -261,35 +257,15 @@ public class HotelCore implements HotelCoreApi
         return false;
     }
 
-    public List<String> getAllRoomServices()
-    {
-        return new ArrayList<>(hotelConfiguration.getRoomServices().keySet());
-    }
-
     @Override
-    public void setCurrentScene(ControllerApi currentScene)
+    public void removeRoomFromHotel(int floorNr, int roomNr)
     {
-        ZuseCore.coreAssert(currentScene != null, "Scene you try to add is null!!");
-        this.currentScene = currentScene;
-    }
-
-    public Stage getCurrentStage()
-    {
-        return currentStage;
-    }
-
-    public void setCurrentStage(Stage stage)
-    {
-        currentStage = stage;
-    }
-
-    public void addNewRoomToHotel(int floorNr, Room room)
-    {
-        hotelConfiguration.addNewRoom(floorNr, room);
+        hotelConfiguration.removeRoom(floorNr, roomNr);
         // in case the app crash, we do not lose any changes
         serializeHotel();
     }
 
+    @Override
     public void addNewFloorToHotel(Floor floor)
     {
         hotelConfiguration.addNewFloor(floor);
@@ -298,11 +274,23 @@ public class HotelCore implements HotelCoreApi
     }
 
     @Override
-    public void removeRoomFromHotel(int floorNr, int roomNr)
+    public void addNewRoomToHotel(int floorNr, Room room)
     {
-        hotelConfiguration.removeRoom(floorNr, roomNr);
+        hotelConfiguration.addNewRoom(floorNr, room);
         // in case the app crash, we do not lose any changes
         serializeHotel();
+    }
+
+    @Override
+    public Floor getFloorByFloorNr(int floorNr)
+    {
+        return hotelConfiguration.getFloorByFloorNr(floorNr);
+    }
+
+    @Override
+    public Room getRoomByRoomNr(int floorNr, int roomNr)
+    {
+        return hotelConfiguration.getRoomByRoomNr(floorNr, roomNr);
     }
 
     @Override
@@ -323,6 +311,13 @@ public class HotelCore implements HotelCoreApi
         return hotelConfiguration.hasServiceName(serviceName);
     }
 
+    @Override
+    public List<String> getAllRoomServices()
+    {
+        return new ArrayList<>(hotelConfiguration.getRoomServices().keySet());
+    }
+
+    @Override
     public void serializeHotel()
     {
         HotelSerializer hotelSerializer = new HotelSerializer();
@@ -335,7 +330,13 @@ public class HotelCore implements HotelCoreApi
             throw new RuntimeException(e);
         }
 
-        if (currentScene != null)
-            currentScene.onUpdate();
+        if (updateCallback != null)
+            updateCallback.run();
+    }
+
+    @Override
+    public void bindOnUpdateAction(Runnable action)
+    {
+        updateCallback = action;
     }
 }

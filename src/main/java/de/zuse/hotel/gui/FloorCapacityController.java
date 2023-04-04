@@ -28,7 +28,7 @@ public class FloorCapacityController implements ControllerApi
 
             HotelCore.get().addNewFloorToHotel(newFloor);
             InfoController.showMessage(InfoController.LogLevel.Info, "Success", "Floor added Successfuly!");
-            HotelCore.get().getCurrentStage().close();
+            JavaFxUtil.closeCurrentStage();
         }
     }
 

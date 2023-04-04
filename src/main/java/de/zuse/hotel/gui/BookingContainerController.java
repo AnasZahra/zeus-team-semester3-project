@@ -1,11 +1,8 @@
 package de.zuse.hotel.gui;
 
-import java.io.IOException;
-import java.util.Set;
-
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
@@ -20,25 +17,35 @@ public class BookingContainerController
     @FXML
     public Label guestName;
     @FXML
-    public Label bookingId;
+    public Label roomAndFloor;
+    public Button canceledBooking;
+
+    private int bookingID;
 
     public BookingContainerController()
     {
 
     }
 
-    public int getBookingId()
+    public void setBookingID(int id)
     {
-        return Integer.parseInt(bookingId.getText());
+        bookingID = id;
     }
 
-    public Node getContent() {
+    public int getBookingID()
+    {
+        return bookingID;
+    }
+
+    public Node getContent()
+    {
         return bookingContainer;
     }
 
-    public void setStyle()
+    public void setStyle(boolean canceld)
     {
         bookingContainer.getStylesheets().add(SettingsController.getCorrectStylePath("background.css"));
+        canceledBooking.setVisible(canceld);
     }
 }
 

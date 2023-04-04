@@ -3,26 +3,15 @@ package de.zuse.hotel.gui;
 import de.zuse.hotel.core.Booking;
 import de.zuse.hotel.core.HotelCore;
 import de.zuse.hotel.db.BookingSearchFilter;
-import de.zuse.hotel.db.JDBCConnecter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class deleteGuestController implements ControllerApi
+public class DeleteGuestController implements ControllerApi
 {
     public AnchorPane root;
     @FXML
@@ -74,7 +63,7 @@ public class deleteGuestController implements ControllerApi
                         InfoController.showMessage(InfoController.LogLevel.Info,"Delete Guest","Guest deleted Successfully");
                 }
 
-                HotelCore.get().getCurrentStage().close();
+                JavaFxUtil.closeCurrentStage();
                 return;
             }
         }
@@ -86,7 +75,7 @@ public class deleteGuestController implements ControllerApi
                 InfoController.showMessage(InfoController.LogLevel.Info,"Delete Guest","Guest deleted Successfully");
         }
 
-        HotelCore.get().getCurrentStage().close();
+        JavaFxUtil.closeCurrentStage();
     }
 
     @Override

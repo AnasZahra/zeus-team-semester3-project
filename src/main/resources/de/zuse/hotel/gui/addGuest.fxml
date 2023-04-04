@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane fx:id="window" prefHeight="720.0" prefWidth="433.0" styleClass="bg" stylesheets="@styling/darkMode/BookingWindow.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.addGuestController">
+<AnchorPane fx:id="window" prefHeight="720.0" prefWidth="433.0" styleClass="bg" stylesheets="@styling/darkMode/BookingWindow.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.AddGuestController">
    <children>
       <Label layoutX="37.0" layoutY="36.0" text="Add Guest" textFill="WHITE">
          <font>

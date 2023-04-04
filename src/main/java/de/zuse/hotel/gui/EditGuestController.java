@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 
-public class editGuestController implements ControllerApi
+public class EditGuestController implements ControllerApi
 {
     public AnchorPane root;
     @FXML
@@ -45,7 +45,7 @@ public class editGuestController implements ControllerApi
 
     private Person selectedUser;
 
-    public editGuestController()
+    public EditGuestController()
     {
     }
 
@@ -62,7 +62,7 @@ public class editGuestController implements ControllerApi
                     plzID.getText(), Integer.parseInt(houseNrID.getText()));
             selectedUser.setAddress(newAddress);
             HotelCore.get().updateGuest(selectedUser); //update guest data
-            HotelCore.get().getCurrentStage().close();// close window
+            JavaFxUtil.closeCurrentStage();
         }
     }
 
@@ -109,7 +109,7 @@ public class editGuestController implements ControllerApi
 
     public void cancelChanges(ActionEvent actionEvent)
     {
-        HotelCore.get().getCurrentStage().close();
+        JavaFxUtil.closeCurrentStage();
     }
 
     public void setSelectedUser(Person selectedUser)

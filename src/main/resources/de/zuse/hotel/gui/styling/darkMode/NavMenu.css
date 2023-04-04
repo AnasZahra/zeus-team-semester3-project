@@ -8,6 +8,11 @@
     -fx-text-fill: #f24e1e;
 }
 
+.dashboard_label{
+    -fx-font-family: Gilroy;
+    -fx-text-fill: #ffffff;
+}
+
 .labelPoint{
     -fx-font-family: Gilroy;
     -fx-fill: #f24e1e;

@@ -4,28 +4,17 @@ import de.zuse.hotel.core.Booking;
 import de.zuse.hotel.core.HotelCore;
 import de.zuse.hotel.util.pdf.PdfFile;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
 import java.util.function.Consumer;
 
 public class DashboardController implements ControllerApi
@@ -80,10 +69,7 @@ public class DashboardController implements ControllerApi
             @Override
             public void accept(Booking booking)
             {
-                addBookingToDashboard(booking.getGuestName(),
-                        String.valueOf(booking.getStartDate()),
-                        String.valueOf(booking.getEndDate()),
-                        booking.getBookingID());
+                addBookingToDashboard(booking);
             }
         });
     }
@@ -96,6 +82,7 @@ public class DashboardController implements ControllerApi
             return;
         }
 
+        PdfFile bookingFile = HotelCore.get().getBookingAsPdfFile(listView.getSelectionModel().getSelectedItem().getBookingID());
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF files (*.pdf)", "*.pdf");
         fileChooser.getExtensionFilters().add(extFilter);
@@ -104,14 +91,13 @@ public class DashboardController implements ControllerApi
 
         if (file != null)
         {
-            PdfFile bookingFile = HotelCore.get().getBookingAsPdfFile(listView.getSelectionModel().getSelectedItem().getBookingId());
             bookingFile.saveFile(file.getPath());
             InfoController.showMessage(InfoController.LogLevel.Info, "Successful",
                     file.getName() + " saved in " + file.getPath());
         }
     }
 
-    public void addBookingToDashboard(String guestName, String startDate, String endDate, int bookingId)
+    public void addBookingToDashboard(Booking booking)
     {
         try
         {
@@ -119,11 +105,12 @@ public class DashboardController implements ControllerApi
             Parent bookingContainer = loader.load();
 
             BookingContainerController bookingContainerController = loader.getController();
-            bookingContainerController.setStyle();
-            bookingContainerController.guestName.setText(guestName);
-            bookingContainerController.arrivalDate.setText(startDate);
-            bookingContainerController.departureDate.setText(endDate);
-            bookingContainerController.bookingId.setText(String.valueOf(bookingId));
+            bookingContainerController.setStyle(booking.isCanceled());
+            bookingContainerController.guestName.setText(booking.getGuestName());
+            bookingContainerController.arrivalDate.setText(String.valueOf(booking.getStartDate()));
+            bookingContainerController.departureDate.setText(String.valueOf(booking.getEndDate()));
+            bookingContainerController.roomAndFloor.setText(booking.getRoomNumber() + "-" + booking.getFloorNumber());
+            bookingContainerController.setBookingID(booking.getBookingID());
             listView.getItems().add(bookingContainerController);
         } catch (Exception e)
         {
@@ -139,12 +126,18 @@ public class DashboardController implements ControllerApi
             return;
         }
 
+        Booking booking = HotelCore.get().getBooking(listView.getSelectionModel().getSelectedItem().getBookingID());
+        if (booking.isCanceled())
+        {
+            InfoController.showMessage(InfoController.LogLevel.Warn, "delete", "The booking you have selected " +
+                    "has already been canceled.");
+            return;
+        }
 
         if (InfoController.showConfirmMessage(InfoController.LogLevel.Warn, "Delete Booking", "Are you sure?"))
         {
-            HotelCore.get().removeBooking(listView.getSelectionModel().getSelectedItem().getBookingId());
+            HotelCore.get().removeBooking(booking);
         }
-
     }
 
     public void setupStyling()
