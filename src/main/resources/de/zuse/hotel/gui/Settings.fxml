@@ -8,9 +8,8 @@
 
 <AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="684.0" prefWidth="819.0" styleClass="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.SettingsController">
    <children>
-      <ImageView fitHeight="254.0" fitWidth="339.0" layoutX="107.0" layoutY="299.0">
+      <ImageView fx:id="backgroundImage_btn" fitHeight="254.0" fitWidth="339.0" layoutX="107.0" layoutY="299.0">
          <image>
-            <Image url="@images/9acd83f1d2b6409438b4bbb7a557c673.gif" />
          </image>
       </ImageView>
       <Button fx:id="imageD" layoutX="107.0" layoutY="132.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="339.0" style="-fx-text-fill: #191717;" styleClass="book" stylesheets="@styling/darkMode/BookingWindow.css" text="Dark mode" textFill="WHITE">

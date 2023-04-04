@@ -8,12 +8,15 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 
 public class Gui extends Application implements Layer
 {
     private static Gui instance = null;
+    private Image image;
 
     public static Gui getInstance()
     {
@@ -54,9 +57,10 @@ public class Gui extends Application implements Layer
         stage.show();
     }
 
-    public static void startLoading()
+    public void startLoading()
     {
         HotelCore.init();
+        image = new Image(getClass().getResource("images/settingsBackground.gif").toExternalForm());
     }
 
     public void handleErrorMessages(String msg)
@@ -78,5 +82,9 @@ public class Gui extends Application implements Layer
         });
     }
 
+    public Image getImage()
+    {
+        return image;
+    }
 
 }
