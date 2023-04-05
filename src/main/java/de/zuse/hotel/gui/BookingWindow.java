@@ -1,18 +1,26 @@
 package de.zuse.hotel.gui;
 
 import de.zuse.hotel.core.*;
+import de.zuse.hotel.db.PersonSearchFilter;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import org.controlsfx.control.CheckComboBox;
 
 
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class BookingWindow implements ControllerApi
@@ -22,17 +30,19 @@ public class BookingWindow implements ControllerApi
     public TextField priceField;
     public ChoiceBox<Floor> floorChoiceBox;
     public AnchorPane root;
+    public CheckComboBox<String> extraServices;
     @FXML
     private ChoiceBox<Room> roomChoiceBox;
     public CheckBox paidCheckBox;
     @FXML
-    private TextField guestID;
+    private TextField guestOrEmailID;
     @FXML
     private DatePicker arrivalDate;
     @FXML
     private DatePicker depatureDate; // small leter pls jan
     @FXML
     private ChoiceBox<Payment.Type> paymentChoiceBox;
+
 
     @FXML
     void closeWindow()
@@ -44,7 +54,7 @@ public class BookingWindow implements ControllerApi
     @FXML
     void addBooking(ActionEvent event) throws Exception
     {
-        if (guestID.getText().strip().isEmpty() || paymentChoiceBox.getValue() == null
+        if (guestOrEmailID.getText().strip().isEmpty() || paymentChoiceBox.getValue() == null
                 || guestsNumber.getText() == null || guestsNumber.getText().strip().isEmpty()
                 || roomChoiceBox.getValue() == null)
         {
@@ -54,12 +64,35 @@ public class BookingWindow implements ControllerApi
             return;
         }
 
-        int id = Integer.parseInt(guestID.getText());
+
         int floorNr = floorChoiceBox.getValue().getFloorNr();
         int roomNr = roomChoiceBox.getValue().getRoomNr();
         int guestNum = Integer.parseInt(guestsNumber.getText());
         Payment.Type paymentType = paymentChoiceBox.getValue();
-        Person guest = HotelCore.get().getGuest(id);
+
+        Person guest = null;
+        Pattern pattern = Pattern.compile(Person.EMAIL_REGEX);
+        Matcher matcher = pattern.matcher(guestOrEmailID.getText());
+        if (matcher.matches())
+        {
+            PersonSearchFilter personSearchFilter = new PersonSearchFilter();
+            personSearchFilter.email = String.valueOf(guestOrEmailID);
+            List<Person> pList = HotelCore.get().getPersonsByFilter(personSearchFilter);
+            if (pList.size() > 0)
+            {
+                Person filteredGuest = pList.get(0);
+                guest = HotelCore.get().getGuest(filteredGuest.getId());
+            }
+        } else
+        {
+            try{
+                int id = Integer.parseInt(guestOrEmailID.getText());
+                guest = HotelCore.get().getGuest(id);
+            }catch (Exception e)
+            {
+                // Ignore
+            }
+        }
 
         if (guest == null)
         {
@@ -72,6 +105,15 @@ public class BookingWindow implements ControllerApi
 
         if (paidCheckBox.isSelected())
             booking.pay(LocalDate.now(), paymentType, Float.parseFloat(priceField.getText()));
+
+        extraServices.getCheckModel().getCheckedItems().forEach(new Consumer<String>()
+        {
+            @Override
+            public void accept(String s)
+            {
+                booking.addExtraService(s);
+            }
+        });
 
         boolean state = HotelCore.get().addBooking(booking);
         if (state)
@@ -86,6 +128,7 @@ public class BookingWindow implements ControllerApi
         root.getStylesheets().add(SettingsController.getCorrectStylePath("BookingWindow.css"));
         arrivalDate.getStylesheets().add(SettingsController.getCorrectStylePath("datePickerStyle.css"));
         depatureDate.getStylesheets().add(SettingsController.getCorrectStylePath("datePickerStyle.css"));
+        extraServices.getStylesheets().add(SettingsController.getCorrectStylePath("comboCheckbox.css"));
 
         // Set payment ChoiceBox values and default value
         List<Payment.Type> typeList = Arrays.stream(Payment.Type.values()).collect(Collectors.toList());
@@ -93,7 +136,6 @@ public class BookingWindow implements ControllerApi
         paymentChoiceBox.setValue(Payment.Type.CASH);
 
         JavaFxUtil.makeFieldOnlyNumbers(guestsNumber); //guestsNumber Take only numbers
-        JavaFxUtil.makeFieldOnlyNumbers(guestID);// for guest Name take only chars
         JavaFxUtil.makeFieldOnlyNumericWithDecimal(priceField);
 
         priceField.setEditable(false);
@@ -106,9 +148,20 @@ public class BookingWindow implements ControllerApi
         arrivalDate.setOnAction(this::onDateChangeListener);
         depatureDate.setOnAction(this::onDateChangeListener);
         roomChoiceBox.setOnAction(this::changePriceField);
+        extraServices.getCheckModel().getCheckedItems().addListener(new InvalidationListener()
+        {
+            @Override
+            public void invalidated(Observable observable)
+            {
+                changePriceField(new ActionEvent());
+            }
+        });
 
         if (floorChoiceBox.getItems().size() > 0) //default value
             floorChoiceBox.setValue(floorChoiceBox.getItems().get(0));
+
+
+        extraServices.getItems().setAll(FXCollections.observableArrayList(HotelCore.get().getAllRoomServices()));
     }
 
     @Override
@@ -156,7 +209,25 @@ public class BookingWindow implements ControllerApi
         if (roomChoiceBox.getValue() != null)
         {
             priceField.setText(String.valueOf(roomChoiceBox.getValue().getPrice()));
+        } else
+        {
+            priceField.setText("0.0");
         }
+
+        double currentServicesPrice = 0.0;
+        if (extraServices.getCheckModel().getCheckedItems() != null)
+        {
+            for (String service : extraServices.getCheckModel().getCheckedItems())
+            {
+                currentServicesPrice += HotelCore.get().getRoomServicePrice(service);
+            }
+        }
+
+        double prevPrice = 0.0;
+        if (priceField.getText() != null && !priceField.getText().trim().isEmpty())
+            prevPrice = Double.parseDouble(priceField.getText());
+
+        priceField.setText(String.valueOf(prevPrice + currentServicesPrice));
     }
 
     private void setChoiceBoxStringConverter()

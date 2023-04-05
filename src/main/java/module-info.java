@@ -4,7 +4,7 @@ module de.zuse.hotel
     requires javafx.fxml;
     requires itextpdf;
     requires de.jensd.fx.glyphs.fontawesome;
-
+    requires org.controlsfx.controls;
 
 
     requires com.fasterxml.jackson.dataformat.yaml;
