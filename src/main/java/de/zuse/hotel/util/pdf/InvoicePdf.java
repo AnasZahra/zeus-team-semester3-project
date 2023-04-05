@@ -14,6 +14,7 @@ import javafx.scene.control.Cell;
 
 import java.io.FileOutputStream;
 import java.util.Iterator;
+import java.util.function.Consumer;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -76,9 +77,9 @@ public class InvoicePdf implements PdfFile
                         BaseColor.BLACK, "Booked By");
 
                 document.add(title);
-                document.add(new Paragraph("Name: "+booking.getGuestName()));
-                document.add(new Paragraph("Email: "+booking.getGuest().getEmail()));
-                document.add(new Paragraph("Tel.Nr: "+booking.getGuest().getTelNumber()));
+                document.add(new Paragraph("Name: " + booking.getGuestName()));
+                document.add(new Paragraph("Email: " + booking.getGuest().getEmail()));
+                document.add(new Paragraph("Tel.Nr: " + booking.getGuest().getTelNumber()));
                 Chunk linebreak = new Chunk(new DottedLineSeparator());
                 document.add(linebreak);
             }
@@ -92,14 +93,22 @@ public class InvoicePdf implements PdfFile
 
                 Room room = HotelCore.get().getRoomByRoomNr(booking.getFloorNumber(), booking.getRoomNumber());
                 double roomPrice = room.getPrice();
-                document.add(new Paragraph("Room (" + room.getRoomType() + "): " + roomPrice + EURO_SYMOBL +" (For one day)"));
-
+                document.add(new Paragraph("Room (" + room.getRoomType() + "): " + roomPrice + EURO_SYMOBL + " (For one day)"));
 
                 double totalPrice = booking.coastPerNight(roomPrice);
                 long daysBetween = DAYS.between(booking.getStartDate(), booking.getEndDate());
 
+                String extraServices = "";
+                for (String service : booking.getBookedServices())
+                {
+                    if (!extraServices.trim().isEmpty())
+                        extraServices += ", ";
+
+                    extraServices += service;
+                }
+
                 document.add(new Paragraph("Total: " + daysBetween + " Day(s) * "
-                        + roomPrice + " = " + (totalPrice) + EURO_SYMOBL));
+                        + roomPrice + " + Extra services: ("+extraServices+") = " + (totalPrice) + EURO_SYMOBL));
             }
 
             document.close();
