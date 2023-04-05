@@ -7,7 +7,6 @@ import javafx.beans.Observable;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -34,7 +33,7 @@ public class BookingWindow implements ControllerApi
     public CheckComboBox<String> extraServices;
     public ChoiceBox<Room> roomChoiceBox;
     public CheckBox paidCheckBox;
-    public TextField guestID;
+    public TextField guestOrEmailID;
     public DatePicker arrivalDate;
     public DatePicker depatureDate; // small leter pls jan
     public ChoiceBox<Payment.Type> paymentChoiceBox;
