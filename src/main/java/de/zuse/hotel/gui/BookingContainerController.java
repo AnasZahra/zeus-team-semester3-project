@@ -8,18 +8,14 @@ import javafx.scene.layout.AnchorPane;
 
 public class BookingContainerController
 {
-    @FXML
+
     public AnchorPane bookingContainer;
-    @FXML
+
     public Label arrivalDate;
-    @FXML
     public Label departureDate;
-    @FXML
     public Label guestName;
-    @FXML
     public Label roomAndFloor;
     public Button canceledBooking;
-
     private int bookingID;
 
     public BookingContainerController()

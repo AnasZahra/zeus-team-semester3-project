@@ -7,11 +7,9 @@ import javafx.event.ActionEvent;
 
 public class LabelMessage
 {
-    @FXML
-    private Label startMessage;
+    public Label startMessage;
 
-    @FXML
-    private void test(ActionEvent event)
+    public void test(ActionEvent event)
     {
         startMessage.setText("Hi ich bin JAn !");
     }

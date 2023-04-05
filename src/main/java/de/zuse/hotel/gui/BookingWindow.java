@@ -22,27 +22,20 @@ public class BookingWindow implements ControllerApi
     public TextField priceField;
     public ChoiceBox<Floor> floorChoiceBox;
     public AnchorPane root;
-    @FXML
-    private ChoiceBox<Room> roomChoiceBox;
+    public ChoiceBox<Room> roomChoiceBox;
     public CheckBox paidCheckBox;
-    @FXML
-    private TextField guestID;
-    @FXML
-    private DatePicker arrivalDate;
-    @FXML
-    private DatePicker depatureDate; // small leter pls jan
-    @FXML
-    private ChoiceBox<Payment.Type> paymentChoiceBox;
+    public TextField guestID;
+    public DatePicker arrivalDate;
+    public DatePicker depatureDate; // small leter pls jan
+    public ChoiceBox<Payment.Type> paymentChoiceBox;
 
-    @FXML
-    void closeWindow()
+    public void closeWindow()
     {
         Stage stage = (Stage) closeBtnId.getScene().getWindow();
         stage.close();
     }
 
-    @FXML
-    void addBooking(ActionEvent event) throws Exception
+    public void addBooking(ActionEvent event) throws Exception
     {
         if (guestID.getText().strip().isEmpty() || paymentChoiceBox.getValue() == null
                 || guestsNumber.getText() == null || guestsNumber.getText().strip().isEmpty()

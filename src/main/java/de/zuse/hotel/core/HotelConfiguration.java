@@ -173,6 +173,7 @@ public class HotelConfiguration
 
         serviceName = serviceName.toLowerCase();
         roomServices.put(serviceName, price);
+
     }
 
     /**

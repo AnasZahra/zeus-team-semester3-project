@@ -19,8 +19,7 @@ import javafx.stage.Stage;
 
 public class LoadingPageController implements Initializable
 {
-    @FXML
-    AnchorPane anchor;
+    public AnchorPane anchor;
     Thread loadingThread;
 
 

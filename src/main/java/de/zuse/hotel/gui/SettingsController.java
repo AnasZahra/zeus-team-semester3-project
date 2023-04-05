@@ -19,12 +19,9 @@ public class SettingsController implements Initializable
         LIGHT, DARK;
     }
 
-    @FXML
-    AnchorPane anchor;
-    @FXML
-    Button imageD;
-    @FXML
-    Button imageL;
+    public AnchorPane anchor;
+    public Button imageD;
+    public Button imageL;
 
     public static SystemMode currentMode = SystemMode.DARK;
     //relative path to project.dir

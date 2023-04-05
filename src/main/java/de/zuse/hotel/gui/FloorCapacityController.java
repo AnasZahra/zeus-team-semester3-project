@@ -13,8 +13,7 @@ public class FloorCapacityController implements ControllerApi
 {
 
     public AnchorPane floorCapacityRoot;
-    @FXML
-    private TextField capacityTextField;
+    public TextField capacityTextField;
 
     public void addCapacity(ActionEvent actionEvent)
     {
