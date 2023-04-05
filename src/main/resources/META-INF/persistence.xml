@@ -7,7 +7,7 @@
     <persistence-unit name="ZuseHotel" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <!-- Define your entity classes here -->
+        <!-- entity classes -->
         <class>de.zuse.hotel.core.Address</class>
         <class>de.zuse.hotel.core.Person</class>
         <class>de.zuse.hotel.core.Payment</class>

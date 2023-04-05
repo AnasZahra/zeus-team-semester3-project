@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Stack;
+import java.util.function.Consumer;
 
 public class JavaFxUtil
 {
@@ -104,25 +105,28 @@ public class JavaFxUtil
         }
     }
 
-    public static <T> T loadPopUpWindow(URL fxmlName, String windowTitle) throws IOException
+    public static void loadPopUpWindow(URL fxmlName, String windowTitle, Consumer<Object> beforeShowing) throws IOException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(fxmlName);
         Scene scene = new Scene(fxmlLoader.load());
-
-        if (fxmlLoader.getController() instanceof ControllerApi)
-        {
-            ((ControllerApi) fxmlLoader.getController()).onStart();
-        }
-
         Stage stage = new Stage();
         stageLayers.push(stage);
         stage.setTitle(windowTitle);
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL); //default, for closing th pop up window
         stage.resizableProperty().setValue(false);
+
+        if (beforeShowing != null)
+            beforeShowing.accept(fxmlLoader.getController());
+
         stage.show();
 
-        return fxmlLoader.getController();
+        if (fxmlLoader.getController() instanceof ControllerApi)
+        {
+            ((ControllerApi) fxmlLoader.getController()).onStart();
+        }
+
+        fxmlLoader.getController();
     }
 
     public static void onUpdate()
@@ -135,4 +139,14 @@ public class JavaFxUtil
         Stage currentStage = stageLayers.pop();
         currentStage.close();
     }
+
+    public static void closeAllStages()
+    {
+        while(stageLayers.size() > 0)
+        {
+            closeCurrentStage();
+        }
+    }
+
+
 }

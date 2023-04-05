@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class GuestController implements ControllerApi
@@ -121,12 +122,15 @@ public class GuestController implements ControllerApi
 
     public void createFXMLoader(String string, String description) throws Exception
     {
-        Object obj = JavaFxUtil.loadPopUpWindow(getClass().getResource(string), description);
-        if (obj instanceof EditGuestController)
+        Consumer<Object> consumer = (Object obj) ->
         {
-            ((EditGuestController) obj).setSelectedUser(selectedUser);
-            ((EditGuestController) obj).onStart();// this is just an exception for edit
-        }
+            if (obj instanceof EditGuestController)
+            {
+                ((EditGuestController) obj).setSelectedUser(selectedUser);
+            }
+        };
+
+        JavaFxUtil.loadPopUpWindow(getClass().getResource(string), description, consumer);
     }
 
     public void searchGuests(String string)

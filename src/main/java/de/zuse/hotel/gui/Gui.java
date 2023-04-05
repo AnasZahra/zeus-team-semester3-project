@@ -5,8 +5,6 @@ import de.zuse.hotel.core.HotelCore;
 import de.zuse.hotel.util.ZuseCore;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -47,14 +45,14 @@ public class Gui extends Application implements Layer
     @Override
     public void start(Stage stage) throws Exception
     {
-        JavaFxUtil.loadNewWindow(getClass().getResource("LoadingPage.fxml"),"Hotel v1.0",stage);
+        JavaFxUtil.loadNewWindow(getClass().getResource("LoadingPage.fxml"), "Hotel v1.0", stage);
     }
 
     public void startLoading()
     {
         HotelCore.init();
         HotelCore.get().bindOnUpdateAction(JavaFxUtil::onUpdate);
-        // gif Image in takes so long, so we load it at the beginning
+        // gif Image takes so long, so we load it at the beginning
         image = new Image(getClass().getResource("images/settingsBackground.gif").toExternalForm());
     }
 
@@ -69,6 +67,7 @@ public class Gui extends Application implements Layer
         {
             try
             {
+                JavaFxUtil.closeAllStages();
                 this.start(new Stage());
             } catch (Exception e)
             {
