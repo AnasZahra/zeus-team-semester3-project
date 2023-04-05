@@ -13,35 +13,26 @@ import javafx.scene.layout.AnchorPane;
 public class EditGuestController implements ControllerApi
 {
     public AnchorPane root;
-    @FXML
-    private DatePicker bDateID;
+    public DatePicker bDateID;
 
-    @FXML
-    private TextField cityID;
+    public TextField cityID;
 
-    @FXML
-    private TextField countreyID;
+    public TextField countreyID;
 
-    @FXML
-    private TextField emailID;
+    public TextField emailID;
 
-    @FXML
-    private TextField firstNameID;
+    public TextField firstNameID;
 
-    @FXML
-    private TextField houseNrID;
 
-    @FXML
-    private TextField lastNameID;
+    public TextField houseNrID;
 
-    @FXML
-    private TextField plzID;
+    public TextField lastNameID;
 
-    @FXML
-    private TextField streetID;
+    public TextField plzID;
 
-    @FXML
-    private TextField telefonID;
+    public TextField streetID;
+
+    public TextField telefonID;
 
     private Person selectedUser;
 

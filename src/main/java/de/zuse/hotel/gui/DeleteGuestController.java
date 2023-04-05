@@ -14,11 +14,9 @@ import java.util.function.Consumer;
 public class DeleteGuestController implements ControllerApi
 {
     public AnchorPane root;
-    @FXML
-    private TextField guestId;
+    public TextField guestId;
 
-    @FXML
-    void deleteGuest(ActionEvent actionEvent) throws Exception
+    public void deleteGuest(ActionEvent actionEvent) throws Exception
     {
         if (guestId.getText() == null || guestId.getText().strip().isEmpty())
         {

@@ -120,6 +120,7 @@ public class Person {
     {
         ZuseCore.check(email != null && !email.strip().isEmpty(), "The Email can not be null");
 
+
         Pattern pattern = Pattern.compile(EMAIL_REGEX);
         Matcher matcher = pattern.matcher(email);
 

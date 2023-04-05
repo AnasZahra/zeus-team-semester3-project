@@ -18,19 +18,19 @@ public class AddGuestController implements ControllerApi
     public TextField plz;
     public TextField houseNr;
     public AnchorPane window;
-    @FXML
-    private TextField lastName;
-    @FXML
-    private TextField firstName;
-    @FXML
-    private TextField email;
-    @FXML
-    private TextField telNum;
-    @FXML
-    private DatePicker birthDate;
 
-    @FXML
-    void addGuest(ActionEvent event) throws Exception
+    public TextField lastName;
+
+    public TextField firstName;
+
+    public TextField email;
+
+    public TextField telNum;
+
+    public DatePicker birthDate;
+
+
+    public void addGuest(ActionEvent event) throws Exception
     {
         if (houseNr.getText().strip().isEmpty() || plz.getText().strip().isEmpty())
         {
