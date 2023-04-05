@@ -108,7 +108,7 @@ public class RoomController implements ControllerApi
     @FXML
     void handleAddRoomButtonAction(ActionEvent event) throws Exception
     {
-        JavaFxUtil.loadPopUpWindow(getClass().getResource("addRoom.fxml"),"Add a room");
+        JavaFxUtil.loadPopUpWindow(getClass().getResource("addRoom.fxml"), "Add a room", null);
     }
 
     @FXML
@@ -157,7 +157,7 @@ public class RoomController implements ControllerApi
 
     public void addFloor(ActionEvent actionEvent) throws IOException
     {
-        JavaFxUtil.loadPopUpWindow(getClass().getResource("floorCapacity.fxml"),"Add a floor");
+        JavaFxUtil.loadPopUpWindow(getClass().getResource("floorCapacity.fxml"), "Add a floor", null);
     }
 
     public void setupStyling()
@@ -169,7 +169,7 @@ public class RoomController implements ControllerApi
         roomTable.getStylesheets().add(SettingsController.getCorrectStylePath("Tableview.css"));
         floorChoiceBox.getStylesheets().add(SettingsController.getCorrectStylePath("BookingWindow.css"));
         rooms.getStylesheets().addAll(SettingsController.getCorrectStylePath("NavMenu.css")
-                ,SettingsController.getCorrectStylePath("background.css"));
+                , SettingsController.getCorrectStylePath("background.css"));
     }
 
 }

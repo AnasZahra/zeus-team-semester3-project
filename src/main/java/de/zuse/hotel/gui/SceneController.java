@@ -36,7 +36,9 @@ public class SceneController implements ControllerApi
     @FXML
     private BorderPane borderPane;
 
-    public SceneController(){}
+    public SceneController()
+    {
+    }
 
     public void onClickDashboardBtn(ActionEvent event) throws IOException
     {
@@ -86,7 +88,7 @@ public class SceneController implements ControllerApi
     @FXML
     void handleBookRoomButtonAction(ActionEvent event) throws Exception
     {
-        JavaFxUtil.loadPopUpWindow(getClass().getResource("BookingWindow.fxml"),"Book a room");
+        JavaFxUtil.loadPopUpWindow(getClass().getResource("BookingWindow.fxml"), "Book a room", null);
     }
 
     @Override
@@ -107,6 +109,8 @@ public class SceneController implements ControllerApi
     }
 
     @Override
-    public void onUpdate(){}
+    public void onUpdate()
+    {
+    }
 
 }

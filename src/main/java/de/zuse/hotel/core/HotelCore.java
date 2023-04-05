@@ -4,6 +4,7 @@ import de.zuse.hotel.db.BookingSearchFilter;
 import de.zuse.hotel.db.HotelDatabaseApi;
 import de.zuse.hotel.db.HotelDatabaseApiImpl;
 import de.zuse.hotel.db.PersonSearchFilter;
+import de.zuse.hotel.util.BreakPointException;
 import de.zuse.hotel.util.HotelSerializer;
 import de.zuse.hotel.util.ZuseCore;
 import de.zuse.hotel.util.pdf.InvoicePdf;
@@ -197,10 +198,7 @@ public class HotelCore implements HotelCoreApi
     public PdfFile getBookingAsPdfFile(int bookingID)
     {
         Booking booking = hotelDatabaseApi.getBooking(bookingID);
-        if (booking == null || booking.isCanceled())
-        {
-            ZuseCore.check(false, "You can not save canceled Booking as Pdf");
-        }
+        ZuseCore.check(booking != null && !booking.isCanceled(), "You can not save canceled Booking as Pdf");
 
         return new InvoicePdf(booking);
     }
