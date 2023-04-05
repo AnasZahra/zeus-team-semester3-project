@@ -21,6 +21,7 @@ public class Room
     private double price;
     private RoomSpecification.Types roomType;
 
+
     @JsonIgnore
     private transient RoomSpecification.Status status; // from database
     @JsonIgnore
@@ -33,12 +34,12 @@ public class Room
 
     public Room(Floor floor, int roomNr, double price)
     {
+        double roundedValue =  Math.round(price * 100) / 100;
         ZuseCore.check(roomNr >= 0, "roomNr can not be null");
-        ZuseCore.check(price > 0, "price can not be null");
-
+        ZuseCore.check(roundedValue > 0.0, "price can not be null");
         this.floorNr = floor.getFloorNr();
         this.roomNr = roomNr;
-        this.price = price;
+        this.price = roundedValue;
     }
 
     //TODO: maybe take only the floorNr, no need to take Floor ref
@@ -77,7 +78,9 @@ public class Room
 
     public void setPrice(double price)
     {
-        this.price = price;
+        double roundedValue =  Math.round(price * 100) / 100;
+        ZuseCore.check(roundedValue > 0.0, "price can not be null");
+        this.price = roundedValue;
     }
 
     public RoomSpecification.Types getRoomType()

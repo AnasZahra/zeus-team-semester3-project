@@ -134,11 +134,13 @@ public class Booking
 
     public void setGuest(Person guest)
     {
+        ZuseCore.check(guest != null, "Guest is null!!");
         this.guest = guest;
     }
 
     public boolean isPaid()
     {
+
         return payment.status == Payment.Status.PAID;
     }
 
@@ -190,6 +192,7 @@ public class Booking
 
     public void setFloorNumber(int floorNumber)
     {
+        ZuseCore.check(floorNumber >= 0, "Number of Room should be greater than zero!!");
         this.floorNumber = floorNumber;
     }
 
@@ -211,6 +214,7 @@ public class Booking
 
     public void setGuestsNum(int guestsNum)
     {
+        ZuseCore.check(guestsNum >= 0 , "Gust number can not be negative !!!!" );
         this.guestsNum = guestsNum;
     }
 
