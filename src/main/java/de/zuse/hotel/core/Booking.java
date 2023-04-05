@@ -11,6 +11,11 @@ import java.util.Objects;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
+/**
+ * Represents a booking made by a guest for a room in a hotel.
+ * Each booking has a unique ID, a room number, a floor number, a start date, an end date, a guest, a payment,
+ * a guest name, a cancellation status, the number of guests, and a list of extra services.
+ */
 @Entity
 @Table(name = "Bookings")
 public class Booking
@@ -99,6 +104,14 @@ public class Booking
         return toString;
     }
 
+    /**
+     * Creates a new payment for this booking with the given payment date, payment type, and price.
+     *
+     * @param paymentDate the date of the payment
+     * @param type the type of payment (e.g., credit card, cash)
+     * @param price the price of the payment
+     * @throws de.zuse.hotel.util.BreakPointException if paymentDate is null or not a valid date
+     */
     public void pay(LocalDate paymentDate, Payment.Type type, float price)
     {
         ZuseCore.coreAssert(paymentDate != null, "paymentDate is null!!");
@@ -169,6 +182,12 @@ public class Booking
         return guest;
     }
 
+    /**
+     * Adds an extra service to this booking.
+     *
+     * @param serviceName the name of the extra service to add
+     * @throws de.zuse.hotel.util.BreakPointException if serviceName is not a valid service or if the service is already added
+     */
     public void addExtraService(String serviceName)
     {
         //extraServices will not contain duplicate or not valid services
@@ -219,8 +238,12 @@ public class Booking
         return payment;
     }
 
-
-
+    /**
+     * Calculates the total cost per night for this booking, based on the given room price and any additional services.
+     *
+     * @param roomPrice the price per night for the room
+     * @return the total cost per night for this booking, including any additional services
+     */
     public double coastPerNight(double roomPrice)
     {
         double total = 0.0;

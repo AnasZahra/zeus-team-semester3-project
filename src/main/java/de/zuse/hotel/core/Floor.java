@@ -1,11 +1,12 @@
 package de.zuse.hotel.core;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import de.zuse.hotel.util.ZuseCore;
-
 import java.util.ArrayList;
 
+/**
+ * Represents a floor in the hotel, containing a number of rooms.
+ */
 @JsonTypeInfo(include= JsonTypeInfo.As.WRAPPER_OBJECT, use= JsonTypeInfo.Id.NAME)
 public class Floor
 {
@@ -26,9 +27,17 @@ public class Floor
 
     public Floor() {}
 
+    /**
+     * Adds a room to this floor, if the floor is not at full capacity and the room has the correct floor number.
+     *
+     * @param room the room to add to this floor
+     * @throws de.zuse.hotel.util.BreakPointException if the floor is already at full capacity or if the room has a
+     * different floor number than this floor
+     * @throws de.zuse.hotel.util.BreakPointException if the room is already on this floor
+     */
     public void addRoom(Room room)
     {
-        ZuseCore.check(capacity >= rooms.size(), "Floor can not take any more rooms");
+        ZuseCore.check(capacity > rooms.size(), "Floor can not take any more rooms");
         ZuseCore.check(room.getFloorNr() == floorNr, "Floor Number must be the same!!");
         ZuseCore.check(!rooms.contains(room), "Floor "+ floorNr +" has same Room " + room.getRoomNr());
 
