@@ -11,7 +11,7 @@ public interface HotelDatabaseApi
     //Guest
     public boolean addGuest(Person guest);
     public boolean removeGuest(int guestId);
-    public boolean updateGuest( Person updatedGuest); //should we use the Id or not
+    public boolean updateGuest( Person updatedGuest);
     public Person getGuest(int guestID);
     public List<Person> getAllGuest();
 

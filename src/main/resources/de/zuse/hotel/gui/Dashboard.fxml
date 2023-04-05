@@ -16,6 +16,7 @@
                 <Font name="System Bold Italic" size="25.0" />
             </font>
         </Text>
+
       <ListView fx:id="listView" layoutX="86.0" layoutY="155.0" prefHeight="482.0" prefWidth="793.0" style="-fx-background-color: #191717;" stylesheets="@styling/darkMode/Tableview.css" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="401.0" />
         <Button fx:id="deleteBookingBtn" layoutX="764.0" layoutY="70.0" mnemonicParsing="false" onAction="#deleteBooking" prefHeight="39.0" prefWidth="126.0" styleClass="deleteButtonBooking" text="Cancel" textFill="WHITE">
             <font>
@@ -40,3 +41,4 @@
       <URL value="@styling/darkMode/NavMenu.css" />
    </stylesheets>
 </AnchorPane>
+
