@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * Represents a payment for a booking.
+ */
 @Entity
 @Table(name = "Payments")
 public class Payment {
@@ -16,11 +19,17 @@ public class Payment {
     @JoinColumn(name = "payment_id", referencedColumnName = "Booking_id")
     public int paymentID;
 
+    /**
+     * The status of the payment.
+     */
     public enum Status
     {
         PAID, NOT_PAID
     }
 
+    /**
+     * The type of payment.
+     */
     public enum Type
     {
         CASH, CREDIT_CARD, DEBIT_CARD, MOBILE_PAYMENT

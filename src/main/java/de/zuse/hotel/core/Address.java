@@ -6,9 +6,9 @@ import javax.persistence.*;
 import java.util.Objects;
 
 
-
 /**
- * The Address class represents a physical address, including the country, city, street, postal code, and house number.
+ * The Address class represents a physical address, including the country, city, street, postal code,
+ * and house number.
  */
 @Entity
 @Table(name = "Address")

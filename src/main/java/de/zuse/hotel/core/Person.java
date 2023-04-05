@@ -5,8 +5,13 @@ import de.zuse.hotel.util.ZuseCore;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-
+/**
+ * representing a person with a unique ID, first name, last name,
+ * birthday, email, telephone number, and address.
+ */
 @Entity
 @Table(name = "Person")
 public class Person {
@@ -110,6 +115,13 @@ public class Person {
     public void setEmail(String email)
     {
         ZuseCore.check(email != null && !email.strip().isEmpty(), "The Email can not be null");
+
+        String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+
+        ZuseCore.check(matcher.matches(), "The provided email address is not valid");
+
         this.email = email;
     }
 
@@ -149,6 +161,9 @@ public class Person {
                 '}';
     }
 
+    /**
+     * A utility function related to age calculation and validation.
+     */
     public static boolean is18OrOlder(LocalDate birthDate)
     {
         LocalDate now = LocalDate.now();
