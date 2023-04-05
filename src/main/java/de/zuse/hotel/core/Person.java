@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 @Table(name = "Person")
 public class Person {
     private static final int TELEPHONE_NUMBER_COUNT = 12;
-
+    public static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Person_id", nullable = false, updatable = false)
@@ -48,8 +48,7 @@ public class Person {
         ZuseCore.check(address != null, "address can not be null!!");
         ZuseCore.check(is18OrOlder(birthday), "The Person must be 18 years old!!");
 
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-        Pattern pattern = Pattern.compile(emailRegex);
+        Pattern pattern = Pattern.compile(EMAIL_REGEX);
         Matcher matcher = pattern.matcher(email);
         ZuseCore.check(matcher.matches(), "The provided email address is not valid");
 
@@ -121,8 +120,8 @@ public class Person {
     {
         ZuseCore.check(email != null && !email.strip().isEmpty(), "The Email can not be null");
 
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-        Pattern pattern = Pattern.compile(emailRegex);
+
+        Pattern pattern = Pattern.compile(EMAIL_REGEX);
         Matcher matcher = pattern.matcher(email);
 
         ZuseCore.check(matcher.matches(), "The provided email address is not valid");
