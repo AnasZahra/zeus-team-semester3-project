@@ -35,6 +35,9 @@ public class HotelConfiguration
         this.hotelFloors = hotelFloors;
     }
 
+    /**
+     * Sets the default floors and rooms for the hotel.
+     */
     public void setDefaultFloorsAndRooms()
     {
         Floor floor = new Floor(1, 10);
@@ -46,6 +49,11 @@ public class HotelConfiguration
         addNewRoomService("Wifi", 10.0f);
     }
 
+    /**
+     * Adds a new floor to the hotel.
+     *
+     * @param floor The floor to add.
+     */
     public void addNewFloor(Floor floor)
     {
         ZuseCore.check(hotelFloors.contains(floor) == false, "Floor is already in Hotel");
@@ -54,8 +62,10 @@ public class HotelConfiguration
     }
 
     /**
-     * @param floorNr - floor Number in hotelFloors
-     * @param room    - room to add
+     * Adds a new room to a specific floor in the hotel.
+     *
+     * @param floorNr The number of the floor to add the room to.
+     * @param room The room to add.
      */
     public void addNewRoom(int floorNr, Room room)
     {
@@ -69,6 +79,12 @@ public class HotelConfiguration
         }
     }
 
+    /**
+     * Removes a room from a specific floor in the hotel.
+     *
+     * @param floorNr The number of the floor to remove the room from.
+     * @param roomNr The number of the room to remove.
+     */
     public void removeRoom(int floorNr, int roomNr)
     {
         //TODO(Basel): optimization
@@ -85,6 +101,12 @@ public class HotelConfiguration
         }
     }
 
+    /**
+     * Gets the floor with the given floor number.
+     *
+     * @param floorNr The number of the floor to get.
+     * @return The floor with the given floor number, or null if no such floor exists.
+     */
     public Floor getFloorByFloorNr(int floorNr)
     {
         //TODO(Basel): optimization
@@ -97,6 +119,13 @@ public class HotelConfiguration
         return null;
     }
 
+    /**
+     * Gets the room with the given room number on a specific floor.
+     *
+     * @param floorNr The number of the floor the room is on.
+     * @param roomNr The number of the room to get.
+     * @return The room with the given room number on the given floor, or null if no such room exists.
+     */
     public Room getRoomByRoomNr(int floorNr, int roomNr)
     {
         //TODO(Basel): optimization
@@ -111,16 +140,32 @@ public class HotelConfiguration
         return null;
     }
 
+    /**
+     * Gets the name of the hotel.
+     *
+     * @return The name of the hotel.
+     */
     public String getHotelName()
     {
         return hotelName;
     }
 
+    /**
+     * Sets the name of the hotel.
+     *
+     * @param hotelName The new name of the hotel.
+     */
     public void setHotelName(String hotelName)
     {
         this.hotelName = hotelName;
     }
 
+    /**
+     * Adds a new room service to the hotel.
+     *
+     * @param serviceName The name of the new room service.
+     * @param price The price of the new room service.
+     */
     public void addNewRoomService(String serviceName, double price)
     {
         ZuseCore.check(!roomServices.containsKey(serviceName),
@@ -130,6 +175,13 @@ public class HotelConfiguration
         roomServices.put(serviceName, price);
     }
 
+    /**
+     * Gets the price of a specific room service.
+     *
+     * @param serviceName The name of the room service to get the price of.
+     * @return The price of the room service with the given name.
+     * @throws de.zuse.hotel.util.BreakPointException If no room service with the given name exists.
+     */
     public double getRoomServicePrice(String serviceName)
     {
         serviceName = serviceName.toLowerCase();
@@ -139,18 +191,34 @@ public class HotelConfiguration
         return price;
     }
 
+    /**
+     * Gets the number of room services available in the hotel.
+     *
+     * @return The number of room services available in the hotel.
+     */
     @JsonIgnore
     public int getRoomServiceNum()
     {
         return roomServices.size();
     }
 
+    /**
+     * Checks if a room service with the given name exists in the hotel.
+     *
+     * @param name The name of the room service to check.
+     * @return True if a room service with the given name exists in the hotel, false otherwise.
+     */
     public boolean hasServiceName(String name)
     {
         name = name.toLowerCase();
         return roomServices.get(name) != null;
     }
 
+    /**
+     * Gets a map of all the room services available in the hotel and their prices.
+     *
+     * @return A map of all the room services available in the hotel and their prices.
+     */
     public Map<String, Double> getRoomServices()
     {
         return roomServices;

@@ -18,7 +18,6 @@ public class FloorCapacityController implements ControllerApi
 
     public void addCapacity(ActionEvent actionEvent)
     {
-
         if (capacityTextField.getText().isEmpty())
         {
             InfoController.showMessage(InfoController.LogLevel.Error, "Floor capacity", "Please enter floor capacity!");
