@@ -42,7 +42,6 @@ public class SettingsController implements Initializable
 
             currentMode = SystemMode.DARK;
             Gui.getInstance().restartApp();
-            JavaFxUtil.closeCurrentStage();
         });
     }
 
@@ -55,7 +54,6 @@ public class SettingsController implements Initializable
 
             currentMode = SystemMode.LIGHT;
             Gui.getInstance().restartApp();
-            JavaFxUtil.closeCurrentStage();
         });
     }
 
