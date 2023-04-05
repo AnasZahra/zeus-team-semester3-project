@@ -48,6 +48,11 @@ public class Person {
         ZuseCore.check(address != null, "address can not be null!!");
         ZuseCore.check(is18OrOlder(birthday), "The Person must be 18 years old!!");
 
+        String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        ZuseCore.check(matcher.matches(), "The provided email address is not valid");
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthday = birthday;
