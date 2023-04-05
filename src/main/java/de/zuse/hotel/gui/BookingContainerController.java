@@ -45,7 +45,10 @@ public class BookingContainerController
     public void setStyle(boolean canceld)
     {
         bookingContainer.getStylesheets().add(SettingsController.getCorrectStylePath("background.css"));
-        canceledBooking.setVisible(canceld);
+        if (canceld)
+            canceledBooking.setStyle("-fx-background-color:  #f54e4e");
+        else
+            canceledBooking.setStyle("-fx-background-color:  #1ef2d9");
     }
 }
 
