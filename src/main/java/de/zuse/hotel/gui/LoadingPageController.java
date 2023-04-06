@@ -41,7 +41,7 @@ public class LoadingPageController implements Initializable
     {
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), anchor);
         fadeTransition.setFromValue(1.0);
-        fadeTransition.setToValue(1.0);
+        fadeTransition.setToValue(0.5);
 
         fadeTransition.setOnFinished(value ->
         {
