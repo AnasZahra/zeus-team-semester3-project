@@ -63,7 +63,7 @@ public class InvoicePdf implements PdfFile
                 document.add(new Paragraph("Check-out: " + booking.getEndDate()));
 
                 //TODO (Basel): maybe add many Guests
-                document.add(new Paragraph("Geust: " + booking.getGuestName()));
+                document.add(new Paragraph("Guest: " + booking.getGuestName()));
                 document.add(new Paragraph("Room: " + booking.getRoomNumber()));
                 document.add(new Paragraph("Floor: " + booking.getFloorNumber()));
                 document.add(new Paragraph("Guests-Number: " + booking.getGuestsNum()));

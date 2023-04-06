@@ -68,7 +68,7 @@ public class BookingWindow implements ControllerApi
         if (matcher.matches())
         {
             PersonSearchFilter personSearchFilter = new PersonSearchFilter();
-            personSearchFilter.email = String.valueOf(guestOrEmailID);
+            personSearchFilter.email = guestOrEmailID.getText().trim().toLowerCase();
             List<Person> pList = HotelCore.get().getPersonsByFilter(personSearchFilter);
             if (pList.size() > 0)
             {
@@ -89,7 +89,7 @@ public class BookingWindow implements ControllerApi
 
         if (guest == null)
         {
-            InfoController.showMessage(InfoController.LogLevel.Warn, "Add Booking", "could not find guest id!");
+            InfoController.showMessage(InfoController.LogLevel.Warn, "Add Booking", "could not find guest, check your id or email");
             return;
         }
 
