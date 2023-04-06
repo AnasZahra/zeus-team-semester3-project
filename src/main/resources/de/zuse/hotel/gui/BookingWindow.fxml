@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import org.controlsfx.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="721.0" prefWidth="500.0" styleClass="bg" stylesheets="@styling/darkMode/BookingWindow.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.BookingWindow">
+<?import org.controlsfx.control.CheckComboBox?>
+<AnchorPane fx:id="root" prefHeight="721.0" prefWidth="500.0" styleClass="bg" stylesheets="@styling/darkMode/BookingWindow.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.BookingWindow">
     <children>
         <Label layoutX="61.0" layoutY="68.0" text="New Booking" textFill="WHITE">
             <font>
@@ -57,10 +62,10 @@
                 <Font size="17.0" />
             </font>
         </Button>
-        <TextField fx:id="priceField" layoutX="55.0" layoutY="549.0" prefHeight="35.0" prefWidth="194.0" promptText="price" styleClass="nameFill" />
+        <TextField fx:id="priceField" layoutX="268.0" layoutY="507.0" prefHeight="35.0" prefWidth="114.0" promptText="price" styleClass="nameFill" />
         <ChoiceBox fx:id="paymentChoiceBox" layoutX="55.0" layoutY="435.0" prefHeight="30.0" prefWidth="174.0" styleClass="bg" />
         <TextField fx:id="guestsNumber" layoutX="268.0" layoutY="435.0" prefHeight="30.0" prefWidth="174.0" promptText="number" styleClass="nameFill" />
-      <CheckBox fx:id="paidCheckBox" layoutX="287.0" layoutY="555.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="137.0" style="-fx-font-size: 1.4em;" styleClass="label" stylesheets="@styling/darkMode/background.css" text="Paid" textFill="WHITE" />
+      <CheckBox fx:id="paidCheckBox" layoutX="382.0" layoutY="515.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="66.0" style="-fx-font-size: 1.4em;" styleClass="label" stylesheets="@styling/darkMode/background.css" text="Paid" textFill="WHITE" />
     <CheckComboBox fx:id="extraServices" layoutX="55.0" layoutY="505.0" prefHeight="30.0" prefWidth="174.0" styleClass="combo-box" stylesheets="@styling/darkMode/comboCheckbox.css" />
       <Label layoutX="55.0" layoutY="474.0" prefHeight="25.0" prefWidth="122.0" text="Extra-Service" textFill="WHITE">
          <font>
