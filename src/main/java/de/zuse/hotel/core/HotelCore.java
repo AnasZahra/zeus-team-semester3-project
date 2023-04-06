@@ -467,6 +467,7 @@ public class HotelCore implements HotelCoreApi
     public void addNewRoomService(String serviceName, double price)
     {
         hotelConfiguration.addNewRoomService(serviceName, price);
+        serializeHotel();
     }
 
     /**

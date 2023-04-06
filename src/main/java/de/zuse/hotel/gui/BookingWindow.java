@@ -33,9 +33,9 @@ public class BookingWindow implements ControllerApi
     public CheckComboBox<String> extraServices;
     public ChoiceBox<Room> roomChoiceBox;
     public CheckBox paidCheckBox;
-    public TextField guestOrEmailID;
+    public TextField guestOrEmailID; // small letter pls jan
     public DatePicker arrivalDate;
-    public DatePicker depatureDate; // small leter pls jan
+    public DatePicker depatureDate;
     public ChoiceBox<Payment.Type> paymentChoiceBox;
 
     public void closeWindow()
@@ -46,9 +46,9 @@ public class BookingWindow implements ControllerApi
 
     public void addBooking(ActionEvent event) throws Exception
     {
-        if (guestOrEmailID.getText().strip().isEmpty() || paymentChoiceBox.getValue() == null
+        if (guestOrEmailID.getText() == null || guestOrEmailID.getText().strip().isEmpty()
                 || guestsNumber.getText() == null || guestsNumber.getText().strip().isEmpty()
-                || roomChoiceBox.getValue() == null)
+                || roomChoiceBox.getValue() == null || paymentChoiceBox.getValue() == null)
         {
             InfoController.showMessage(InfoController.LogLevel.Warn, "Add Booking", "can not add Booking" +
                     ", please fill all information!");
@@ -77,10 +77,11 @@ public class BookingWindow implements ControllerApi
             }
         } else
         {
-            try{
+            try
+            {
                 int id = Integer.parseInt(guestOrEmailID.getText());
                 guest = HotelCore.get().getGuest(id);
-            }catch (Exception e)
+            } catch (Exception e)
             {
                 // Ignore
             }
@@ -118,9 +119,11 @@ public class BookingWindow implements ControllerApi
     public void onStart()
     {
         root.getStylesheets().add(SettingsController.getCorrectStylePath("BookingWindow.css"));
+        extraServices.getStylesheets().add(SettingsController.getCorrectStylePath("comboCheckbox.css"));
         arrivalDate.getStylesheets().add(SettingsController.getCorrectStylePath("datePickerStyle.css"));
         depatureDate.getStylesheets().add(SettingsController.getCorrectStylePath("datePickerStyle.css"));
-        extraServices.getStylesheets().add(SettingsController.getCorrectStylePath("comboCheckbox.css"));
+
+
 
         // Set payment ChoiceBox values and default value
         List<Payment.Type> typeList = Arrays.stream(Payment.Type.values()).collect(Collectors.toList());
@@ -207,7 +210,7 @@ public class BookingWindow implements ControllerApi
         }
 
         double currentServicesPrice = 0.0;
-        if (extraServices.getCheckModel().getCheckedItems() != null)
+        if (extraServices.getCheckModel() != null)
         {
             for (String service : extraServices.getCheckModel().getCheckedItems())
             {
