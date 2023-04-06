@@ -8,9 +8,17 @@ import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * This class implements the DatabaseOperations interface to perform CRUD operations on Person objects in the database.
+ */
 public class PersonConnecter implements DatabaseOperations
 {
+
+    /**
+     * Creates a new record for the given Person object in the database.
+     *
+     * @param object The Person object to create in the database.
+     */
     @Override
     public void dbCreate(Object object)
     {
@@ -25,6 +33,12 @@ public class PersonConnecter implements DatabaseOperations
         manager.close();
     }
 
+
+    /**
+     * Searches the database for all Person objects and returns them as a List.
+     *
+     * @return A List containing all Person objects in the database.
+     */
     @Override
     public List<Person> dbsearchAll()
     {
@@ -39,6 +53,12 @@ public class PersonConnecter implements DatabaseOperations
         return allPerson;
     }
 
+    /**
+     * Searches the database for an Person object with the given ID.
+     *
+     * @param id The ID of the Person object to search for.
+     * @return The Person object with the given ID, or null if not found.
+     */
     @Override
     public <T> T dbsearchById(int id)
     {
@@ -50,6 +70,10 @@ public class PersonConnecter implements DatabaseOperations
         return (T) person;
     }
 
+    /**
+     * Move all Address object from the Person Table to another table named Person_trash_collection .
+     * then Remove the Person objects from the database.
+     */
     @Override
     public void dbRemoveAll()
     {
@@ -62,8 +86,12 @@ public class PersonConnecter implements DatabaseOperations
     }
 
     /**
-     * Make sure by deleting a Guest to delete/cancel all his Booking(s) first!!! other way it will fail
-     * @param id
+     * Make sure by deleting a Guest to delete/cancel all his Booking(s) first!!! other way it will fail.
+     *
+     * Move the Address object with the given ID from the Address Table to another table named Address_trash_collection .
+     * then Remove the Address objects from the database.
+     *
+     * @param id The ID of the Address object to remove.
      */
     @Override
     public void dbRemoveById(int id)
@@ -83,6 +111,11 @@ public class PersonConnecter implements DatabaseOperations
         manager.close();
     }
 
+    /**
+     * Updates the given Person object in the database.
+     *
+     * @param object The Person object to update in the database.
+     */
     @Override
     public void dbUpdate(Object object)
     {
@@ -97,6 +130,13 @@ public class PersonConnecter implements DatabaseOperations
         manager.close();
     }
 
+    /**
+     * Searches the database for Person that match the given search filter.
+     *
+     * @param searchFilter the search filter to be applied to the Person search
+     *
+     * @return a list of Person that match the search filter
+     */
     @Override
     public List<Person> dbSerschforanythinhg(Object searchFilter)
     {

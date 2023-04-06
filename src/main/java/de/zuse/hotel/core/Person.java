@@ -5,13 +5,18 @@ import de.zuse.hotel.util.ZuseCore;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-
+/**
+ * representing a person with a unique ID, first name, last name,
+ * birthday, email, telephone number, and address.
+ */
 @Entity
 @Table(name = "Person")
 public class Person {
     private static final int TELEPHONE_NUMBER_COUNT = 12;
-
+    public static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Person_id", nullable = false, updatable = false)
@@ -42,6 +47,10 @@ public class Person {
         ZuseCore.check(telNumber.length() == TELEPHONE_NUMBER_COUNT, "The Telefonnr must contains" + TELEPHONE_NUMBER_COUNT + " nummbers");
         ZuseCore.check(address != null, "address can not be null!!");
         ZuseCore.check(is18OrOlder(birthday), "The Person must be 18 years old!!");
+
+        Pattern pattern = Pattern.compile(EMAIL_REGEX);
+        Matcher matcher = pattern.matcher(email);
+        ZuseCore.check(matcher.matches(), "The provided email address is not valid");
 
         this.firstName = firstName;
         this.lastName = lastName;
@@ -110,6 +119,13 @@ public class Person {
     public void setEmail(String email)
     {
         ZuseCore.check(email != null && !email.strip().isEmpty(), "The Email can not be null");
+
+
+        Pattern pattern = Pattern.compile(EMAIL_REGEX);
+        Matcher matcher = pattern.matcher(email);
+
+        ZuseCore.check(matcher.matches(), "The provided email address is not valid");
+
         this.email = email;
     }
 
@@ -149,6 +165,9 @@ public class Person {
                 '}';
     }
 
+    /**
+     * A utility function related to age calculation and validation.
+     */
     public static boolean is18OrOlder(LocalDate birthDate)
     {
         LocalDate now = LocalDate.now();

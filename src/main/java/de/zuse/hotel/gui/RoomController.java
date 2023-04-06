@@ -6,21 +6,18 @@ import de.zuse.hotel.db.BookingSearchFilter;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
+
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
+
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Consumer;
 
 public class RoomController implements ControllerApi
@@ -28,15 +25,13 @@ public class RoomController implements ControllerApi
     public TableView<Room> roomTable;
     public AnchorPane rooms;
     public Text windowTitel;
-    @FXML
-    ChoiceBox<Integer> floorChoiceBox;
+    public ChoiceBox<Integer> floorChoiceBox;
 
-    @FXML
-    private TableColumn<Room, Integer> roomNrCln;
-    @FXML
-    private TableColumn<Room, RoomSpecification.Types> roomTypeCln;
-    @FXML
-    private TableColumn<Room, Double> priceCln;
+    public TableColumn<Room, Integer> roomNrCln;
+
+    public TableColumn<Room, RoomSpecification.Types> roomTypeCln;
+
+    public TableColumn<Room, Double> priceCln;
 
     private Room currentSelectedRoom = null;
 
@@ -108,11 +103,11 @@ public class RoomController implements ControllerApi
     @FXML
     void handleAddRoomButtonAction(ActionEvent event) throws Exception
     {
-        JavaFxUtil.loadPopUpWindow(getClass().getResource("addRoom.fxml"),"Add a room");
+        JavaFxUtil.loadPopUpWindow(getClass().getResource("addRoom.fxml"), "Add a room", null);
     }
 
-    @FXML
-    void handelRemoveRoomButton(ActionEvent event)
+
+    public void handelRemoveRoomButton(ActionEvent event)
     {
         if (currentSelectedRoom == null)
         {
@@ -157,9 +152,13 @@ public class RoomController implements ControllerApi
 
     public void addFloor(ActionEvent actionEvent) throws IOException
     {
-        JavaFxUtil.loadPopUpWindow(getClass().getResource("floorCapacity.fxml"),"Add a floor");
+        JavaFxUtil.loadPopUpWindow(getClass().getResource("floorCapacity.fxml"), "Add a floor", null);
     }
 
+    public void addServices(ActionEvent actionEvent)throws IOException
+    {
+        JavaFxUtil.loadPopUpWindow(getClass().getResource("addServices.fxml"), "Add a Services", null);
+    }
     public void setupStyling()
     {
         rooms.getStylesheets().clear();
@@ -169,7 +168,7 @@ public class RoomController implements ControllerApi
         roomTable.getStylesheets().add(SettingsController.getCorrectStylePath("Tableview.css"));
         floorChoiceBox.getStylesheets().add(SettingsController.getCorrectStylePath("BookingWindow.css"));
         rooms.getStylesheets().addAll(SettingsController.getCorrectStylePath("NavMenu.css")
-                ,SettingsController.getCorrectStylePath("background.css"));
+                , SettingsController.getCorrectStylePath("background.css"));
     }
 
 }

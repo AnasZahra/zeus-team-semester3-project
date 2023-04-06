@@ -14,8 +14,17 @@ import java.util.List;
 import java.util.function.Consumer;
 
 
+/**
+ * This class implements the DatabaseOperations interface to perform CRUD operations on Booking objects in the database.
+ */
 public class BookingConnector implements DatabaseOperations
 {
+
+    /**
+     * Creates a new record for the given Booking object in the database.
+     *
+     * @param object The Booking object to create in the database.
+     */
     @Override
     public void dbCreate(Object object)
     {
@@ -30,6 +39,11 @@ public class BookingConnector implements DatabaseOperations
         manager.close();
     }
 
+    /**
+     * Searches the database for all Booking objects and returns them as a List.
+     *
+     * @return A List containing all Booking objects in the database.
+     */
     @Override
     public List<Booking> dbsearchAll()
     {
@@ -43,6 +57,12 @@ public class BookingConnector implements DatabaseOperations
         return allBooking;
     }
 
+    /**
+     * Searches the database for an Booking object with the given ID.
+     *
+     * @param id The ID of the Booking object to search for.
+     * @return The Booking object with the given ID, or null if not found.
+     */
     @Override
     public <T> T dbsearchById(int id)
     {
@@ -54,6 +74,11 @@ public class BookingConnector implements DatabaseOperations
         return (T) booking;
     }
 
+    /**
+     * Cancel the all Booking in the database and Update the database
+     *
+     *
+     */
     @Override
     public void dbRemoveAll()
     {
@@ -67,6 +92,11 @@ public class BookingConnector implements DatabaseOperations
         });
     }
 
+    /**
+     * Cancel the Booking object with the given ID in the database and Update the database
+     *
+     * @param id The ID of the Address object to cancel.
+     */
     @Override
     public void dbRemoveById(int id)
     {
@@ -75,6 +105,12 @@ public class BookingConnector implements DatabaseOperations
         dbUpdate(booking);
     }
 
+
+    /**
+     * Updates the given Booking object in the database.
+     *
+     * @param object The Booking object to update in the database.
+     */
     @Override
     public void dbUpdate(Object object)
     {
@@ -88,6 +124,14 @@ public class BookingConnector implements DatabaseOperations
         manager.getTransaction().commit();
         manager.close();
     }
+
+    /**
+     * Searches the database for bookings that match the given search filter.
+     *
+     * @param searchFilter the search filter to be applied to the booking search
+     *
+     * @return a list of bookings that match the search filter
+    */
 
     @Override
     public List<Booking> dbSerschforanythinhg(Object searchFilter)
@@ -146,14 +190,19 @@ public class BookingConnector implements DatabaseOperations
         return query.getResultList();
     }
 
+    /**
+     * Searches the database for all bookings that fall between a given start and end date.
+     *
+     * @param start The start date of the search range.
+     *
+     * @param end The end date of the search range.
+     *
+     * @return A list of bookings that fall between the start and end date.
+     */
     public List<Booking> dbSearchBookingBetween(LocalDate start, LocalDate end)
     {
         EntityManager manager = JDBCConnecter.getEntityManagerFactory().createEntityManager();
-        List<Booking> bookings = manager.createNativeQuery(
-                        "SELECT * FROM Bookings b " +
-                                "WHERE b.Start_Date <= :searchEndDate " +
-                                "AND b.End_Date >= :searchStartDate",
-                        Booking.class)
+        List<Booking> bookings = manager.createNativeQuery("SELECT * FROM Bookings b WHERE b.Start_Date <= :searchEndDate AND b.End_Date >= :searchStartDate", Booking.class)
                 .setParameter("searchStartDate", start)
                 .setParameter("searchEndDate", end)
                 .getResultList();

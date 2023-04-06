@@ -8,18 +8,14 @@ import javafx.scene.layout.AnchorPane;
 
 public class BookingContainerController
 {
-    @FXML
+
     public AnchorPane bookingContainer;
-    @FXML
+
     public Label arrivalDate;
-    @FXML
     public Label departureDate;
-    @FXML
     public Label guestName;
-    @FXML
     public Label roomAndFloor;
     public Button canceledBooking;
-
     private int bookingID;
 
     public BookingContainerController()
@@ -45,7 +41,10 @@ public class BookingContainerController
     public void setStyle(boolean canceld)
     {
         bookingContainer.getStylesheets().add(SettingsController.getCorrectStylePath("background.css"));
-        canceledBooking.setVisible(canceld);
+        if (canceld)
+            canceledBooking.setStyle("-fx-background-color:  #f54e4e");
+        else
+            canceledBooking.setStyle("-fx-background-color:  #1ef2d9");
     }
 }
 

@@ -19,14 +19,14 @@ import javafx.stage.Stage;
 
 public class LoadingPageController implements Initializable
 {
-    @FXML
-    AnchorPane anchor;
+    public AnchorPane anchor;
     Thread loadingThread;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+
         loadingThread = new Thread(() ->
         {
             Gui.getInstance().startLoading();

@@ -17,8 +17,8 @@ public class InfoController
     public Button noBtn;
     public Button okBtn;
     public AnchorPane root;
-    @FXML
-    private Text displayText;
+
+    public Text displayText;
 
     private boolean answer;
 
@@ -81,27 +81,26 @@ public class InfoController
         return false;
     }
 
-    @FXML
-    void setText(String msg)
+
+    public void setText(String msg)
     {
         displayText.setText(msg);
     }
 
-    @FXML
-    void cancel(ActionEvent event)
+
+    public void cancel(ActionEvent event)
     {
         ((Stage) displayText.getScene().getWindow()).close();
     }
 
-    @FXML
-    void onYesBtnClicked(ActionEvent event)
+
+    public void onYesBtnClicked(ActionEvent event)
     {
         answer = true;
         cancel(event);
     }
 
-    @FXML
-    void onNoBtnClicked(ActionEvent event)
+    public void onNoBtnClicked(ActionEvent event)
     {
         answer = false;
         cancel(event);

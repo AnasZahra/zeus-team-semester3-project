@@ -23,20 +23,19 @@ public class SceneController implements ControllerApi
     public AnchorPane background;
     public VBox menuBar;
 
-    @FXML
-    private Button guestBtnId;
-    @FXML
-    private Button roomsBtnId;
-    @FXML
-    private Button settingsBtnId;
+    public Button guestBtnId;
 
-    @FXML
-    private Button dashboardBtnId;
+    public Button roomsBtnId;
 
-    @FXML
-    private BorderPane borderPane;
+    public Button settingsBtnId;
 
-    public SceneController(){}
+    public Button dashboardBtnId;
+
+    public BorderPane borderPane;
+
+    public SceneController()
+    {
+    }
 
     public void onClickDashboardBtn(ActionEvent event) throws IOException
     {
@@ -83,10 +82,9 @@ public class SceneController implements ControllerApi
         selectedBtn.setStyle("-fx-cursor: hand; -fx-text-fill: #ffffff;"); //disable hovor effect
     }
 
-    @FXML
-    void handleBookRoomButtonAction(ActionEvent event) throws Exception
+    public void handleBookRoomButtonAction(ActionEvent event) throws Exception
     {
-        JavaFxUtil.loadPopUpWindow(getClass().getResource("BookingWindow.fxml"),"Book a room");
+        JavaFxUtil.loadPopUpWindow(getClass().getResource("BookingWindow.fxml"), "Book a room", null);
     }
 
     @Override
@@ -107,6 +105,8 @@ public class SceneController implements ControllerApi
     }
 
     @Override
-    public void onUpdate(){}
+    public void onUpdate()
+    {
+    }
 
 }

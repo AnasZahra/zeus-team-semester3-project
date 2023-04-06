@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class GuestController implements ControllerApi
@@ -31,30 +32,26 @@ public class GuestController implements ControllerApi
     public AnchorPane root;
     public Text guestTitleId;
     public Text searchTextid;
-    @FXML
-    private TableView<Person> guestTable;
+    public TableView<Person> guestTable;
 
-    @FXML
-    private TableColumn<Person, Integer> guestIdCln;
+    public TableColumn<Person, Integer> guestIdCln;
 
-    @FXML
-    private TableColumn<Person, String> firstNameCln;
 
-    @FXML
-    private TableColumn<Person, String> lastNameCln;
-    @FXML
-    private TableColumn<Person, LocalDate> birthdayCln;
-    @FXML
-    private TableColumn<Person, String> emailCln;
-    @FXML
-    private TableColumn<Person, String> telefonCln;
-    @FXML
-    private TableColumn<Person, Address> addressCln;
+    public TableColumn<Person, String> firstNameCln;
+
+    public TableColumn<Person, String> lastNameCln;
+
+    public TableColumn<Person, LocalDate> birthdayCln;
+    public TableColumn<Person, String> emailCln;
+
+    public TableColumn<Person, String> telefonCln;
+
+    public TableColumn<Person, Address> addressCln;
 
     private Person selectedUser = null;
 
-    @FXML
-    private TextField seachBarID;
+
+    public TextField seachBarID;
 
     @Override
     public void onStart()
@@ -121,12 +118,15 @@ public class GuestController implements ControllerApi
 
     public void createFXMLoader(String string, String description) throws Exception
     {
-        Object obj = JavaFxUtil.loadPopUpWindow(getClass().getResource(string), description);
-        if (obj instanceof EditGuestController)
+        Consumer<Object> consumer = (Object obj) ->
         {
-            ((EditGuestController) obj).setSelectedUser(selectedUser);
-            ((EditGuestController) obj).onStart();// this is just an exception for edit
-        }
+            if (obj instanceof EditGuestController)
+            {
+                ((EditGuestController) obj).setSelectedUser(selectedUser);
+            }
+        };
+
+        JavaFxUtil.loadPopUpWindow(getClass().getResource(string), description, consumer);
     }
 
     public void searchGuests(String string)

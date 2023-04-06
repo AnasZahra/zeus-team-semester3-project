@@ -13,12 +13,10 @@ public class FloorCapacityController implements ControllerApi
 {
 
     public AnchorPane floorCapacityRoot;
-    @FXML
-    private TextField capacityTextField;
+    public TextField capacityTextField;
 
     public void addCapacity(ActionEvent actionEvent)
     {
-
         if (capacityTextField.getText().isEmpty())
         {
             InfoController.showMessage(InfoController.LogLevel.Error, "Floor capacity", "Please enter floor capacity!");

@@ -1,22 +1,17 @@
 package de.zuse.hotel.core;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.itextpdf.text.RomanList;
 import de.zuse.hotel.util.ZuseCore;
-import javafx.scene.control.TableColumn;
-
-
-import javax.persistence.Table;
 import java.util.ArrayList;
 
+/**
+ * Represents a hotel room.
+ */
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
 public class Room
 {
     private int roomNr;
-
     private int floorNr;
     private double price;
     private RoomSpecification.Types roomType;
@@ -25,7 +20,6 @@ public class Room
     private transient RoomSpecification.Status status; // from database
     @JsonIgnore
     private transient ArrayList<Booking> bookings;// from database
-
     private static final int DEFAULT_BOOKING_COUNT = 5;
 
     // Without a default constructor, Jackson will throw an exception
@@ -33,12 +27,12 @@ public class Room
 
     public Room(Floor floor, int roomNr, double price)
     {
+        double roundedValue =  Math.round(price * 100) / 100;
         ZuseCore.check(roomNr >= 0, "roomNr can not be null");
-        ZuseCore.check(price > 0, "price can not be null");
-
+        ZuseCore.check(roundedValue > 0.0, "price can not be null");
         this.floorNr = floor.getFloorNr();
         this.roomNr = roomNr;
-        this.price = price;
+        this.price = roundedValue;
     }
 
     //TODO: maybe take only the floorNr, no need to take Floor ref
@@ -77,7 +71,9 @@ public class Room
 
     public void setPrice(double price)
     {
-        this.price = price;
+        double roundedValue =  Math.round(price * 100) / 100;
+        ZuseCore.check(roundedValue > 0.0, "price can not be null");
+        this.price = roundedValue;
     }
 
     public RoomSpecification.Types getRoomType()

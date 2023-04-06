@@ -25,14 +25,14 @@ public class AddRoomWindow implements ControllerApi
     public TextField roomprice;
     public AnchorPane Window;
 
-    @FXML
-    TextField roomnumber;
 
-    @FXML
-    ChoiceBox<Integer> floorChoiceBox;
+    public TextField roomnumber;
 
-    @FXML
-    ChoiceBox<RoomSpecification.Types> roomType;
+
+    public ChoiceBox<Integer> floorChoiceBox;
+
+
+    public ChoiceBox<RoomSpecification.Types> roomType;
 
 
     @Override
@@ -80,8 +80,8 @@ public class AddRoomWindow implements ControllerApi
         closeWindow();
     }
 
-    @FXML
-    void closeWindow()
+
+    public void closeWindow()
     {
         Stage stage = (Stage) roomnumber.getScene().getWindow();
         stage.close();

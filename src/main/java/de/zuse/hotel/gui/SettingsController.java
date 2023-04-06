@@ -19,12 +19,9 @@ public class SettingsController implements Initializable
         LIGHT, DARK;
     }
 
-    @FXML
-    AnchorPane anchor;
-    @FXML
-    Button imageD;
-    @FXML
-    Button imageL;
+    public AnchorPane anchor;
+    public Button imageD;
+    public Button imageL;
 
     public static SystemMode currentMode = SystemMode.DARK;
     //relative path to project.dir
@@ -42,7 +39,6 @@ public class SettingsController implements Initializable
 
             currentMode = SystemMode.DARK;
             Gui.getInstance().restartApp();
-            JavaFxUtil.closeCurrentStage();
         });
     }
 
@@ -55,7 +51,6 @@ public class SettingsController implements Initializable
 
             currentMode = SystemMode.LIGHT;
             Gui.getInstance().restartApp();
-            JavaFxUtil.closeCurrentStage();
         });
     }
 

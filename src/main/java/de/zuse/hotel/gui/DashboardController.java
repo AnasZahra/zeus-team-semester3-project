@@ -2,10 +2,13 @@ package de.zuse.hotel.gui;
 
 import de.zuse.hotel.core.Booking;
 import de.zuse.hotel.core.HotelCore;
+import de.zuse.hotel.db.BookingSearchFilter;
 import de.zuse.hotel.util.pdf.PdfFile;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
@@ -15,6 +18,8 @@ import javafx.stage.FileChooser;
 import javafx.util.Callback;
 
 import java.io.File;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
 
 public class DashboardController implements ControllerApi
@@ -22,7 +27,8 @@ public class DashboardController implements ControllerApi
     public ListView<BookingContainerController> listView;
     public AnchorPane dashboardRoot;
     public ImageView deleteBtnImageId;
-
+    @FXML
+    private ChoiceBox<String> bFilterChoiseBoxID;
 
     @Override
     public void onStart()
@@ -51,6 +57,14 @@ public class DashboardController implements ControllerApi
                 };
             }
         });
+
+        bFilterChoiseBoxID.getItems().addAll("All Bookings", "Canceled Bookings", "Valid Bookings");
+        bFilterChoiseBoxID.setValue("All Bookings");
+
+        bFilterChoiseBoxID.getSelectionModel().selectedItemProperty().addListener( //filter bookings trigger
+                (observable, oldValue, newValue) -> {
+                    filterBookings(bFilterChoiseBoxID.getValue());
+                });
 
         viewBookingData();
     }
@@ -158,6 +172,36 @@ public class DashboardController implements ControllerApi
                 , SettingsController.getCorrectStylePath("NavMenu.css"));
 
         listView.getStylesheets().add(SettingsController.getCorrectStylePath("Tableview.css"));
+        bFilterChoiseBoxID.getStylesheets().add(SettingsController.getCorrectStylePath("BookingWindow.css"));
+    }
+
+    public void filterBookings(String s){
+        if(s  == "All Bookings"){
+            viewBookingData();
+        }else if(s == "Canceled Bookings"){
+            BookingSearchFilter f2 = new BookingSearchFilter();
+            f2.canceled = true;
+            List<Booking> bookings = HotelCore.get().getBookingByFilter(f2);
+            showFilteredBooklkings(bookings);
+
+        }else{
+            BookingSearchFilter f3 = new BookingSearchFilter();
+            f3.canceled = false;
+            List<Booking> bookings = HotelCore.get().getBookingByFilter(f3);
+            showFilteredBooklkings(bookings);
+        }
+    }
+
+    public void showFilteredBooklkings(List<Booking> bookings){
+        listView.getItems().clear();
+        HotelCore.get().getAllBooking().forEach(new Consumer<Booking>() {
+            @Override
+            public void accept(Booking booking) {
+                if (bookings.contains(booking)) {
+                    addBookingToDashboard(booking);
+                }
+            }
+        });
     }
 
 }
