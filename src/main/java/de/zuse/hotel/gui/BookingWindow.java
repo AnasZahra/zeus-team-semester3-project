@@ -95,7 +95,7 @@ public class BookingWindow implements ControllerApi
 
         Booking booking = new Booking(roomNr, floorNr, arrivalDate.getValue(), depatureDate.getValue(), guest);
         booking.setGuestsNum(guestNum);
-
+        
         extraServices.getCheckModel().getCheckedItems().forEach(new Consumer<String>()
         {
             @Override
@@ -106,6 +106,7 @@ public class BookingWindow implements ControllerApi
         });
 
         booking.pay(LocalDate.now(), paymentType, Float.parseFloat(priceField.getText()));
+
         boolean state = HotelCore.get().addBooking(booking);
         if (state)
             InfoController.showMessage(InfoController.LogLevel.Info, "Add Booking", "Booking added successfully");
