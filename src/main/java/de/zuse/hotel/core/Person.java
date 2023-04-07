@@ -55,7 +55,7 @@ public class Person {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthday = birthday;
-        this.email = email;
+        this.email = email.trim().toLowerCase();
         this.telNumber = telNumber;
         this.address = address;
     }
@@ -118,8 +118,8 @@ public class Person {
 
     public void setEmail(String email)
     {
-        ZuseCore.check(email != null && !email.strip().isEmpty(), "The Email can not be null");
-
+        ZuseCore.check(email != null && !email.trim().isEmpty(), "The Email can not be null");
+        email = email.trim().toLowerCase();
 
         Pattern pattern = Pattern.compile(EMAIL_REGEX);
         Matcher matcher = pattern.matcher(email);

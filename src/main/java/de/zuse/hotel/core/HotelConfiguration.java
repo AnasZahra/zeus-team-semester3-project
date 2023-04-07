@@ -168,12 +168,12 @@ public class HotelConfiguration
      */
     public void addNewRoomService(String serviceName, double price)
     {
+        serviceName = serviceName.toLowerCase();
         ZuseCore.check(!roomServices.containsKey(serviceName),
                 "a service with same name has already been added!");
 
         serviceName = serviceName.toLowerCase();
         roomServices.put(serviceName, price);
-
     }
 
     /**

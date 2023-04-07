@@ -58,7 +58,7 @@ public class HotelCore implements HotelCoreApi
      * hotel database API, and setting the instance variable to null.
      *
      * @throws BreakPointException if there is an error while serializing the hotel configuration or settings or
-     * if there is an error while shutting down the hotel database API.
+     *                             if there is an error while shutting down the hotel database API.
      */
     public static void shutdown()
     {
@@ -124,6 +124,15 @@ public class HotelCore implements HotelCoreApi
     @Override
     public boolean addGuest(Person guest)
     {
+        // this is here because it's an app-logic details not db-impl details
+        {
+            PersonSearchFilter personSearchFilter = new PersonSearchFilter();
+            personSearchFilter.email = guest.getEmail();
+            // should return a list with 0 size to add the guest to db
+            List<Person> personList = hotelDatabaseApi.getPersonsByFilter(personSearchFilter);
+            ZuseCore.check(personList.size() == 0,"please try another email, this email already exist");
+        }
+
         boolean state = hotelDatabaseApi.addGuest(guest);
         if (updateCallback != null)
             updateCallback.run();
@@ -196,6 +205,15 @@ public class HotelCore implements HotelCoreApi
     @Override
     public boolean updateGuest(Person guest)
     {
+        // this is here because it's an app-logic details not db-impl details
+        {
+            PersonSearchFilter personSearchFilter = new PersonSearchFilter();
+            personSearchFilter.email = guest.getEmail();
+            // should return a list with 0 size to add the guest to db
+            List<Person> personList = hotelDatabaseApi.getPersonsByFilter(personSearchFilter);
+            ZuseCore.check(personList.size() == 0,"please try another email, this email already exist");
+        }
+
         boolean state = hotelDatabaseApi.updateGuest(guest);
         if (updateCallback != null)
             updateCallback.run();
@@ -203,9 +221,9 @@ public class HotelCore implements HotelCoreApi
         return state;
     }
 
-
     /**
      * Adds a new booking to the database.
+     *
      * @param booking The booking to be added to the database.
      * @return True if the booking was successfully added to the database, false otherwise.
      */
@@ -221,6 +239,7 @@ public class HotelCore implements HotelCoreApi
 
     /**
      * Removes a booking from the database using the booking ID.
+     *
      * @param bookingID The ID of the booking to be removed.
      * @return True if the booking was successfully removed from the database, false otherwise.
      */
@@ -236,6 +255,7 @@ public class HotelCore implements HotelCoreApi
 
     /**
      * Removes a booking from the database using a Booking object.
+     *
      * @param booking The booking to be removed from the database.
      * @return True if the booking was successfully removed from the database, false otherwise.
      */
@@ -247,6 +267,7 @@ public class HotelCore implements HotelCoreApi
 
     /**
      * Retrieves a booking from the database using the booking ID.
+     *
      * @param bookingID The ID of the booking to be retrieved.
      * @return The Booking object corresponding to the booking ID, null if the booking does not exist.
      */
@@ -258,6 +279,7 @@ public class HotelCore implements HotelCoreApi
 
     /**
      * Retrieves all bookings from the database.
+     *
      * @return A List of all Booking objects in the database, empty if there are no bookings.
      */
     @Override
@@ -268,6 +290,7 @@ public class HotelCore implements HotelCoreApi
 
     /**
      * Retrieves a List of Booking objects from the database based on the specified search filter.
+     *
      * @param bookingSearchFilter The filter to be applied to the database query.
      * @return A List of Booking objects that match the search filter criteria, empty if there are no matches.
      */
@@ -279,8 +302,9 @@ public class HotelCore implements HotelCoreApi
 
     /**
      * Retrieves a List of all Booking objects in the database that have a start date between the specified start and end dates.
+     *
      * @param start The start date of the range.
-     * @param end The end date of the range.
+     * @param end   The end date of the range.
      * @return A List of Booking objects that have a start date between the specified start and end dates, empty if there are no matches.
      */
     @Override
@@ -291,6 +315,7 @@ public class HotelCore implements HotelCoreApi
 
     /**
      * Updates an existing booking in the database.
+     *
      * @param booking The updated Booking object.
      * @return True if the booking was successfully updated in the database, false otherwise.
      */
@@ -306,6 +331,7 @@ public class HotelCore implements HotelCoreApi
 
     /**
      * Generates a PDF file of the booking invoice.
+     *
      * @param bookingID The ID of the booking for which to generate the invoice PDF.
      * @return The generated PdfFile object, null if the booking is cancelled or does not exist.
      */
@@ -320,6 +346,7 @@ public class HotelCore implements HotelCoreApi
 
     /**
      * Returns a list of all floors in the hotel
+     *
      * @return a list of all floors in the hotel
      */
     @Override
@@ -330,6 +357,7 @@ public class HotelCore implements HotelCoreApi
 
     /**
      * Returns a list of all rooms on the specified floor
+     *
      * @param floorNr the floor number to get rooms from
      * @return a list of all rooms on the specified floor
      * @throws BreakPointException if floorNr is greater than or equal to the number of floors in the hotel
@@ -344,8 +372,9 @@ public class HotelCore implements HotelCoreApi
 
     /**
      * Returns a room object given the floor number and room number
+     *
      * @param floorNr the floor number of the room
-     * @param roomNr the room number
+     * @param roomNr  the room number
      * @return the room object
      * @throws BreakPointException if the floor or room does not exist in the hotel
      */
@@ -363,6 +392,7 @@ public class HotelCore implements HotelCoreApi
 
     /**
      * Returns whether or not a floor with the specified floor number exists in the hotel
+     *
      * @param floorNr the floor number to check
      * @return true if the floor exists, false otherwise
      */
@@ -379,8 +409,9 @@ public class HotelCore implements HotelCoreApi
 
     /**
      * Returns whether or not a room with the specified floor number and room number exists in the hotel
+     *
      * @param floorNr the floor number of the room
-     * @param roomNr the room number
+     * @param roomNr  the room number
      * @return true if the room exists, false otherwise
      * @throws BreakPointException if the specified floor does not exist in the hotel
      */
@@ -401,8 +432,9 @@ public class HotelCore implements HotelCoreApi
 
     /**
      * Removes a room from the hotel configuration given the floor and room numbers
+     *
      * @param floorNr the floor number of the room
-     * @param roomNr the room number
+     * @param roomNr  the room number
      */
     @Override
     public void removeRoomFromHotel(int floorNr, int roomNr)
@@ -414,6 +446,7 @@ public class HotelCore implements HotelCoreApi
 
     /**
      * Adds a new floor to the hotel configuration
+     *
      * @param floor the floor to add
      */
     @Override
@@ -425,7 +458,7 @@ public class HotelCore implements HotelCoreApi
     }
 
     /**
-     *  Adds a new room to the hotel configuration on the specified
+     * Adds a new room to the hotel configuration on the specified
      */
     @Override
     public void addNewRoomToHotel(int floorNr, Room room)
@@ -437,6 +470,7 @@ public class HotelCore implements HotelCoreApi
 
     /**
      * Returns the floor with the specified floor number.
+     *
      * @param floorNr The floor number of the floor to be returned.
      * @return The floor with the specified floor number.
      */
@@ -448,8 +482,9 @@ public class HotelCore implements HotelCoreApi
 
     /**
      * Returns the room with the specified floor number and room number.
+     *
      * @param floorNr The floor number of the room.
-     * @param roomNr The room number of the room.
+     * @param roomNr  The room number of the room.
      * @return The room with the specified floor number and room number.
      */
     @Override
@@ -460,17 +495,20 @@ public class HotelCore implements HotelCoreApi
 
     /**
      * Adds a new room service with the specified name and price to the hotel configuration.
+     *
      * @param serviceName The name of the new room service.
-     * @param price The price of the new room service.
+     * @param price       The price of the new room service.
      */
     @Override
     public void addNewRoomService(String serviceName, double price)
     {
         hotelConfiguration.addNewRoomService(serviceName, price);
+        serializeHotel();
     }
 
     /**
      * Returns the price of the room service with the specified name.
+     *
      * @param serviceName The name of the room service.
      * @return The price of the room service with the specified name.
      */
@@ -482,6 +520,7 @@ public class HotelCore implements HotelCoreApi
 
     /**
      * Checks if the hotel configuration contains a room service with the specified name.
+     *
      * @param serviceName The name of the room service to check.
      * @return True if the hotel configuration contains a room service with the specified name, false otherwise.
      */
@@ -493,6 +532,7 @@ public class HotelCore implements HotelCoreApi
 
     /**
      * Returns a list of all the room services in the hotel configuration.
+     *
      * @return A list of all the room services in the hotel configuration.
      */
     @Override
@@ -523,6 +563,7 @@ public class HotelCore implements HotelCoreApi
 
     /**
      * Binds a callback function to be called whenever the hotel configuration or database is updated.
+     *
      * @param action The callback function to be called.
      */
     @Override

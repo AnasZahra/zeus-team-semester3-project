@@ -39,7 +39,7 @@ public class HotelDatabaseApiImpl implements HotelDatabaseApi
     {
         PersonConnecter personConnecter = new PersonConnecter();
         personConnecter.dbCreate(guest);
-        return true; // to do is that dose the Hibernate return folse and t
+        return true;
     }
 
     /**

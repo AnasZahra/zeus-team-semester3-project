@@ -56,17 +56,28 @@
     -fx-background-color: #191717;
     -fx-text-fill: #FFFFFF ;
     -fx-mark-color: #F24E1E; // arrow color
-    -fx-effect: dropshadow(two-pass-box, #131212,0,0,0,2);
+    -fx-effect: dropshadow(two-pass-box, #191717,0,0,0,2);
     -fx-font-family: Gilroy;
 
 }
 
-.check-box .box {
+
+.choice-box .arrow {
     -fx-background-color: #F24E1E;
 }
 
+.choice-box .arrow-button {
+    -fx-background-color: white;
+    -fx-size: 5;
+}
 
+
+.check-box .box {
+    -fx-background-color: #F24E1E;
+    -fx-mark-color: #ffffff;
+}
 
 .check-box:selected .box {
     -fx-background-color: #F24E1E;
+    -fx-mark-color: #ffffff;
 }
