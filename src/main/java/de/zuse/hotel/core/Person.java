@@ -16,7 +16,8 @@ import java.util.regex.Pattern;
 @Table(name = "Person")
 public class Person {
     private static final int TELEPHONE_NUMBER_COUNT = 12;
-    public static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+    public static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-äöüÄÖÜß]+\\.)+[a-zA-Z]{2,7}$";
+    public static final String NAME_REGEX = "[A-Za-zÄäÖöÜüß\\s]+";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Person_id", nullable = false, updatable = false)
@@ -40,9 +41,9 @@ public class Person {
     public Person(String firstName, String lastName, LocalDate birthday, String email, String telNumber, Address address)
     {
         ZuseCore.check(firstName != null && !firstName.strip().isEmpty(), "The FirstName can not be null!");
-        ZuseCore.check(firstName.matches("[A-Za-z\\s]+"), "First Name should be only with chars!");
+        ZuseCore.check(firstName.matches(NAME_REGEX), "First Name should be only with chars!");
         ZuseCore.check(lastName != null && !lastName.strip().isEmpty(), "The LastName can not be null!");
-        ZuseCore.check(lastName.matches("[A-Za-z\\s]+"), "Last Name should be only with chars!");
+        ZuseCore.check(lastName.matches(NAME_REGEX), "Last Name should be only with chars!");
         ZuseCore.check(email != null && !email.strip().isEmpty(), "The Email can not be null");
         ZuseCore.check(telNumber.length() == TELEPHONE_NUMBER_COUNT, "The Telefonnr must contains" + TELEPHONE_NUMBER_COUNT + " nummbers");
         ZuseCore.check(address != null, "address can not be null!!");
@@ -70,7 +71,7 @@ public class Person {
     public void setFirstName(String firstName)
     {
         ZuseCore.check(firstName != null && !firstName.strip().isEmpty(), "The FirstName can not be null!");
-        ZuseCore.check(firstName.matches("[A-Za-z\\s]+"), "First Name should be only with chars!");
+        ZuseCore.check(firstName.matches(NAME_REGEX), "First Name should be only with chars!");
 
         this.firstName = firstName;
     }
@@ -83,7 +84,7 @@ public class Person {
     public void setLastName(String lastName)
     {
         ZuseCore.check(lastName != null && !lastName.strip().isEmpty(), "The LastName can not be null!");
-        ZuseCore.check(lastName.matches("[A-Za-z\\s]+"), "Last Name should be only with chars!");
+        ZuseCore.check(lastName.matches(NAME_REGEX), "Last Name should be only with chars!");
 
         this.lastName = lastName;
     }

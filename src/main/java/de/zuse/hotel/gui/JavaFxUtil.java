@@ -1,5 +1,6 @@
 package de.zuse.hotel.gui;
 
+import de.zuse.hotel.core.Person;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
@@ -19,8 +20,8 @@ public class JavaFxUtil
 {
     private static Stack<Stage> stageLayers = new Stack<>();
     private static ControllerApi currentController = null; // pointer to current Window for refresh data
-    
-    
+
+
     public static void makeFieldOnlyNumbers(TextField textField)
     {
         if (textField == null)
@@ -49,9 +50,9 @@ public class JavaFxUtil
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
             {
-                if (!newValue.matches("[A-Za-z\\s]+"))
+                if (!newValue.matches(Person.NAME_REGEX))
                 {
-                    textField.setText(newValue.replaceAll("[^A-Za-z\\s]", ""));
+                    textField.setText(newValue.replaceAll(Person.NAME_REGEX, ""));
                 }
             }
         });
@@ -93,12 +94,11 @@ public class JavaFxUtil
         stageLayers.push(stage);
         FXMLLoader fxmlLoader = new FXMLLoader(fxmlName);
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
-         
-        
-     
+
+
         if (windowTitle != null)
             stage.setTitle(windowTitle);
-       
+
         stage.setScene(scene);
         stage.show();
 
@@ -108,7 +108,8 @@ public class JavaFxUtil
             currentController.onStart();
         }
     }
-    public static void loadNewWindow(URL fxmlName, String windowTitle,String iconUrl, Stage stage) throws IOException
+
+    public static void loadNewWindow(URL fxmlName, String windowTitle, String iconUrl, Stage stage) throws IOException
     {
         if (stage == null)
             stage = new Stage();
@@ -116,9 +117,9 @@ public class JavaFxUtil
         stageLayers.push(stage);
         FXMLLoader fxmlLoader = new FXMLLoader(fxmlName);
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
-         Image icon = new Image(iconUrl);
-        
-     
+        Image icon = new Image(iconUrl);
+
+
         if (windowTitle != null)
             stage.setTitle(windowTitle);
         stage.getIcons().add(icon);
@@ -169,7 +170,7 @@ public class JavaFxUtil
 
     public static void closeAllStages()
     {
-        while(stageLayers.size() > 0)
+        while (stageLayers.size() > 0)
         {
             closeCurrentStage();
         }
