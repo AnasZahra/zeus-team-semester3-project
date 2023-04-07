@@ -49,7 +49,7 @@ public class LoadingPageController implements Initializable
             {
                 loadingThread.join();
                 JavaFxUtil.closeCurrentStage();
-                JavaFxUtil.loadNewWindow(getClass().getResource("MainWindow.fxml"),null,null);
+                JavaFxUtil.loadNewWindow(getClass().getResource("MainWindow.fxml"), "Hotel v1.0",getClass().getResource("images/Untitled.jpg").toExternalForm(), null);
             } catch (Exception e)
             {
                 if (ZuseCore.DEBUG_MODE)
