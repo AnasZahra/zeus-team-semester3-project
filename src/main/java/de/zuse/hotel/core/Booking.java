@@ -63,6 +63,7 @@ public class Booking
         ZuseCore.check(startDate != null, "please enter StartDate!");
         ZuseCore.check(endDate != null, "please enter End Date!");
         ZuseCore.check(guest != null, "Guest is null!!");
+        ZuseCore.check(startDate.isBefore(endDate), "Start Date should be before you end date");
 
         ZuseCore.isValidDate(startDate, "not Valid startDate!!");
         ZuseCore.isValidDate(endDate, "not Valid endDate!!");

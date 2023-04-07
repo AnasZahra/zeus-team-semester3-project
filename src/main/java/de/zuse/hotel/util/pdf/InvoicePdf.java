@@ -107,7 +107,7 @@ public class InvoicePdf implements PdfFile
                     extraServices += service;
                 }
 
-                document.add(new Paragraph("Total: " + daysBetween + " Day(s) * "
+                document.add(new Paragraph("Total: " + Math.abs(daysBetween) + " Day(s) * "
                         + roomPrice + " + Extra services: ("+extraServices+") = " + (totalPrice) + EURO_SYMOBL));
             }
 
