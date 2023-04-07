@@ -49,8 +49,10 @@ public class EditGuestController implements ControllerApi
             selectedUser.setEmail(emailID.getText());
             selectedUser.setTelNumber(telefonID.getText());
             selectedUser.setBirthday(bDateID.getValue());
+
             Address newAddress = new Address(countreyID.getText(), cityID.getText(), streetID.getText(),
                     plzID.getText(), Integer.parseInt(houseNrID.getText()));
+
             selectedUser.setAddress(newAddress);
             HotelCore.get().updateGuest(selectedUser); //update guest data
             JavaFxUtil.closeCurrentStage();
