@@ -30,7 +30,7 @@ public class LoadingPageController implements Initializable
     {
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), anchor);
         fadeTransition.setFromValue(1.0);
-        fadeTransition.setToValue(1.0);
+        fadeTransition.setToValue(0.5);
 
         fadeTransition.setOnFinished(value ->
         {
@@ -38,7 +38,7 @@ public class LoadingPageController implements Initializable
             {
                 loadingThread.join();
                 JavaFxUtil.closeCurrentStage();
-                JavaFxUtil.loadNewWindow(getClass().getResource("MainWindow.fxml"),null,null);
+                JavaFxUtil.loadNewWindow(getClass().getResource("MainWindow.fxml"), "Hotel v1.0",getClass().getResource("images/Untitled.jpg").toExternalForm(), null);
             } catch (Exception e)
             {
                 if (ZuseCore.DEBUG_MODE)

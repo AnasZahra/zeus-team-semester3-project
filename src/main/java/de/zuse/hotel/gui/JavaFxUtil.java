@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -18,7 +20,8 @@ public class JavaFxUtil
 {
     private static Stack<Stage> stageLayers = new Stack<>();
     private static ControllerApi currentController = null; // pointer to current Window for refresh data
-
+    
+    
     public static void makeFieldOnlyNumbers(TextField textField)
     {
         if (textField == null)
@@ -91,10 +94,35 @@ public class JavaFxUtil
         stageLayers.push(stage);
         FXMLLoader fxmlLoader = new FXMLLoader(fxmlName);
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
-
+         
+        
+     
         if (windowTitle != null)
             stage.setTitle(windowTitle);
+       
+        stage.setScene(scene);
+        stage.show();
 
+        if (fxmlLoader.getController() instanceof ControllerApi)
+        {
+            currentController = fxmlLoader.getController();
+            currentController.onStart();
+        }
+    }
+    public static void loadNewWindow(URL fxmlName, String windowTitle,String iconUrl, Stage stage) throws IOException
+    {
+        if (stage == null)
+            stage = new Stage();
+
+        stageLayers.push(stage);
+        FXMLLoader fxmlLoader = new FXMLLoader(fxmlName);
+        Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
+         Image icon = new Image(iconUrl);
+        
+     
+        if (windowTitle != null)
+            stage.setTitle(windowTitle);
+        stage.getIcons().add(icon);
         stage.setScene(scene);
         stage.show();
 

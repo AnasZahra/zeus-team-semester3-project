@@ -45,7 +45,8 @@ public class Gui extends Application implements Layer
     @Override
     public void start(Stage stage) throws Exception
     {
-        JavaFxUtil.loadNewWindow(getClass().getResource("LoadingPage.fxml"), "Hotel v1.0", stage);
+        JavaFxUtil.loadNewWindow(getClass().getResource("LoadingPage.fxml"), "Hotel v1.0",getClass().getResource("images/Untitled.jpg").toExternalForm(), stage);
+        
     }
 
     public void startLoading()
