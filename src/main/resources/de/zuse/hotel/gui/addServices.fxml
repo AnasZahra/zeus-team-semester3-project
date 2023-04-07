@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="addServiceRoot" prefHeight="308.0" prefWidth="290.0" styleClass="bg" stylesheets="@styling/darkMode/BookingWindow.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.AddServicesWindow">
+<AnchorPane fx:id="addServiceRoot" prefHeight="308.0" prefWidth="290.0" styleClass="bg" stylesheets="@styling/darkMode/BookingWindow.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.AddServicesWindowController">
     <children>
         <Text fill="WHITE" layoutX="31.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Add Service">
             <font>

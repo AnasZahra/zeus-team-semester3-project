@@ -6,7 +6,7 @@
 <?import org.controlsfx.control.*?>
 
 
-<AnchorPane fx:id="root" prefHeight="721.0" prefWidth="500.0" styleClass="bg" stylesheets="@styling/darkMode/BookingWindow.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.BookingWindow">
+<AnchorPane fx:id="root" prefHeight="721.0" prefWidth="500.0" styleClass="bg" stylesheets="@styling/darkMode/BookingWindow.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.zuse.hotel.gui.BookingWindowController">
 
     <children>
         <Label layoutX="61.0" layoutY="68.0" text="New Booking" textFill="WHITE">

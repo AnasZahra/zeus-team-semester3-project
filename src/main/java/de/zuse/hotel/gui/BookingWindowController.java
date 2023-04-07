@@ -22,7 +22,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class BookingWindow implements ControllerApi
+public class BookingWindowController implements ControllerApi
 {
     public Button closeBtnId;
     public TextField guestsNumber;
@@ -95,7 +95,7 @@ public class BookingWindow implements ControllerApi
 
         Booking booking = new Booking(roomNr, floorNr, arrivalDate.getValue(), depatureDate.getValue(), guest);
         booking.setGuestsNum(guestNum);
-        
+
         extraServices.getCheckModel().getCheckedItems().forEach(new Consumer<String>()
         {
             @Override
