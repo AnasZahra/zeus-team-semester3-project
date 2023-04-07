@@ -130,7 +130,7 @@ public class HotelCore implements HotelCoreApi
             personSearchFilter.email = guest.getEmail();
             // should return a list with 0 size to add the guest to db
             List<Person> personList = hotelDatabaseApi.getPersonsByFilter(personSearchFilter);
-            ZuseCore.check(personList.size() == 0,"please try another email, this email already exist");
+            ZuseCore.check(personList.size() == 0, "please try another email, this email already exist");
         }
 
         boolean state = hotelDatabaseApi.addGuest(guest);
@@ -211,7 +211,9 @@ public class HotelCore implements HotelCoreApi
             personSearchFilter.email = guest.getEmail();
             // should return a list with 0 size to add the guest to db
             List<Person> personList = hotelDatabaseApi.getPersonsByFilter(personSearchFilter);
-            ZuseCore.check(personList.size() == 0,"please try another email, this email already exist");
+
+            if (personList.size() > 0 && personList.get(0).getId() != guest.getId())
+                ZuseCore.check(false, "please try another email, this email already exist");
         }
 
         boolean state = hotelDatabaseApi.updateGuest(guest);
