@@ -4,7 +4,6 @@ import de.zuse.hotel.core.Address;
 import de.zuse.hotel.core.HotelCore;
 import de.zuse.hotel.core.Person;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;

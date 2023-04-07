@@ -4,12 +4,7 @@ import de.zuse.hotel.core.Floor;
 import de.zuse.hotel.core.HotelCore;
 import de.zuse.hotel.core.Room;
 import de.zuse.hotel.core.RoomSpecification;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -17,10 +12,9 @@ import javafx.stage.Stage;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-public class AddRoomWindow implements ControllerApi
+public class AddRoomWindowController implements ControllerApi
 {
     public TextField roomprice;
     public AnchorPane Window;

@@ -4,7 +4,6 @@ import de.zuse.hotel.core.Booking;
 import de.zuse.hotel.core.HotelCore;
 import de.zuse.hotel.db.BookingSearchFilter;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 

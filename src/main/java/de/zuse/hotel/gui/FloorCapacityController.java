@@ -3,11 +3,8 @@ package de.zuse.hotel.gui;
 import de.zuse.hotel.core.Floor;
 import de.zuse.hotel.core.HotelCore;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 
 public class FloorCapacityController implements ControllerApi
 {

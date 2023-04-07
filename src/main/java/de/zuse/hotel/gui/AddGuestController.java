@@ -4,7 +4,6 @@ import de.zuse.hotel.core.Address;
 import de.zuse.hotel.core.HotelCore;
 import de.zuse.hotel.core.Person;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -47,8 +46,10 @@ public class AddGuestController implements ControllerApi
         //add guest to database
         boolean info = HotelCore.get().addGuest(guest);
         if (info)
+        {
             InfoController.showMessage(InfoController.LogLevel.Info,
                     "Information", "Guest Added Successfully!");
+        }
 
         JavaFxUtil.closeCurrentStage();
     }
