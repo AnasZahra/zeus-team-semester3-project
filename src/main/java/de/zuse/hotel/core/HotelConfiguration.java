@@ -7,7 +7,6 @@ import de.zuse.hotel.util.ZuseCore;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
 
 /**
  * Used for saving how many floors in hotel (floors contain how many rooms)
@@ -38,12 +37,21 @@ public class HotelConfiguration
     /**
      * Sets the default floors and rooms for the hotel.
      */
-    public void setDefaultFloorsAndRooms()
+    public void setDefaultValues()
     {
         Floor floor = new Floor(1, 10);
         Floor floor2 = new Floor(2, 10);
         hotelFloors.add(floor);
         hotelFloors.add(floor2);
+
+        for (Floor f : hotelFloors)
+        {
+            for (int i = 1; i < 5; i++)
+            {
+                Room room = new Room(f, i, 200.0);
+                floor.addRoom(room);
+            }
+        }
 
         addNewRoomService("Dinner", 20.0f);
         addNewRoomService("Wifi", 10.0f);
@@ -65,7 +73,7 @@ public class HotelConfiguration
      * Adds a new room to a specific floor in the hotel.
      *
      * @param floorNr The number of the floor to add the room to.
-     * @param room The room to add.
+     * @param room    The room to add.
      */
     public void addNewRoom(int floorNr, Room room)
     {
@@ -83,7 +91,7 @@ public class HotelConfiguration
      * Removes a room from a specific floor in the hotel.
      *
      * @param floorNr The number of the floor to remove the room from.
-     * @param roomNr The number of the room to remove.
+     * @param roomNr  The number of the room to remove.
      */
     public void removeRoom(int floorNr, int roomNr)
     {
@@ -123,7 +131,7 @@ public class HotelConfiguration
      * Gets the room with the given room number on a specific floor.
      *
      * @param floorNr The number of the floor the room is on.
-     * @param roomNr The number of the room to get.
+     * @param roomNr  The number of the room to get.
      * @return The room with the given room number on the given floor, or null if no such room exists.
      */
     public Room getRoomByRoomNr(int floorNr, int roomNr)
@@ -164,7 +172,7 @@ public class HotelConfiguration
      * Adds a new room service to the hotel.
      *
      * @param serviceName The name of the new room service.
-     * @param price The price of the new room service.
+     * @param price       The price of the new room service.
      */
     public void addNewRoomService(String serviceName, double price)
     {

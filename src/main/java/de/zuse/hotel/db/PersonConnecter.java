@@ -159,10 +159,10 @@ public class PersonConnecter implements DatabaseOperations
             predicates.add(builder.equal(personRoot.get("lastName"), personSearchFilter.lastName));
 
         if (personSearchFilter.birthday != null)
-            predicates.add(builder.greaterThanOrEqualTo(personRoot.get("birthday"), personSearchFilter.birthday));
+            predicates.add(builder.equal(personRoot.get("birthday"), personSearchFilter.birthday));
 
         if (personSearchFilter.email != null)
-            predicates.add(builder.lessThanOrEqualTo(personRoot.get("email"), personSearchFilter.email));
+            predicates.add(builder.equal(personRoot.get("email"), personSearchFilter.email));
 
         if (personSearchFilter.telNumber != null)
             predicates.add(builder.equal(personRoot.get("telNumber"), personSearchFilter.telNumber));

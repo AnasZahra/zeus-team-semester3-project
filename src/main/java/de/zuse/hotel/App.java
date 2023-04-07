@@ -7,7 +7,7 @@ public class App
 {
     public static void main(String[] args)
     {
-        Gui layer = new Gui();
+        Layer layer = new Gui();
         //Layer layer = new ConsoleDialogLayer();
         layer.onStart();
         layer.run(args);

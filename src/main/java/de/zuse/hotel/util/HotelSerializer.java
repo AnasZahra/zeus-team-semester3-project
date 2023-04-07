@@ -3,7 +3,6 @@ package de.zuse.hotel.util;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import de.zuse.hotel.core.Floor;
 import de.zuse.hotel.core.HotelConfiguration;
 import de.zuse.hotel.gui.SettingsController;
 
@@ -11,10 +10,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Set;
 
 public class HotelSerializer
 {
@@ -54,7 +51,7 @@ public class HotelSerializer
         if (!canDeserialize(path))
         {
             HotelConfiguration defaultConfig = new HotelConfiguration();
-            defaultConfig.setDefaultFloorsAndRooms();
+            defaultConfig.setDefaultValues();
             return defaultConfig;
         }
 
