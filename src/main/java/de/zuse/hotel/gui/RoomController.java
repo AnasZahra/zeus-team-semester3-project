@@ -43,7 +43,10 @@ public class RoomController implements ControllerApi
         List<Room> rooms = HotelCore.get().getFloorByFloorNr(floorChoiceBox.getValue()).getRooms();
 
         if (rooms != null)
+        {
+            roomTable.getItems().clear();
             roomTable.setItems(FXCollections.observableArrayList(rooms));
+        }
     }
 
     public void refreschFloorData()
@@ -60,8 +63,8 @@ public class RoomController implements ControllerApi
     @Override
     public void onUpdate()
     {
-        viewRoomData();
         refreschFloorData();
+        viewRoomData();
     }
 
     public void onStart()
@@ -72,7 +75,7 @@ public class RoomController implements ControllerApi
         priceCln.setCellValueFactory(new PropertyValueFactory<>("price"));
         roomTypeCln.setCellValueFactory(new PropertyValueFactory<>("roomType"));
 
-        roomTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        //roomTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         roomTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener()
         {
             @Override
