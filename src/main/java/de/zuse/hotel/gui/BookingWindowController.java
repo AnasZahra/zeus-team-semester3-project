@@ -22,7 +22,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class BookingWindow implements ControllerApi
+public class BookingWindowController implements ControllerApi
 {
     public Button closeBtnId;
     public TextField guestsNumber;
@@ -106,6 +106,7 @@ public class BookingWindow implements ControllerApi
         });
 
         booking.pay(LocalDate.now(), paymentType, Float.parseFloat(priceField.getText()));
+
         boolean state = HotelCore.get().addBooking(booking);
         if (state)
             InfoController.showMessage(InfoController.LogLevel.Info, "Add Booking", "Booking added successfully");

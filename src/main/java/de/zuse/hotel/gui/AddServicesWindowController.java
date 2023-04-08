@@ -1,12 +1,11 @@
 package de.zuse.hotel.gui;
 
-import de.zuse.hotel.core.Floor;
 import de.zuse.hotel.core.HotelCore;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
-public class AddServicesWindow implements ControllerApi{
+public class AddServicesWindowController implements ControllerApi{
 
 
     public AnchorPane addServiceRoot;
