@@ -93,6 +93,7 @@ public class GuestController implements ControllerApi
 
     public void onRefresh()
     {
+        guestTable.getItems().clear();
         List<Person> personList = HotelCore.get().getAllGuest();
         ObservableList<Person> pList = FXCollections.observableArrayList(personList);
         guestTable.setItems(pList);

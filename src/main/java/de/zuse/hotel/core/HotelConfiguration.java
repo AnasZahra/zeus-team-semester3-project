@@ -44,14 +44,27 @@ public class HotelConfiguration
         hotelFloors.add(floor);
         hotelFloors.add(floor2);
 
-        for (Floor f : hotelFloors)
-        {
-            for (int i = 1; i < 5; i++)
-            {
-                Room room = new Room(f, i, 200.0);
-                floor.addRoom(room);
-            }
-        }
+        Room room1 = new Room(floor, 1, 100.0, RoomSpecification.Types.SINGLE);
+        Room room2 = new Room(floor, 2, 200.0, RoomSpecification.Types.DOUBLE);
+        Room room3 = new Room(floor, 3, 300.0, RoomSpecification.Types.DOUBLE);
+        Room room4 = new Room(floor, 4, 500.0, RoomSpecification.Types.FAMILY);
+        Room room5 = new Room(floor, 5, 75.0, RoomSpecification.Types.SINGLE);
+
+        Room room6 = new Room(floor2, 1, 200.0, RoomSpecification.Types.DOUBLE);
+        Room room7 = new Room(floor2, 2, 300.0, RoomSpecification.Types.FAMILY);
+        Room room8 = new Room(floor2, 3, 500.0, RoomSpecification.Types.SINGLE);
+        Room room9 = new Room(floor2, 4, 75.0, RoomSpecification.Types.DOUBLE);
+
+        addNewRoom(floor.getFloorNr(), room1);
+        addNewRoom(floor.getFloorNr(), room2);
+        addNewRoom(floor.getFloorNr(), room3);
+        addNewRoom(floor.getFloorNr(), room4);
+        addNewRoom(floor.getFloorNr(), room5);
+
+        addNewRoom(floor2.getFloorNr(), room6);
+        addNewRoom(floor2.getFloorNr(), room7);
+        addNewRoom(floor2.getFloorNr(), room8);
+        addNewRoom(floor2.getFloorNr(), room9);
 
         addNewRoomService("Dinner", 20.0f);
         addNewRoomService("Wifi", 10.0f);
@@ -83,8 +96,13 @@ public class HotelConfiguration
         for (Floor floor : hotelFloors)
         {
             if (floor.getFloorNr() == floorNr)
+            {
                 floor.addRoom(room);
+                return;
+            }
         }
+
+        ZuseCore.check(false, "Could not find floor Number");
     }
 
     /**
