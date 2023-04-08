@@ -1,5 +1,6 @@
 package de.zuse.hotel.gui;
 
+
 import de.zuse.hotel.Layer;
 import de.zuse.hotel.core.HotelCore;
 import de.zuse.hotel.util.ZuseCore;
@@ -7,6 +8,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
 
 
 public class Gui extends Application implements Layer
@@ -27,6 +29,7 @@ public class Gui extends Application implements Layer
     {
         System.out.println("On Starting The Hotel App...");
         ZuseCore.bindCallbackErrorAction(this::handleErrorMessages);
+
     }
 
     @Override
@@ -45,16 +48,18 @@ public class Gui extends Application implements Layer
     @Override
     public void start(Stage stage) throws Exception
     {
-        JavaFxUtil.loadNewWindow(getClass().getResource("LoadingPage.fxml"), "Hotel v1.0",getClass().getResource("images/Untitled.jpg").toExternalForm(), stage);
-        
+        JavaFxUtil.loadNewWindow(getClass().getResource("LoadingPage.fxml"), "Hotel v1.0",
+                getClass().getResource("images/Untitled.jpg").toExternalForm(), stage);
     }
 
     public void startLoading()
     {
         HotelCore.init();
         HotelCore.get().bindOnUpdateAction(JavaFxUtil::onUpdate);
-        // gif Image takes so long, so we load it at the beginning
-        image = new Image(getClass().getResource("images/settingsBackground.gif").toExternalForm());
+
+        // this takes so much ram, we could not know why
+        // it allocates more than 1 GB on heap, it might be a bug in Image library
+        //image = new Image(getClass().getResource("images/settingsBackground.gif").toExternalForm());
     }
 
     public void handleErrorMessages(String msg)
