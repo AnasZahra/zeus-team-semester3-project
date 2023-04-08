@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
@@ -59,7 +60,10 @@ public class SettingsController implements Initializable
     {
         changeToDarkmood();
         changeToLightmood();
-        backgroundImage_btn.setImage(Gui.getInstance().getSettingsImage());
+
+        Image image = Gui.getInstance().getSettingsImage();
+        if (image != null)
+            backgroundImage_btn.setImage(image);
     }
 
     public static String getCorrectStylePath(String fileName)
