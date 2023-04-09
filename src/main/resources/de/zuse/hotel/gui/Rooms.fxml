@@ -52,5 +52,10 @@
          <Font name="System Bold" size="22.0" />
       </font>
    </Button>
+   <Text fx:id="windowTitel1" fill="WHITE" layoutX="701.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Floor Number :" wrappingWidth="124.99610137939453">
+      <font>
+         <Font name="System Bold Italic" size="18.0" />
+      </font>
+   </Text>
 
 </AnchorPane>
