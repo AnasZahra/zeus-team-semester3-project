@@ -1,5 +1,5 @@
 # Hotel-Project
-![alt text](https://gitlab.com/jandostahmad/zeus-team-semester3-project/-/blob/main/src/main/resources/de/zuse/hotel/gui/images/loadingBG.png)
+
 # Hotelmanagement-System
 Dies ist ein Hotelmanagement-System, das Hotels dabei hilft, ihre Zimmer, Buchungen und Gäste zu verwalten.
 
